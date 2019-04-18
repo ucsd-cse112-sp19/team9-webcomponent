@@ -5,6 +5,7 @@ class HelloWorld extends HTMLElement {
     // This is specific to CE and required by the spec.
     super();
     console.log("Created")
+    this.clicks = 0;
     // Setup a click listener on <app-drawer> itself.
     this.addEventListener('click', e => {
       this.drawer();
@@ -12,7 +13,9 @@ class HelloWorld extends HTMLElement {
   }
 
   drawer() {
-    document.write("Hello World");
+    this.clicks+=1;
+
+    document.getElementById("example").innerHTML = "Hello World " + this.clicks; 
   }
 }
 
