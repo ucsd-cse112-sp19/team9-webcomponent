@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - node
+  
+script: ./run_build.sh
 
 after_script:
   - echo "Hello World"
