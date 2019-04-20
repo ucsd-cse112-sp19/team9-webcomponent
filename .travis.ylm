@@ -3,7 +3,6 @@ sudo: required
 node_js:
   - node
   
-script: ./run_build.sh
-
-after_script:
-  - echo "Hello World"
+before_script:
+  - npm install -g gulp-cli
+script: gulp
