@@ -1,6 +1,6 @@
  {
     "name": "my_package",
-    "description": "",
+    "description": "RuntimeTerrorPackage",
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
