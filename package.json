@@ -1,5 +1,5 @@
  {
-    "name": "my_package",
+    "name": "runtimeterror",
     "description": "RuntimeTerrorPackage",
     "version": "1.0.0",
     "main": "index.js",
