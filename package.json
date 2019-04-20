@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .html",
-    "pretest": "npm run lint",
+    "pretest":"pretest": "eslint --ignore-path .gitignore ."
+    "npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
