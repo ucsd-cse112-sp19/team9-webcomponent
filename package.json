@@ -4,8 +4,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./**/*.js",
-    "pretest": "npm run lint",
     "test": "echo \"No tests\""
   },
   "repository": {
