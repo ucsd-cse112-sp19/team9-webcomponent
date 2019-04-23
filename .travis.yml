@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 language: node_js
 node_js: 
   - "stable"
 cache:
   directories:
     - "node_modules"
+sudo: false
+=======
+language: node_js
+node_js: 
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+>>>>>>> d07247a04e7a183d4b12465ae962031b9dac667b
