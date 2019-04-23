@@ -18,14 +18,9 @@ class HelloWorld extends HTMLElement {
           outline: 2px solid blue;
         }
       </style>
-      <div>Clickable Shadow DOM text</div>
+      <div>Click for a bio</div>
       `
     
-    // Know the focused element inside shadow DOM:
-    this.addEventListener('focus', function(e) {
-        console.log('Active element (inside shadow dom):',
-                    this.shadowRoot.activeElement);
-      });
     this.clicks = 0;
     // // Setup a click listener on <app-drawer> itself.
     this.addEventListener('click', e => {
