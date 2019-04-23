@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint \"./**/*.js\""
     "test": "echo \"No tests\""
   },
   "repository": {
