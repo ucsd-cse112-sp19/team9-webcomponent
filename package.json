@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests\""
+    "start": "node index.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
