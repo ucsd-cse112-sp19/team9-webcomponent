@@ -73,7 +73,7 @@ class HelloWorld extends HTMLElement {
         },
         {
             "name": "Kevin Zavier",
-            "bio": "Hi I’m Kevin. Im a 4th year computer engineering student getting ready to graduate. Some things I enjoy are going to the beach, boxing, and ping pong"
+            "bio": "Hi I'm Kevin. Im a 4th year computer engineering student getting ready to graduate. Some things I enjoy are going to the beach, boxing, and ping pong"
         }
     ]
     console.log(member_data[this.clicks]);
