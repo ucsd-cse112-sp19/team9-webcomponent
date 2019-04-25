@@ -6,9 +6,7 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "docs": "jsdoc -c jsdoc.json",
-    "pretest": "npm run docs",
-    "test": "mocha --exit",
-    
+    "test": "mocha --exit"
   },
   "repository": {
     "type": "git",
