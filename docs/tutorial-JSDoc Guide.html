@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: ReportBuilder</title>
+    <title>JSDoc: JSDoc Guide</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,162 +49,32 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Class</p>
-                        <h1>ReportBuilder</h1>
+                        <p>Tutorial</p>
+                        <h1>JSDoc Guide</h1>
                     </header>
                     
-                    
-
-
-
-
-<section>
+                    <section>
 
 <header>
-    
-        <h2><span class="attribs"><span class="type-signature"></span></span>ReportBuilder<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Report Builder</p></div>
-        
     
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <h3 class="title"><span>Constructor</span></h3>
-                <div class="members">
-                    <div class="member">
-
-    
-    <h4 class="name" id="ReportBuilder">
-        
-        <span class="code-name">
-            new ReportBuilder<span class="signature">()</span><span class="type-signature"></span>
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script><div class="mermaid">sequenceDiagram
-  participant App
-  participant Jira
-  App->>Jira:project({ projectId })
-  Jira->>App:ProjectObject
-  App->>Jira:search()
-  Jira->>App:IssueObject[]</div>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="report-builder.js.html" class="button">View Source</a>
-            <span>
-                <a href="report-builder.js.html">report-builder.js</a>, <a href="report-builder.js.html#line13">line 13</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-                </div>
-            </div>
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+    <h3>How JSDoc Works</h3><p>Here I'll just tell you how to use this tool.
+In the source folder (/src), put your .js file with comments in JS Documentation format
+If you need any specific description or if you don't know how to comment in the format, please refer to the Jira example.</p>
+<p>If you need to do a sequence diagram, please refer to the jsdoc mermaid documentation.</p>
+<p>@see 
+@todo
+@example &lt;==Important==&gt;</p>
+<p>Then we have the core ones,
+@typedef
+@property {Type} id def
+@param
+@return</p>
 </article>
 
 </section>
-
-
-
 
                 </div>
             </div>
