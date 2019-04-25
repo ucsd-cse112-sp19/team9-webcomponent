@@ -6,9 +6,7 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "docs": "jsdoc -c jsdoc.json",
-    "pretest": "npm run docs",
-    "test": "mocha --exit",
-    
+    "test": "mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -32,7 +30,9 @@
     "eslint-plugin-json": "^1.4.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-markdown": "^1.0.0",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint-plugin-react": "^7.12.4",
+    "jsdoc": "^3.5.5",
+    "jsdoc-mermaid": "^1.0.0"
   },
   "dependencies": {
     "chai": "^4.2.0",
