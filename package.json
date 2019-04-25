@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.js",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
     "pretest": "npm run docs",
     "test": "mocha --exit",
     
