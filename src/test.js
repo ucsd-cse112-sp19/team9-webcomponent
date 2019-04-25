@@ -1,8 +1,14 @@
+/**
+   * Can define constructor arguments if you wish.
+   */
 class HelloWorld extends HTMLElement {
-  // Can define constructor arguments if you wish.
+   /**
+    * If you define a constructor, always call super() first!
+    * This is specific to CE and required by the spec.
+    */
   constructor() {
-    // If you define a constructor, always call super() first!
-    // This is specific to CE and required by the spec.
+    //
+    // 
     super();
     console.log("Created")
 
