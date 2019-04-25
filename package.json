@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.js",
-    "test": "mocha --exit",
     "docs": "jsdoc -c jsdoc.json"
+    "pretest": "npm run docs",
+    "test": "mocha --exit",
+    
   },
   "repository": {
     "type": "git",
