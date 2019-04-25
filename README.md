@@ -9,6 +9,6 @@
 See the index.html file for documentation
 
 # In Progress
-Unit tests
-Eslint
+Unit tests  
+Eslint  
 Humor
