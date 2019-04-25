@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "mocha --exit"
+    "lint": "eslint **/*.js",
+    "test": "mocha --exit",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/ucsd-cse112/team9-webcomponent#readme",
   "devDependencies": {
+    "better-docs": "^1.1.6",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
