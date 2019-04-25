@@ -1,7 +1,14 @@
 # Travis
 [![Build Status](https://travis-ci.com/ucsd-cse112/team9-webcomponent.svg?token=SYYH9pqzsbfveDCnEAbx&branch=valentin)](https://travis-ci.com/ucsd-cse112/team9-webcomponent)
-Isn't it amazing?
 ![](images/lol.png)
 
 # Runtime Terror
 ![](images/tim_terror.png)
+
+# Documentation
+See the index.html file for documentation
+
+# In Progress
+Unit tests
+Eslint
+Humor
