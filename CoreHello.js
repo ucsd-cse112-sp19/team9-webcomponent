@@ -23,16 +23,43 @@ class HelloWorld extends HTMLElement{
       }
     }
 
+    get font() {
+      return this.getAttribute('font');
+    }
+
+    set font(val) {
+      if (val) {
+        this.setAttribute('font', val);
+      } else {
+        this.removeAttribute('font');
+      }
+    }
+
+    get fontsize() {
+      return this.getAttribute('fontsize');
+    }
+
+    set fontsize(val) {
+      if (val) {
+        this.setAttribute('fontsize', val);
+      } else {
+        this.removeAttribute('fontsize');
+      }
+    }
+
     constructor () {
       super();
 
-      let languages = {"en": "Hello World", "ar": "مرحبا بالعالم", "es": "Hola Mundo"};
+      let languages = { "en": "Hello World",
+                        "ar": "مرحبا بالعالم",
+                        "es": "Hola Mundo",
+                        "fr": "Bonjour le monde"};
 
       const shadowRoot = this.attachShadow({mode: 'open'});
 
       if(this.rainbow){
         let style = "<link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\"></link>";
-        shadowRoot.innerHTML = style;
+        shadowRoot.innerHTML += style;
       }
 
       let hello = "Hello World";
