@@ -1,5 +1,4 @@
 class HelloWorld extends HTMLElement{
-
     get rainbow() {
       return this.hasAttribute('rainbow');
     }
@@ -13,7 +12,7 @@ class HelloWorld extends HTMLElement{
     }
 
     get lang() {
-      return this.hasAttribute('lang');
+      return this.getAttribute('lang');
     }
 
     set lang(val) {
@@ -27,13 +26,22 @@ class HelloWorld extends HTMLElement{
     constructor () {
       super();
 
+      let languages = {"en": "Hello World", "ar": "مرحبا بالعالم", "es": "Hola Mundo"};
+
       const shadowRoot = this.attachShadow({mode: 'open'});
 
-      let style = "<link rel=\"stylesheet\" type=\"text/css\" href=\"StarRating.css\"></link>";
-      shadowRoot.innerHTML = style;
+      if(this.rainbow){
+        let style = "<link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\"></link>";
+        shadowRoot.innerHTML = style;
+      }
+
+      let hello = "Hello World";
+      if(this.lang){
+        hello = languages[this.lang];
+      }
 
       let p = document.createElement('p');
-      p.innerHTML = "Hello World " + this.innerHTML + "!";
+      p.innerHTML = "<span> " + hello + " " + this.innerHTML + "</span>";
       shadowRoot.appendChild(p);
     }
 }
