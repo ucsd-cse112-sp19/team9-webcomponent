@@ -1,9 +1,48 @@
 class HelloWorld extends HTMLElement{
+    get rainbow() {
+      return this.hasAttribute('rainbow');
+    }
+
+    set rainbow(val) {
+      if (val) {
+        this.setAttribute('rainbow', '');
+      } else {
+        this.removeAttribute('rainbow');
+      }
+    }
+
+    get lang() {
+      return this.getAttribute('lang');
+    }
+
+    set lang(val) {
+      if (val) {
+        this.setAttribute('lang', val);
+      } else {
+        this.removeAttribute('lang');
+      }
+    }
+
     constructor () {
-        super();
-        let s = document.createElement('p');
-        s.innerHTML = "Hello World!";
-        this.appendChild(s);
+      super();
+
+      let languages = {"en": "Hello World", "ar": "مرحبا بالعالم", "es": "Hola Mundo"};
+
+      const shadowRoot = this.attachShadow({mode: 'open'});
+
+      if(this.rainbow){
+        let style = "<link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\"></link>";
+        shadowRoot.innerHTML = style;
+      }
+
+      let hello = "Hello World";
+      if(this.lang){
+        hello = languages[this.lang];
+      }
+
+      let p = document.createElement('p');
+      p.innerHTML = "<span> " + hello + " " + this.innerHTML + "</span>";
+      shadowRoot.appendChild(p);
     }
 }
 
@@ -74,5 +113,5 @@ class StarRating extends HTMLElement {
     }
 }
 
-customElements.define('hello-world', HelloWorld);
+customElements.define('core-hello', HelloWorld);
 customElements.define('x-star-rating', StarRating);
