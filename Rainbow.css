@@ -1,6 +1,4 @@
 p span {
-    /* font-family:Verdana;
-    font-size:30px; */
     height: 100%;
     width: 100%;
     left:0;
@@ -9,10 +7,7 @@ p span {
     bottom: 0;
     background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
     background-size: 1800% 1800%;
-    -webkit-animation: rainbow 18s ease infinite;
-    -z-animation: rainbow 18s ease infinite;
-    -o-animation: rainbow 18s ease infinite;
-        animation: rainbow 18s ease infinite;
+    animation: rainbow 18s ease infinite;
 }
 
 @-webkit-keyframes rainbow {

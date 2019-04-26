@@ -68,9 +68,6 @@ class HelloWorld extends HTMLElement{
       if(this.lang){
         hello = languages[this.lang];
       }
-
-      let p = document.createElement('p');
-      
       let font = ""
       if(this.font){
         font = "font-family:" + this.font + ";";
@@ -80,7 +77,8 @@ class HelloWorld extends HTMLElement{
         size =  "font-size:" + this.fontsize + "px;";
       }
       shadowRoot.innerHTML += "<style>  p{" + size  + font +  "} </style>";
-      
+
+      let p = document.createElement('p');
       p.innerHTML += "<span> " + hello + " " + this.innerHTML + "</span>";
       shadowRoot.appendChild(p);
     }
