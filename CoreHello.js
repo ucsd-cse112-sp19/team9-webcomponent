@@ -62,13 +62,26 @@ class HelloWorld extends HTMLElement{
         shadowRoot.innerHTML += style;
       }
 
+
+
       let hello = "Hello World";
       if(this.lang){
         hello = languages[this.lang];
       }
 
       let p = document.createElement('p');
-      p.innerHTML = "<span> " + hello + " " + this.innerHTML + "</span>";
+      
+      let font = ""
+      if(this.font){
+        font = "font-family:" + this.font + ";";
+      }
+      let size = ""
+      if(this.fontsize){
+        size =  "font-size:" + this.fontsize + "px;";
+      }
+      shadowRoot.innerHTML += "<style>  p{" + size  + font +  "} </style>";
+      
+      p.innerHTML += "<span> " + hello + " " + this.innerHTML + "</span>";
       shadowRoot.appendChild(p);
     }
 }
