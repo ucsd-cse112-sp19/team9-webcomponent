@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "CoreHello.js",
   "scripts": {
-    "lint": "eslint **/*.js",
+    "lint": "eslint ./web-component",
     "cy:run": "cypress run",
     "cypress:open": "cypress open",
     "docs": "jsdoc -c jsdoc.json",
