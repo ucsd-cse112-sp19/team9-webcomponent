@@ -17,9 +17,9 @@ addons:
     username: "Atadeno"
     access_key: "ab506a56-14c8-4166-b204-85827a276c59"
 
-before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-  - rackup  # start a Web server
-  - sleep 3 # give Web server some time to bind to sockets, etc
+#before_script:
+  #- "export DISPLAY=:99.0"
+  #- "sh -e /etc/init.d/xvfb start"
+  #- sleep 3 # give xvfb some time to start
+  #- rackup  # start a Web server
+  #- sleep 3 # give Web server some time to bind to sockets, etc

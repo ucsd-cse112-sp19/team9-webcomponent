@@ -5,7 +5,7 @@
 ![](images/tim_terror.png)
 
 # Documentation
-See the index.html file for documentation
+See the index.html file in the documentation folder
 
 # In Progress
 Unit tests  
