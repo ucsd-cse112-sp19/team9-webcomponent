@@ -1,4 +1,3 @@
-
 /**
  * HelloWorld class
  * Provides template for core-hello element
@@ -136,10 +135,7 @@ class HelloWorld extends HTMLElement {
       // Append p to shadow dom
       shadowRoot.appendChild(p);
 
-
-
-
-      /** For fun, user can customize language through buttons **/
+      // For fun, user can customize language through buttons
 
       // For each language code, add a button to shadowROM
       Object.keys(languages).forEach( (e)=> {
@@ -158,7 +154,7 @@ class HelloWorld extends HTMLElement {
         });
       });
 
-      /** For fun, let user change size of text through slider **/
+      // For fun, let user change size of text through slider
 
       // Create slider element
       let slider = document.createElement('input');
@@ -173,11 +169,7 @@ class HelloWorld extends HTMLElement {
         this.fontsize = slider.value;
         shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
       });
-
-     
     }
-
-
 }
 
 // Register HelloWorld class as core-hello element

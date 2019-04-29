@@ -1,8 +1,0 @@
-x-star-rating {
-    display: inline-flex;
-}
-
-x-star-rating > .star {
-    width: 40px;
-    height: 40px;
-}
