@@ -3,7 +3,7 @@
  * HelloWorld class
  * Provides template for core-hello element
  */
-class HelloWorld extends HTMLElement{
+class HelloWorld extends HTMLElement {
     /**
      * get rainbow() 
      * Check if rainbow exists in HTML.
@@ -94,49 +94,49 @@ class HelloWorld extends HTMLElement{
      */
     constructor () {
       super();
-      //Dictionary for Hello World in different languages
+      // Dictionary for Hello World in different languages
       let languages = { "en": "Hello World",
                         "ar": "مرحبا بالعالم",
                         "es": "Hola Mundo",
                         "fr": "Bonjour le monde"};
 
-      //Initialize shadow root
+      // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
       
-      //Check if rainbow is set and if it is append the css file to shadow dom
-      if(this.rainbow){
+      // Check if rainbow is set and if it is append the css file to shadow dom
+      if(this.rainbow) {
         let style = "<link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\"></link>";
         shadowRoot.innerHTML += style;
       }
 
-      //Determine and filter the right language for Hello world, defaults to English
+      // Determine and filter the right language for Hello world, defaults to English
       let hello = "Hello World";
-      if(this.lang){
+      if(this.lang) {
         hello = languages[this.lang];
       }
 
-      //Determine font
+      // Determine font
       let font = ""
-      if(this.font){
+      if(this.font) {
         font = "font-family:" + this.font + ";";
       }
-      //Determine font size
+      // Determine font size
       let size = ""
-      if(this.fontsize){
+      if(this.fontsize) {
         size =  "font-size:" + this.fontsize + "px;";
       }
-      //append to shadowdom style
+      // Append to shadowdom style
       shadowRoot.innerHTML += "<style>  p{" + size  + font +  "} </style>";
 
-      //Create p element
+      // Create p element
       let p = document.createElement('p');
-      //Generate proper version of hello world
+      // Generate proper version of hello world
       p.innerHTML += "<span> " + hello + " " + this.innerHTML + "</span>";
-      //Append p to shadow dom
+      // Append p to shadow dom
       shadowRoot.appendChild(p);
     }
 }
 
-//Register HelloWorld class as core-hello element
+// Register HelloWorld class as core-hello element
 customElements.define('core-hello', HelloWorld);
 
