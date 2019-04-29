@@ -8,7 +8,7 @@
     "cy:run": "cypress run",
     "cypress:open": "cypress open",
     "docs": "jsdoc -c jsdoc.json",
-    "test": "mocha --exit && npm run lint && npm run docs"
+    "test": "mocha --exit && npm run lint"
   },
   "repository": {
     "type": "git",
