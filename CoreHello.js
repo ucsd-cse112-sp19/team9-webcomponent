@@ -139,4 +139,3 @@ class HelloWorld extends HTMLElement {
 
 // Register HelloWorld class as core-hello element
 customElements.define('core-hello', HelloWorld);
-
