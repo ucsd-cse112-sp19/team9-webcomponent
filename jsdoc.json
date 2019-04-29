@@ -1,6 +1,6 @@
 {
     "source": {
-        "include": ["./src"],
+        "include": ["./web_component"],
         "includePattern": ".js$",
         "excludePattern": "(node_modules/|docs)"
     },
