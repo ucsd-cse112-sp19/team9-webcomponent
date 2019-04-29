@@ -11,6 +11,8 @@ cache:
 install:
   - npm ci
   - npm install
+  - npm install jsdoc
+  - npm install jsdoc-mermaid
 
 addons:
   sauce_connect:
