@@ -9,15 +9,14 @@ cache:
     # we also need to cache folder with Cypress binary
     - ~/.cache
 install:
-  - npm ci
   - npm install
-  - npm install jsdoc
-  - npm install jsdoc-mermaid
+  #- npm install jsdoc
+  #- npm install jsdoc-mermaid
 
-addons:
-  sauce_connect:
-    username: "Atadeno"
-    access_key: "ab506a56-14c8-4166-b204-85827a276c59"
+# addons:
+  #sauce_connect:
+    #username: "Atadeno"
+    #access_key: "ab506a56-14c8-4166-b204-85827a276c59"
 
 #before_script:
   #- "export DISPLAY=:99.0"
