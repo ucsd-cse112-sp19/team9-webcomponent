@@ -19,7 +19,7 @@ class HelloWorld extends HTMLElement {
      * Returns: Null
      */
     set rainbow(val) {
-      if (val) {
+      if (val !== '') {
         this.setAttribute('rainbow', '');
       } else {
         this.removeAttribute('rainbow');
@@ -40,7 +40,7 @@ class HelloWorld extends HTMLElement {
      * Returns: Null
      */
     set lang(val) {
-      if (val) {
+      if (val !== '') {
         this.setAttribute('lang', val);
       } else {
         this.removeAttribute('lang');
@@ -61,7 +61,7 @@ class HelloWorld extends HTMLElement {
      * Returns: Null
      */
     set font(val) {
-      if (val) {
+      if (val !== '') {
         this.setAttribute('font', val);
       } else {
         this.removeAttribute('font');
@@ -82,7 +82,7 @@ class HelloWorld extends HTMLElement {
      * Returns: Null
      */
     set fontsize(val) {
-      if (val) {
+      if (val !== '') {
         this.setAttribute('fontsize', val);
       } else {
         this.removeAttribute('fontsize');
