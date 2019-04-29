@@ -98,7 +98,8 @@ class HelloWorld extends HTMLElement {
       let languages = { "en": "Hello World",
                         "ar": "مرحبا بالعالم",
                         "es": "Hola Mundo",
-                        "fr": "Bonjour le monde"};
+                        "fr": "Bonjour le monde",
+                        "zh": "你好" };
 
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
@@ -134,7 +135,49 @@ class HelloWorld extends HTMLElement {
       p.innerHTML += "<span> " + hello + " " + this.innerHTML + "</span>";
       // Append p to shadow dom
       shadowRoot.appendChild(p);
+
+
+
+
+      /** For fun, user can customize language through buttons **/
+
+      // For each language code, add a button to shadowROM
+      Object.keys(languages).forEach( (e)=> {
+        const b = document.createElement('button');
+        b.innerHTML = e;
+        shadowRoot.append(b);
+      });
+
+      // Attach click event to all buttons so that hello world text will change
+      shadowRoot.querySelectorAll("button").forEach( (elem)=>{
+        elem.addEventListener('click',()=>{
+            // Change content of p from above with new language
+            p.innerHTML = "<span> " + languages[elem.innerHTML] + " " + this.innerHTML + "</span>";
+            // Set attribute
+            this.lang = elem.innerHTML;
+        });
+      });
+
+      /** For fun, let user change size of text through slider **/
+
+      // Create slider element
+      let slider = document.createElement('input');
+      slider.min = 12;
+      slider.max = 72;
+      slider.type='range';
+      slider.value = this.fontsize;
+      shadowRoot.appendChild(slider);
+
+      // Add event listener that changes font size
+      slider.addEventListener('change', ()=>{
+        this.fontsize = slider.value;
+        shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
+      });
+
+     
     }
+
+
 }
 
 // Register HelloWorld class as core-hello element
