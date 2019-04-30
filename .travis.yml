@@ -27,7 +27,7 @@ addons:
   #- sleep 3 # give xvfb some time to start
   #- rackup  # start a Web server
   #- sleep 3 # give Web server some time to bind to sockets, etc
-
+script: istanbul cover node_modules/mocha/bin/_mocha -- -R spec
 before_script:
   - npm install codeclimate-test-reporter istanbul -g
 after_script:
