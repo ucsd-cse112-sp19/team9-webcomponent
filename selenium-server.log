@@ -1,28 +1,36 @@
-19:40:36.444 INFO [GridLauncherV3.parse] - Selenium server version: 3.141.59, revision: e82be7d358
-19:40:36.522 INFO [GridLauncherV3.lambda$buildLaunchers$3] - Launching a standalone Selenium Server on port 4444
-2019-04-29 19:40:36.561:INFO::main: Logging initialized @315ms to org.seleniumhq.jetty9.util.log.StdErrLog
-19:40:36.759 INFO [WebDriverServlet.<init>] - Initialising WebDriverServlet
-19:40:36.824 ERROR [BaseServer.start] - Port 4444 is busy, please choose a free port and specify it using -port option
-Exception in thread "main" java.lang.RuntimeException: java.net.BindException: Address already in use: bind
-	at org.openqa.selenium.grid.server.BaseServer.start(BaseServer.java:221)
-	at org.openqa.selenium.remote.server.SeleniumServer.boot(SeleniumServer.java:131)
-	at org.openqa.grid.selenium.GridLauncherV3.lambda$buildLaunchers$3(GridLauncherV3.java:249)
-	at org.openqa.grid.selenium.GridLauncherV3.lambda$launch$0(GridLauncherV3.java:86)
-	at java.util.Optional.map(Unknown Source)
-	at org.openqa.grid.selenium.GridLauncherV3.launch(GridLauncherV3.java:86)
-	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:70)
-Caused by: java.net.BindException: Address already in use: bind
-	at sun.nio.ch.Net.bind0(Native Method)
-	at sun.nio.ch.Net.bind(Unknown Source)
-	at sun.nio.ch.Net.bind(Unknown Source)
-	at sun.nio.ch.ServerSocketChannelImpl.bind(Unknown Source)
-	at sun.nio.ch.ServerSocketAdaptor.bind(Unknown Source)
-	at org.seleniumhq.jetty9.server.ServerConnector.openAcceptChannel(ServerConnector.java:339)
-	at org.seleniumhq.jetty9.server.ServerConnector.open(ServerConnector.java:307)
-	at org.seleniumhq.jetty9.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:80)
-	at org.seleniumhq.jetty9.server.ServerConnector.doStart(ServerConnector.java:235)
-	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
-	at org.seleniumhq.jetty9.server.Server.doStart(Server.java:395)
+12:09:11.029 INFO [GridLauncherV3.parse] - Selenium server version: 3.141.59, revision: e82be7d358
+12:09:11.120 INFO [GridLauncherV3.lambda$buildLaunchers$3] - Launching a standalone Selenium Server on port 4444
+2019-04-30 12:09:11.166:INFO::main: Logging initialized @400ms to org.seleniumhq.jetty9.util.log.StdErrLog
+12:09:11.406 INFO [WebDriverServlet.<init>] - Initialising WebDriverServlet
+12:09:12.088 INFO [SeleniumServer.boot] - Selenium Server is up and running on port 4444
+12:09:12.776 INFO [ActiveSessionFactory.apply] - Capabilities are: {
+  "acceptSslCerts": true,
+  "browserName": "firefox",
+  "javascriptEnabled": true,
+  "name": "Bing Test",
+  "nativeEvents": true
+}
+12:09:12.776 INFO [ActiveSessionFactory.apply] - Capabilities are: {
+  "acceptSslCerts": true,
+  "browserName": "safari",
+  "javascriptEnabled": true,
+  "name": "Bing Test",
+  "nativeEvents": true
+}
+12:09:12.776 INFO [ActiveSessionFactory.apply] - Capabilities are: {
+  "acceptSslCerts": true,
+  "browserName": "chrome",
+  "javascriptEnabled": true,
+  "name": "Bing Test",
+  "nativeEvents": true
+}
+12:09:12.777 INFO [ActiveSessionFactory.lambda$apply$11] - Matched factory org.openqa.selenium.grid.session.remote.ServicedSession$Factory (provider: org.openqa.selenium.chrome.ChromeDriverService)
+12:09:12.777 INFO [ActiveSessionFactory.lambda$apply$11] - Matched factory org.openqa.selenium.grid.session.remote.ServicedSession$Factory (provider: org.openqa.selenium.firefox.GeckoDriverService)
+12:09:12.777 INFO [ActiveSessionFactory.lambda$apply$11] - Matched factory org.openqa.selenium.grid.session.remote.ServicedSession$Factory (provider: org.openqa.selenium.safari.SafariDriverService)
+Starting ChromeDriver 74.0.3729.6 (255758eccf3d244491b8a1317aa76e1ce10d57e9-refs/branch-heads/3729@{#29}) on port 20611
+Only local connections are allowed.
+Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
+erver.doStart(Server.java:395)
 	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
 	at org.openqa.selenium.grid.server.BaseServer.start(BaseServer.java:202)
 	... 6 more
