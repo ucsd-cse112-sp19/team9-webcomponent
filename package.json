@@ -9,7 +9,7 @@
     "cypress:open": "cypress open",
     "docs": "jsdoc -c jsdoc.json",
     "nightwatch": "nightwatch -c test/nightwatch.conf.js -e chrome,firefox,safari",
-    "test": "stylelint ./web_component && npm run lint && mocha --exit"
+    "test": "npm run docs && stylelint ./web_component && npm run lint && mocha --exit"
   },
   "repository": {
     "type": "git",
