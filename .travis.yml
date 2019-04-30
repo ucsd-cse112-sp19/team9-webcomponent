@@ -10,6 +10,7 @@ cache:
     - ~/.cache
 install:
   - npm install
+after_success: npm run coverage
   #- npm install jsdoc
   #- npm install jsdoc-mermaid
 
