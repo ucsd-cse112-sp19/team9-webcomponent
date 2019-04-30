@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: CoreHello.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                    
+                        <h1 class="navbar-item">Documentation</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-JSDoc Guide.html">JSDoc Guide</a></li><li><a href="tutorial-starting-guide.html">Starting guide</a></li></ul><h3>Classes</h3><ul><li><a href="HelloWorld.html">HelloWorld</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>CoreHello.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * HelloWorld class
+ * Provides template for core-hello element
+ */
+class HelloWorld extends HTMLElement {
+  /**
+   * get rainbow() 
+   * Check if rainbow exists in HTML.
+   * Returns: True or False 
+   */
+  get rainbow() {
+    return this.hasAttribute('rainbow');
+  }
+  /**
+   * set rainbow(val) 
+   * Sets rainbow if value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set rainbow(val) {
+    if (val !== '') {
+      this.setAttribute('rainbow', '');
+    } else {
+      this.removeAttribute('rainbow');
+    }
+  }
+  /**
+   * get lang() 
+   * Check if langauge exists in HTML.
+   * Returns: True or False 
+   */
+  get lang() {
+    return this.getAttribute('lang');
+  }
+  /**
+   * set lang(val) 
+   * Sets lang to value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set lang(val) {
+    if (val !== '') {
+      this.setAttribute('lang', val);
+    } else {
+      this.removeAttribute('lang');
+    }
+  }
+  /**
+   * get font() 
+   * Check if font exists in HTML.
+   * Returns: True or False 
+   */
+  get font() {
+    return this.getAttribute('font');
+  }
+  /**
+   * set font(val) 
+   * Sets font to value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set font(val) {
+    if (val !== '') {
+      this.setAttribute('font', val);
+    } else {
+      this.removeAttribute('font');
+    }
+  }
+  /**
+   * get fontsize() 
+   * Check if fontsize exists in HTML.
+   * Returns: True or False 
+   */
+  get fontsize() {
+    return this.getAttribute('fontsize');
+  }
+  /**
+   * set fontsize(val) 
+   * Sets fontsize to value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set fontsize(val) {
+    if (val !== '') {
+      this.setAttribute('fontsize', val);
+    } else {
+      this.removeAttribute('fontsize');
+    }
+  }
+  /**
+   * Constructor for setting up shadow dom and class definitions 
+   * for web component.
+   */
+  constructor () {
+    super();
+    // Dictionary for Hello World in different languages
+    let languages = { "en": "Hello World",
+                      "ar": "مرحبا بالعالم",
+                      "es": "Hola Mundo",
+                      "fr": "Bonjour le monde",
+                      "zh": "你好" };
+
+    // Initialize shadow root
+    const shadowRoot = this.attachShadow({mode: 'open'});
+    
+    // Check if rainbow is set and if it is append the css file to shadow dom
+    if(this.rainbow) {
+      let style = "&lt;link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\">&lt;/link>";
+      shadowRoot.innerHTML += style;
+    }
+
+    // Determine and filter the right language for Hello world, defaults to English
+    let hello = "Hello World";
+    if(this.lang) {
+      hello = languages[this.lang];
+    }
+
+    // Determine font
+    let font = ""
+    if(this.font) {
+      font = "font-family:" + this.font + ";";
+    }
+    // Determine font size
+    let size = ""
+    if(this.fontsize) {
+      size =  "font-size:" + this.fontsize + "px;";
+    }
+    // Append to shadowdom style
+    shadowRoot.innerHTML += "&lt;style>  p{" + size  + font +  "} &lt;/style>";
+
+    // Create p element
+    let p = document.createElement('p');
+    // Generate proper version of hello world
+    p.innerHTML += "&lt;span> " + hello + " " + this.innerHTML + "&lt;/span>";
+    // Append p to shadow dom
+    shadowRoot.appendChild(p);
+
+    // For fun, user can customize language through buttons
+
+    // For each language code, add a button to shadowROM
+    Object.keys(languages).forEach( (e)=> {
+      const b = document.createElement('button');
+      b.innerHTML = e;
+      shadowRoot.append(b);
+    });
+
+    // Attach click event to all buttons so that hello world text will change
+    shadowRoot.querySelectorAll("button").forEach( (elem)=>{
+      elem.addEventListener('click',()=>{
+          // Change content of p from above with new language
+          p.innerHTML = "&lt;span> " + languages[elem.innerHTML] + " " + this.innerHTML + "&lt;/span>";
+          // Set attribute
+          this.lang = elem.innerHTML;
+      });
+    });
+
+    // For fun, let user change size of text through slider
+
+    // Create slider element
+    let slider = document.createElement('input');
+    slider.min = 12;
+    slider.max = 72;
+    slider.type='range';
+    slider.value = this.fontsize;
+    shadowRoot.appendChild(slider);
+
+    // Add event listener that changes font size
+    slider.addEventListener('change', ()=>{
+      this.fontsize = slider.value;
+      shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
+    });
+  }
+}
+
+// Register HelloWorld class as core-hello element
+customElements.define('core-hello', HelloWorld);</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 20:32:17 GMT-0700 (GMT-07:00)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
+        </p>
+    </div>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
