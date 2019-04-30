@@ -13,7 +13,9 @@ install:
 after_success: npm run coverage
   #- npm install jsdoc
   #- npm install jsdoc-mermaid
-
+addons:
+    code_climate:
+        repo_token: <205cebb02c01600fc4764ac1270d5e0632f3724887045b00a762ba718ad0452c>
 # addons:
   #sauce_connect:
     #username: "Atadeno"
@@ -30,7 +32,5 @@ before_script:
   - npm install codeclimate-test-reporter istanbul -g
 after_script:
   - codeclimate-test-reporter < ./coverage/lcov.info
-addons:
-    code_climate:
-        repo_token: <19be4223b1d1beef35d7f192aabd78ce63587baf>
+
   
