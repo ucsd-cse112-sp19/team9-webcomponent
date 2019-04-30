@@ -9,7 +9,7 @@
     "cypress:open": "cypress open",
     "docs": "jsdoc -c jsdoc.json",
     "nightwatch": "nightwatch -c test/nightwatch.conf.js -e chrome,firefox,safari",
-    "pretest":"npm run docs && stylelint ./web_component",
+    "pretest": "npm run docs && stylelint ./web_component",
     "test": "nyc --reporter=html --reporter=text mocha --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -54,6 +54,7 @@
     "jsdoc-mermaid": "^1.0.0",
     "mermaid": "^8.0.0",
     "mocha": "^6.1.4",
-    "selenium-webdriver": "^4.0.0-alpha.1"
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "travis": "^0.1.1"
   }
 }
