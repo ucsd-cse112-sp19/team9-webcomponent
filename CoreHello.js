@@ -14,7 +14,7 @@ class HelloWorld extends HTMLElement{
     get lang() {
       return this.getAttribute('lang');
     }
-
+//comment
     set lang(val) {
       if (val) {
         this.setAttribute('lang', val);
