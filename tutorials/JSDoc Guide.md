@@ -1,4 +1,4 @@
-### How JSDoc Works
+## How JSDoc Works
 
 Here I'll just tell you how to use this tool.  
 In the source folder (/src), put your .js file with comments in JS Documentation format  

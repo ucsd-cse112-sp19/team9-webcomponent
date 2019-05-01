@@ -1,22 +1,22 @@
 language: node_js
+
 node_js:
   - 10
+
 cache:
-  # Caches $HOME/.npm when npm ci is default script command
-  # Caches node_modules in all other cases
   npm: true
   directories:
-    # we also need to cache folder with Cypress binary
     - ~/.cache
+
 install:
   - npm install
   - npm install codeclimate-test-reporter istanbul -g
+
 addons:
     code_climate:
         repo_token: "205cebb02c01600fc4764ac1270d5e0632f3724887045b00a762ba718ad0452c"
+
 after_success: npm run coverage
-  #- npm install jsdoc
-  #- npm install jsdoc-mermaid
 
 # addons:
   #sauce_connect:
