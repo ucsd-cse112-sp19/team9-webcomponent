@@ -1,4 +1,4 @@
-# Linter
+# Lint
 
 Linter is a tool that analyzes source code to flag programming errors, bugs, stylistic errors, and suspicious constructs.  
 At the moment, we are just using ESlint and Stylelint.  
