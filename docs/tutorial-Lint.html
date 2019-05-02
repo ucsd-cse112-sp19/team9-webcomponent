@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Lint</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,46 +49,31 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Title</p>
-                        <h1>Home</h1>
+                        <p>Tutorial</p>
+                        <h1>Lint</h1>
                     </header>
                     
-                    
+                    <section>
 
-
-
+<header>
     
+</header>
 
+<article>
+    <h1>Lint</h1><p>Linter is a tool that analyzes source code to flag programming errors, bugs, stylistic errors, and suspicious constructs.<br>At the moment, we are just using ESlint and Stylelint.  </p>
+<h2>ESLint</h2><p>You can run ESLint on any of you JavaScript file in the web_component folder with the command  </p>
+<blockquote>
+<p>npm run lint</p>
+</blockquote>
+<p>This is because this is a reference in the package.json file.  </p>
+<p>Let's take a look at the eslint.js file.</p>
+<p><img src="eslint.png"></p>
+<p>We are running the recommended option of ESLint. In this file you can modify the rules etc.. Refer to the ESLint documentation for that.<br>The recommended option uses Airbnb style.  </p>
+<h2>StyleLint</h2><p>Style lint is used for CSS. In the pipeline, we only run it on the files in the web_component folder but feel free to try it out on your files.<br>I just implemented the basic structure and use the recommended style.</p>
+<p><img src="stylelint.png"></p>
+</article>
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    <section>
-        <article><h1>Travis</h1><p><a href="https://travis-ci.com/ucsd-cse112/team9-webcomponent"><img src="https://travis-ci.com/ucsd-cse112/team9-webcomponent.svg?token=SYYH9pqzsbfveDCnEAbx&amp;branch=valentin" alt="Build Status"></a></p>
-<h1>CodeClimate</h1><p><a href="https://codeclimate.com/repos/5cc220fa4a01b954d700d805/maintainability"><img src="https://api.codeclimate.com/v1/badges/01d9ca099423c56d223d/maintainability" alt="Maintainability"></a>
-<a href="https://codeclimate.com/repos/5cc220fa4a01b954d700d805/test_coverage"><img src="https://api.codeclimate.com/v1/badges/01d9ca099423c56d223d/test_coverage" alt="Test Coverage"></a></p>
-<h1>Runtime Terror</h1><p><img src="images/time_terror.png" alt=""></p>
-<h1>Documentation</h1><p>Check out the documentation in the Docs folder</p>
-<h1>Web Component</h1><p>Take a look at our first web component HelloWorld!</p></article>
-    </section>
-
-
-
-
-
+</section>
 
                 </div>
             </div>
