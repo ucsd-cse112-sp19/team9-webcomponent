@@ -9,7 +9,7 @@
     "cypress:open": "cypress open",
     "docs": "jsdoc -c jsdoc.json",
     "nightwatch": "nightwatch -c test/nightwatch.conf.js -e chrome,firefox,safari",
-    "pretest": "npm run docs && stylelint ./web_component",
+    "pretest": "npm run docs && npm run lint && stylelint ./web_component",
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
     "coverage":"codeclimate-test-reporter < ./coverage/lcov.info"
   },
