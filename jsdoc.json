@@ -17,5 +17,14 @@
         "verbose": true,
         "tutorials": "./tutorials",
         "template": "node_modules/better-docs/"
+    },
+    "templates": {
+        "default": {
+         "staticFiles": {
+            "include": [
+                "./tutorials/images"
+              ]
+            }
+          }
     }
 }
