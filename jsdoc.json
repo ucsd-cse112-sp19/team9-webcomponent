@@ -22,9 +22,9 @@
         "default": {
          "staticFiles": {
             "include": [
-                "./tutorials/images"
-              ]
+                "./images"
+            ]
             }
-          }
         }
+    }
 }
