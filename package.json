@@ -11,8 +11,12 @@
     "nightwatch": "nightwatch -c test/nightwatch.conf.js -e chrome,firefox,safari",
     "pretest": "npm run docs && npm run lint && stylelint ./web_component",
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
-    "test-cov": "istanbul cover _mocha",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info"
+  },
+  "husky": {
+      "hooks": {
+       "pre-commit": "npm test"
+     }
   },
   "repository": {
     "type": "git",
@@ -41,6 +45,7 @@
     "eslint-plugin-markdown": "^1.0.0",
     "eslint-plugin-react": "^7.12.4",
     "geckodriver": "^1.16.2",
+    "husky": "^2.2.0",
     "nightwatch": "^1.0.19",
     "nyc": "^14.0.0",
     "selenium-server": "^3.141.59",
@@ -53,7 +58,6 @@
     "express": "^4.16.4",
     "jsdoc": "^3.5.5",
     "jsdoc-mermaid": "^1.0.0",
-    "jsdom": "^15.0.0",
     "mermaid": "^8.0.0",
     "mocha": "^6.1.4",
     "selenium-webdriver": "^4.0.0-alpha.1"
