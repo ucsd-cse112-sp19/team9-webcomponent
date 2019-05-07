@@ -2,7 +2,7 @@
  * HelloWorld class
  * Provides template for core-hello element
  */
-class HelloWorld extends HTMLElement {
+class CoreHello extends HTMLElement {
     /**
      * get rainbow() 
      * Check if rainbow exists in HTML.
@@ -131,7 +131,7 @@ class HelloWorld extends HTMLElement {
       // Create p element
       let p = document.createElement('p');
       // Generate proper version of hello world
-      p.innerHTML += "<span> " + hello + " " + this.innerHTML + "</span>";
+      p.innerHTML += "<span>" + hello + " " + this.innerHTML + "</span>";
       // Append p to shadow dom
       shadowRoot.appendChild(p);
 
@@ -148,7 +148,7 @@ class HelloWorld extends HTMLElement {
       shadowRoot.querySelectorAll("button").forEach( (elem)=>{
         elem.addEventListener('click',()=>{
             // Change content of p from above with new language
-            p.innerHTML = "<span> " + languages[elem.innerHTML] + " " + this.innerHTML + "</span>";
+            p.innerHTML = "<span>" + languages[elem.innerHTML] + " " + this.innerHTML + "</span>";
             // Set attribute
             this.lang = elem.innerHTML;
         });
@@ -173,4 +173,4 @@ class HelloWorld extends HTMLElement {
 }
 
 // Register HelloWorld class as core-hello element
-customElements.define('core-hello', HelloWorld);
+customElements.define('core-hello', CoreHello);
