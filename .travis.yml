@@ -11,12 +11,12 @@ cache:
 dist: trusty
 sudo: required
 
-# env:
-#   global:
-#     - SAUCE_USERNAME="Atadeno"
-#     - SAUCE_ACCESS_KEY="ab506a56-14c8-4166-b204-85827a276c59"
-#     - SAUCE_JOB="E2E TestCafe"
-#     - SAUCE_BUILD="Build 42"
+env:
+   global:
+     - SAUCE_USERNAME="Atadeno"
+     - SAUCE_ACCESS_KEY="ab506a56-14c8-4166-b204-85827a276c59"
+     - SAUCE_JOB="E2E TestCafe"
+     - SAUCE_BUILD="Build 42"
 
 install:
   - npm install
