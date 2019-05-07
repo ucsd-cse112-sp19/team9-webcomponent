@@ -8,6 +8,14 @@ cache:
   directories:
     - ~/.cache
 
+dist: trusty
+sudo: required
+
+# env:
+#   global:
+#     - SAUCE_USERNAME="Atadeno"
+#     - SAUCE_ACCESS_KEY="ab506a56-14c8-4166-b204-85827a276c59"
+
 install:
   - npm install
   - npm install codeclimate-test-reporter istanbul -g
@@ -17,24 +25,7 @@ addons:
         repo_token: "205cebb02c01600fc4764ac1270d5e0632f3724887045b00a762ba718ad0452c"
     sauce_connect: true
 
-env:
-   global:
-     - SAUCE_USERNAME="Atadeno"
-     - SAUCE_ACCESS_KEY="ab506a56-14c8-4166-b204-85827a276c59"
-
 after_success: npm run coverage
-
- addons:
-  sauce_connect:
-    username: "Atadeno"
-    access_key: "ab506a56-14c8-4166-b204-85827a276c59"
-
-#before_script:
-  #- "export DISPLAY=:99.0"
-  #- "sh -e /etc/init.d/xvfb start"
-  #- sleep 3 # give xvfb some time to start
-  #- rackup  # start a Web server
-  #- sleep 3 # give Web server some time to bind to sockets, etc
 
 
   
