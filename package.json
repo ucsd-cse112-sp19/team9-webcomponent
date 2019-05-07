@@ -10,13 +10,13 @@
     "docs": "jsdoc -c jsdoc.json",
     "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
     "saucelabs": "testcafe \"saucelabs:Chrome@beta:Windows 10\" test/cafe-tests/test2.js",
-    "pretest": "npm run lint && stylelint ./web_component",
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
+    "pretest": "npm run lint && stylelint ./web_component && istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
+    "test": "npm run saucelabs",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretest"
+      "pre-commit": "npm run lint"
     }
   },
   "repository": {
