@@ -5,13 +5,11 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint ./web_component",
-    "cy:run": "cypress run",
-    "cypress:open": "cypress open",
     "docs": "jsdoc -c jsdoc.json",
     "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
     "saucelabs": "testcafe \"saucelabs:Chrome@beta:Windows 10\" test/cafe-tests/test2.js",
-    "pretest": "npm run lint && stylelint ./web_component && istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
-    "test": "npm run saucelabs",
+    "pretest": "npm run lint && stylelint ./web_component",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info"
   },
   "husky": {
@@ -34,7 +32,6 @@
     "better-docs": "^1.1.6",
     "chromedriver": "^74.0.0",
     "coveralls": "^3.0.3",
-    "cypress": "^3.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
