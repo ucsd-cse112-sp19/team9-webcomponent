@@ -17,8 +17,8 @@ sudo: required
 env:
   - SAUCE_USERNAME="Atadeno"
   - SAUCE_ACCESS_KEY="6eb2505f-25a7-4992-8347-026fdca62d15"
-  - SAUCE_JOB="E2E TestCafe"
-  - SAUCE_BUILD="Build 42"
+  - SAUCE_JOB="E2E TestCafe Val"
+  - SAUCE_BUILD="Build 1"
 
 install:
   - npm install
@@ -27,7 +27,6 @@ install:
 addons:
     code_climate:
         repo_token: "205cebb02c01600fc4764ac1270d5e0632f3724887045b00a762ba718ad0452c"
-    sauce_connect: true
 
 after_success: npm run coverage
 
