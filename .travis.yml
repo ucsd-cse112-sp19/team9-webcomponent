@@ -18,7 +18,7 @@ env:
   - SAUCE_USERNAME="Atadeno"
   - SAUCE_ACCESS_KEY="6eb2505f-25a7-4992-8347-026fdca62d15"
   - SAUCE_JOB="E2E TestCafe Val"
-  - SAUCE_BUILD="Build 1"
+  - SAUCE_BUILD="Build 2"
 
 install:
   - npm install
