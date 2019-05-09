@@ -1,5 +1,3 @@
-import  {addMock, enableMocking} from './MockAxios'
+import  {addMock} from '../util/MockAxios'
 
 addMock('/messages', {data: "Hello Axios and Webpack"});
-
-enableMocking(true);
