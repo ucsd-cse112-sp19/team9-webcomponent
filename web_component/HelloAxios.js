@@ -1,15 +1,21 @@
+// let axios = require('axios');
+import axios from 'axios';
+
+import './MockData';
+
+
 class HelloAxios extends HTMLElement {
     constructor() {
         super();
 
-        axios.get('https://dog.ceo/api/breeds')
-             .then(function (response) {
-                 console.log(response);
+        axios.get('/messages')
+             .then(response => {
+                this.innerText = response.data;
              })
-             .catch(function (error) {
-                 console.log(error);
+             .catch(error => {
+                this.innerText = error;
              });
     }
-};
+}
 
 customElements.define('hello-axios', HelloAxios);
