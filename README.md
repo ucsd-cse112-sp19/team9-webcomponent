@@ -13,3 +13,12 @@ Check out the documentation in the Docs folder
 
 # Web Component
 Take a look at our first web component HelloWorld!
+
+# Working
+
+Linter
+Husky
+JSDoc
+Unit Tests
+Code Climate 
+Browser Testing 
