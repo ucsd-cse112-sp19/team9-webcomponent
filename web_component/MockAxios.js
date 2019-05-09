@@ -1,12 +1,16 @@
+// https://gist.github.com/cowboy/44ae5deed5d04d2cf28f2087fde2c89c
+
+import axios from 'axios';
+
 let mockingEnabled = false
 
 const mocks = {}
 
-function addMock(url, data) {
+export function addMock(url, data) {
   mocks[url] = data
 }
 
-function enableMocking(state) {
+export function enableMocking(state) {
   mockingEnabled = state
 }
 
@@ -43,7 +47,7 @@ const getMockResponse = mockError => {
 // Add a request interceptor
 axios.interceptors.request.use(config => {
   if (mockingEnabled && isUrlMocked(config.url)) {
-    console.log('axios mocking ' + config.url)
+    // console.log('axios mocking ' + config.url)
     return getMockError(config)
   }
   return config
@@ -56,3 +60,5 @@ axios.interceptors.response.use(response => response, error => {
   }
   return Promise.reject(error)
 })
+
+export default {addMock, enableMocking};
