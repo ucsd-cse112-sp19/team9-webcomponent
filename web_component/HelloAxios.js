@@ -9,7 +9,11 @@ class HelloAxios extends HTMLElement {
 
         axios.get('/messages')
              .then(response => {
-                this.innerText = response.data;
+                response.data.forEach(message => {
+                    let div = document.createElement("div");
+                    div.innerText = message;
+                    this.appendChild(div);
+                });
              })
              .catch(error => {
                 this.innerText = error;

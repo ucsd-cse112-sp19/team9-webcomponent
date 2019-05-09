@@ -11,6 +11,12 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     watchContentBase: true,
+    proxy: {
+      "/messages": {
+        target: "http://localhost:5000",
+        secure: false,
+      },
+    },
   },
   watchOptions: { // https://webpack.js.org/configuration/watch/#watchoptionsignored
     ignored: [/node_modules/],
