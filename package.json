@@ -44,6 +44,7 @@
     "eslint-plugin-react": "^7.12.4",
     "geckodriver": "^1.16.2",
     "husky": "^2.2.0",
+    "jsdom": "^15.0.0",
     "nyc": "^14.0.0",
     "selenium-server": "^3.141.59",
     "stylelint": "^10.0.1",
