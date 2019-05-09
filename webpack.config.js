@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    app: './web_component/HelloAxios.js',
+    components: ['./util/enableTestingHooks.js', './web_component/HelloAxios.js'],
   },
   devtool: 'inline-source-map',
   devServer: {
