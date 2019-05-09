@@ -8,7 +8,7 @@
     "docs": "jsdoc -c jsdoc.json",
     "browsers":"saucelabs:Chrome@beta:Windows 10, saucelabs:chrome, saucelabs:safari, saucelabs:firefox",
     "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
-    "saucelabs": "testcafe \"browsers\" test/cafe-tests/test2.js",
+    "saucelabs": "testcafe \"npm browsers\" test/cafe-tests/test2.js",
     "pretest": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
     "test": "npm run saucelabs",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info"

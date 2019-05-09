@@ -24,4 +24,4 @@ addons:
         repo_token: "205cebb02c01600fc4764ac1270d5e0632f3724887045b00a762ba718ad0452c"
 
 
-after_success: npm run coverage
+#after_success: npm run coverage
