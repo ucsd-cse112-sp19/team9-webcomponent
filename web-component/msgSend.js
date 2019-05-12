@@ -8,43 +8,23 @@ class MsgSend extends HTMLElement {
      * Check if rainbow exists in HTML.
      * Returns: True or False 
      */
-    get rainbow() {
-      return this.hasAttribute('rainbow');
+    get url() {
+      return this.getAttribute('url');
     }
     /**
-     * set rainbow(val) 
-     * Sets rainbow if value passed in, or removes it if nothing
+     * set url(val) 
+     * Sets url if value passed in, or removes it if nothing
      * is passed.
      * Returns: Null
      */
-    set rainbow(val) {
+    set url(val) {
       if (val !== '') {
-        this.setAttribute('rainbow', '');
+        this.setAttribute('url', val);
       } else {
-        this.removeAttribute('rainbow');
+        this.removeAttribute('url');
       }
     }
-    /**
-     * get font() 
-     * Check if font exists in HTML.
-     * Returns: True or False 
-     */
-    get font() {
-      return this.getAttribute('font');
-    }
-    /**
-     * set font(val) 
-     * Sets font to value passed in, or removes it if nothing
-     * is passed.
-     * Returns: Null
-     */
-    set font(val) {
-      if (val !== '') {
-        this.setAttribute('font', val);
-      } else {
-        this.removeAttribute('font');
-      }
-    }
+
 
     /**
      * Constructor for setting up shadow dom and class definitions 
@@ -52,8 +32,12 @@ class MsgSend extends HTMLElement {
      */
     constructor () {
       super();
+    
+      //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+      this.userId = "anonymous";
+    }
 
-      this.userId = "anonymous"
+    connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
       
@@ -61,8 +45,6 @@ class MsgSend extends HTMLElement {
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
-      
-
       const i = document.createElement('input');
       i.setAttribute("id","userId");
       i.setAttribute("name","userId");
@@ -75,24 +57,38 @@ class MsgSend extends HTMLElement {
         this.userId = shadowRoot.querySelector('input').value;
         console.log(this.userId);
       });
-      
-
     }
 
     constructMessage(body){
         const date = new Date();
         const timeStamp = date.getTime();
         const message = { 
-                          sender:this.userId,
-                          timestamp:timeStamp,
-                          body:body,
-                          hash:"TBD"
+                            sender:this.userId,
+                            timestamp:timeStamp,
+                            body:body,
+                            hash:"TBD"
                         }
         return message
     }
 
     send(body){
-        const message = this.constructMessage(body)
+        const message = this.constructMessage(body);
+        console.log(message);
+        // const http = new XMLHttpRequest();
+        // const url = this.url;
+        // const params = JSON.stringify(message);
+        // http.open('POST', url, true);
+        
+        // //Send the proper header information along with the request
+        // http.setRequestHeader('Content-type', 'application/json');
+        
+        // http.onreadystatechange = function() {//Call a function when the state changes.
+        //     if(http.readyState == 4 && http.status == 200) {
+        //         alert(http.responseText);
+        //     }
+        // }
+        // http.send(params);
+
     }
 }
 
