@@ -2,7 +2,7 @@
  * HelloWorld class
  * Provides template for core-hello element
  */
-class ChatBox extends HTMLElement {
+class MsgSend extends HTMLElement {
     /**
      * get rainbow() 
      * Check if rainbow exists in HTML.
@@ -53,6 +53,7 @@ class ChatBox extends HTMLElement {
     constructor () {
       super();
 
+      this.userId = "anonymous"
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
       
@@ -60,32 +61,40 @@ class ChatBox extends HTMLElement {
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
-      //shadowRoot.innerHTML += "<input name='msg' value='cat'>";
+      
 
       const i = document.createElement('input');
-      i.setAttribute("id","msg");
-      i.setAttribute("name","msg");
-      i.setAttribute("value","");
+      i.setAttribute("id","userId");
+      i.setAttribute("name","userId");
+      i.setAttribute("value","anonymous");
       shadowRoot.append(i);
-      // Add Send button
-      const b = document.createElement('button');
-      b.innerHTML = "Send";
-      shadowRoot.append(b);
-      
-      b.addEventListener('click', ()=>{
-          const msgInput = shadowRoot.querySelector('input');
-          
-          console.log(msgInput.value);
-          //call send function
 
 
-          msgInput.value = '';
-
+      // Listen for userId Change
+      i.addEventListener('change', ()=>{
+        this.userId = shadowRoot.querySelector('input').value;
+        console.log(this.userId);
       });
+      
 
+    }
 
+    constructMessage(body){
+        const date = new Date();
+        const timeStamp = date.getTime();
+        const message = { 
+                          sender:this.userId,
+                          timestamp:timeStamp,
+                          body:body,
+                          hash:"TBD"
+                        }
+        return message
+    }
+
+    send(body){
+        const message = this.constructMessage(body)
     }
 }
 
 // Register ChatBox class as chat-box element
-customElements.define('chat-box', ChatBox);
+customElements.define('msg-send', MsgSend);
