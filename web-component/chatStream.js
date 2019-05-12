@@ -2,27 +2,23 @@
  * HelloWorld class
  * Provides template for core-hello element
  */
-class ChatBox extends HTMLElement {
+class ChatStream extends HTMLElement {
     /**
-     * get rainbow() 
-     * Check if rainbow exists in HTML.
+     * get width() 
+     * Check if font exists in HTML.
      * Returns: True or False 
      */
-    get rainbow() {
-      return this.hasAttribute('rainbow');
+    get width() {
+        return this.getAttribute('width');
     }
+
     /**
-     * set rainbow(val) 
-     * Sets rainbow if value passed in, or removes it if nothing
-     * is passed.
-     * Returns: Null
+     * get height() 
+     * Check if font exists in HTML.
+     * Returns: True or False 
      */
-    set rainbow(val) {
-      if (val !== '') {
-        this.setAttribute('rainbow', '');
-      } else {
-        this.removeAttribute('rainbow');
-      }
+    get height() {
+        return this.getAttribute('height');
     }
 
 
@@ -32,32 +28,55 @@ class ChatBox extends HTMLElement {
      */
     constructor () {
       super();
+    }
 
+    connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
       
- 
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
-      shadowRoot.innerHTML += "<textarea id='msg' name='msg' rows='5' cols='10'>Your Message will appear here!</textarea>";
+      //shadowRoot.innerHTML += "<textarea id='msg' name='msg' rows='5' cols='10'>Your Message will appear here!</textarea>";
+      shadowRoot.innerHTML += this.innerHTML;
 
-      // Add Send button
+      const text = document.createElement('textarea');
+      text.setAttribute('id','msg');
+      text.setAttribute('rows',this.width);
+      text.setAttribute('cols',this.height);
+      text.innerHTML = "Your Message will appear here";
+      shadowRoot.append(text);
+
+
+      // Create a Fake update for testing purposes
       const b = document.createElement('button');
-      b.innerHTML = "Send";
+      b.innerHTML = "Fake Update";
       shadowRoot.append(b);
       
       b.addEventListener('click', ()=>{
-          const msgInput = shadowRoot.querySelector('textarea');
-          let msg = msgInput.innerHTML;
-          console.log(msg);
+          const box = shadowRoot.querySelector('textarea');
+          box.innerHTML += "testing";
+          box.scrollTop = box.scrollHeight;
 
-          msgInput.innerHTML = "HMM";
+          const receiver = shadowRoot.querySelector('#receiver');
+          //receiver.cat("ASDFASFDA");
+          receiver.observe(this, this.append);
+     
       });
-
+    }
+    // FIXME: add that as hack to use set Interval
+    append(that, message){
+        const text = that.shadowRoot.querySelector('textarea');
+        // TODO: Decide on where we should reconstruct message
+        if(message !== null){
+            const toAppend = message.user + ': ' + message.body + '\n'; 
+            text.innerHTML += toAppend;
+            // TODO: We will need a way to allow user scrolling to override this
+            text.scrollTop = text.scrollHeight;
+        }
 
     }
 }
 
 // Register ChatBox class as chat-box element
-customElements.define('chat-box', ChatBox);
+customElements.define('chat-stream', ChatStream);

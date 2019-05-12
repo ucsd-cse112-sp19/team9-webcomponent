@@ -4,8 +4,16 @@
   <title>test</title>
 </head>
 <body>
-    <chat-box><msg-send id=sender url="localhost"></msg-send></chat-box>
+    <div>
+        <chat-box><msg-send id="sender" url="localhost"></msg-send></chat-box>
+    </div>
+    <div>
+        <chat-stream width="5" height="33"><msg-fetch id="receiver" url="localhost"></msg-fetch></chat-stream>
+    </div>
+    
     <script src="chatBox.js"></script>
     <script src="msgSend.js"></script>
+    <script src="chatStream.js"></script>
+    <script src="msgFetch.js"></script>
 </body>
 </html>

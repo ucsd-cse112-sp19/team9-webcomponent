@@ -4,49 +4,6 @@
  */
 class ChatBox extends HTMLElement {
     /**
-     * get rainbow() 
-     * Check if rainbow exists in HTML.
-     * Returns: True or False 
-     */
-    get rainbow() {
-      return this.hasAttribute('rainbow');
-    }
-    /**
-     * set rainbow(val) 
-     * Sets rainbow if value passed in, or removes it if nothing
-     * is passed.
-     * Returns: Null
-     */
-    set rainbow(val) {
-      if (val !== '') {
-        this.setAttribute('rainbow', '');
-      } else {
-        this.removeAttribute('rainbow');
-      }
-    }
-    /**
-     * get font() 
-     * Check if font exists in HTML.
-     * Returns: True or False 
-     */
-    get font() {
-      return this.getAttribute('font');
-    }
-    /**
-     * set font(val) 
-     * Sets font to value passed in, or removes it if nothing
-     * is passed.
-     * Returns: Null
-     */
-    set font(val) {
-      if (val !== '') {
-        this.setAttribute('font', val);
-      } else {
-        this.removeAttribute('font');
-      }
-    }
-
-    /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
      */
