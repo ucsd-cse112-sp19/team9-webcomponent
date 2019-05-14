@@ -35,6 +35,7 @@ class MsgFetch extends HTMLElement {
     
       //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
       this.userId = "anonymous";
+      this.msgId = -1;
     }
 
     connectedCallback(){
@@ -68,25 +69,40 @@ class MsgFetch extends HTMLElement {
     }
 
     observe(that, callback){
-        // var http = new XMLHttpRequest();
+        // let http = new XMLHttpRequest();
+        // let url = this.url + '/' + this.msgId;
+
         // http.open("GET", url, true); // true for asynchronous 
 
         // http.onreadystatechange = function() { 
         //     if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
         //         console.log(http.responseText);
-        //         callback(this.deconstructMessage(JSON.parse(http.responseText)));
+        //         const parsed = JSON.parse(http.responseText);
+        //         const msg = this.deconstructMessage(parsed);
+        //         this.msgId = parsed.msgId;
+        //         callback(msg);
         //     }
         // }
         console.log("hello");
         const autoupdate = setInterval(function(){
             //http.send(null);
-            const testMessage = { 
-                sender: "tester",
-                timestamp: 14,
-                body: "Hello!",
-                hash:"TBD"
-            }
-            callback(that, {user:testMessage.sender,body:testMessage.body});
+            const testMessage =                
+                [
+                    { 
+                        sender: "tester",
+                        timestamp: 14,
+                        body: "Hello!",
+                        hash:"TBD"
+                    }, 
+                    {
+                        sender: "user",
+                        timestamp: 11,
+                        body: "Bye!",
+                        hash:"TBD"
+                    }
+                ];
+            
+            callback(that, [{user:testMessage[0].sender,body:testMessage[0].body},{user:testMessage[1].sender,body:testMessage[1].body} ]);
         }, 1000);
         
     }
