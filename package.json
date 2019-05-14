@@ -12,7 +12,8 @@
     "test": "npm run saucelabs",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
-    "start": "npx webpack-dev-server --open"
+    "start": "npx webpack-dev-server --open",
+    "resume": "npx webpack-dev-server"
   },
   "husky": {
     "hooks": {
