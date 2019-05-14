@@ -1,4 +1,4 @@
-const assert = require('chai').assert
+const expect = require('chai').expect
 // const expect = require('../web_component/CoreHello'); 
 var jsdom = require('jsdom');
 
@@ -12,15 +12,7 @@ describe('core-hello element', () => {
     describe('element creation', () => {
         it('creates from document.createElement', () => {
             const el = tempDom.document.createElement('core-hello'); 
-            assert.equal('CORE-HELLO', el.nodeName); 
+            expect('CORE-HELLO').to.equal(el.nodeName); 
         })
     })
-})
-const expect = require('chai').expect
-const server = require('../index');
-
-describe('test', () => {
-  it('should return a string', () => {
-    expect('ci with travis').to.equal('ci with travis');
-  });
 });
