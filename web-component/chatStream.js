@@ -54,11 +54,8 @@ class ChatStream extends HTMLElement {
       
       b.addEventListener('click', ()=>{
           const box = shadowRoot.querySelector('textarea');
-          box.innerHTML += "testing";
           box.scrollTop = box.scrollHeight;
-
           const receiver = shadowRoot.querySelector('#receiver');
-          //receiver.cat("ASDFASFDA");
           receiver.observe(this, this.append);
      
       });

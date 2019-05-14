@@ -40,7 +40,6 @@ class MsgSend extends HTMLElement {
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
-      
  
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
@@ -55,7 +54,6 @@ class MsgSend extends HTMLElement {
       // Listen for userId Change
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;
-        console.log(this.userId);
       });
     }
 
@@ -73,7 +71,6 @@ class MsgSend extends HTMLElement {
 
     send(body){
         const message = this.constructMessage(body);
-        console.log(message);
         const http = new XMLHttpRequest();
         const url = this.url;
         const params = JSON.stringify(message);

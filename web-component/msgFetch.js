@@ -56,7 +56,6 @@ class MsgFetch extends HTMLElement {
       // Listen for userId Change
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;
-        console.log(this.userId);
       });
     }
 

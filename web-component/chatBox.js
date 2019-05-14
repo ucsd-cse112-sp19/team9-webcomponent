@@ -34,8 +34,6 @@ class ChatBox extends HTMLElement {
       
       b.addEventListener('click', ()=>{
           const msgInput = shadowRoot.querySelector('input');
-          
-          console.log(msgInput.value);
           //call send function
           const sender = shadowRoot.querySelector('#sender');
           sender.send(msgInput.value);
