@@ -15,13 +15,13 @@ class ChatBox extends HTMLElement {
     connectedCallback() {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
-      // Append to shadowdom style
-      // Eventually turn into text area so that we can scroll
-      // Through - if not sprint1 def sprint 2
-      // console.log(this.innerHTML);
+
 
       shadowRoot.innerHTML += this.innerHTML;
 
+      // Append to shadowdom style
+      // Eventually turn into text area so that we can scroll
+      // Through - if not sprint1 def sprint 2
       const i = document.createElement('input');
       i.setAttribute("id","msg");
       i.setAttribute("name","msg");

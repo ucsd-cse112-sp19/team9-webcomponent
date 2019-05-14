@@ -37,7 +37,6 @@ class ChatStream extends HTMLElement {
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
-      //shadowRoot.innerHTML += "<textarea id='msg' name='msg' rows='5' cols='10'>Your Message will appear here!</textarea>";
       shadowRoot.innerHTML += this.innerHTML;
 
       const text = document.createElement('textarea');
@@ -65,16 +64,17 @@ class ChatStream extends HTMLElement {
       });
     }
     // FIXME: add that as hack to use set Interval
-    append(that, message){
+    append(that, messages){
         const text = that.shadowRoot.querySelector('textarea');
         // TODO: Decide on where we should reconstruct message
-        if(message !== null){
-            const toAppend = message.user + ': ' + message.body + '\n'; 
-            text.innerHTML += toAppend;
-            // TODO: We will need a way to allow user scrolling to override this
-            text.scrollTop = text.scrollHeight;
+        if(messages !== null){
+            for(let i = 0; i < messages.length; i++){
+                let toAppend = messages[i].user + ': ' + messages[i].body + '\n'; 
+                text.innerHTML += toAppend;
+                // TODO: We will need a way to allow user scrolling to override this
+                text.scrollTop = text.scrollHeight;
+            }
         }
-
     }
 }
 
