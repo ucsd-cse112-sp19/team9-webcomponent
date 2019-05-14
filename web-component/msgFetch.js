@@ -60,49 +60,39 @@ class MsgFetch extends HTMLElement {
       });
     }
 
-    deconstructMessage(message){
+    deconstructMessage(messages){
         // TODO: eventually check time stamp against last received?
-        if(message.body !== ''){
-            return {user:message.sender,message:message.body};
+        let ret = [];
+        for(let i = 0; i < messages.length; i++){
+          if(messages[i].body !== ''){
+            const item = {user:messages[i].sender,message:messages[i].body};
+            ret.push(item)
+          }
         }
-        return null
+        return ret
     }
 
     observe(that, callback){
-        // let http = new XMLHttpRequest();
-        // let url = this.url + '/' + this.msgId;
-
-        // http.open("GET", url, true); // true for asynchronous 
-
-        // http.onreadystatechange = function() { 
-        //     if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-        //         console.log(http.responseText);
-        //         const parsed = JSON.parse(http.responseText);
-        //         const msg = this.deconstructMessage(parsed);
-        //         this.msgId = parsed.msgId;
-        //         callback(msg);
-        //     }
-        // }
-        console.log("hello");
+        const they = this;
         const autoupdate = setInterval(function(){
-            //http.send(null);
-            const testMessage =                
-                [
-                    { 
-                        sender: "tester",
-                        timestamp: 14,
-                        body: "Hello!",
-                        hash:"TBD"
-                    }, 
-                    {
-                        sender: "user",
-                        timestamp: 11,
-                        body: "Bye!",
-                        hash:"TBD"
-                    }
-                ];
-            
-            callback(that, [{user:testMessage[0].sender,body:testMessage[0].body},{user:testMessage[1].sender,body:testMessage[1].body} ]);
+            let http = new XMLHttpRequest();
+            let url = they.url + '/' + they.msgId;
+    
+            http.open("GET", url, true); // true for asynchronous 
+    
+            http.onreadystatechange = function() { 
+                if (http.readyState == 4 && http.status == 200){
+                    const parsed = JSON.parse(http.responseText);
+                    
+                    they.msgId = parsed["msgId"];
+ 
+                    const msgs = they.deconstructMessage(parsed["msgs"]);
+                    callback(that,msgs);
+                }
+            }
+          
+          
+            http.send(null);
         }, 1000);
         
     }

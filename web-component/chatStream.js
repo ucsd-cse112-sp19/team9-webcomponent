@@ -69,7 +69,7 @@ class ChatStream extends HTMLElement {
         // TODO: Decide on where we should reconstruct message
         if(messages !== null){
             for(let i = 0; i < messages.length; i++){
-                let toAppend = messages[i].user + ': ' + messages[i].body + '\n'; 
+                let toAppend = messages[i].user + ': ' + messages[i].message + '\n'; 
                 text.innerHTML += toAppend;
                 // TODO: We will need a way to allow user scrolling to override this
                 text.scrollTop = text.scrollHeight;
