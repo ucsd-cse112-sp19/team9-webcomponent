@@ -1,3 +1,3 @@
 import  {addMock} from '../util/MockAxios'
 
-addMock('/messages', {data: "Hello Axios and Webpack"});
+addMock('/messages', {data: ["Hello Axios and Webpack"]});
