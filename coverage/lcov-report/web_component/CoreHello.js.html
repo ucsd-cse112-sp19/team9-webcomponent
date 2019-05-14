@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for web_component\CoreHello.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">web_component/</a> CoreHello.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.77% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/57</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.77% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/57</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">var jsdom = require('jsdom');
+// Create a fake DOM for testing with $.ajax
+global.window = new jsdom.JSDOM().window;
+global.document = window.document;
+global.HTMLElement = window.HTMLElement;
+&nbsp;
+/**
+ * HelloWorld class
+ * Provides template for core-hello element
+ */
+class HelloWorld extends HTMLElement {
+  /**
+   * get rainbow() 
+   * Check if rainbow exists in HTML.
+   * Returns: True or False 
+   */
+  get rainbow<span class="fstat-no" title="function not covered" >() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.hasAttribute('rainbow');</span>
+  }
+  /**
+   * set rainbow(val) 
+   * Sets rainbow if value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set rainbow<span class="fstat-no" title="function not covered" >(val) {</span>
+<span class="cstat-no" title="statement not covered" >    if (val !== '') {</span>
+<span class="cstat-no" title="statement not covered" >      this.setAttribute('rainbow', '');</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.removeAttribute('rainbow');</span>
+    }
+  }
+  /**
+   * get lang() 
+   * Check if langauge exists in HTML.
+   * Returns: True or False 
+   */
+  get lang<span class="fstat-no" title="function not covered" >() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.getAttribute('lang');</span>
+  }
+  /**
+   * set lang(val) 
+   * Sets lang to value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set lang<span class="fstat-no" title="function not covered" >(val) {</span>
+<span class="cstat-no" title="statement not covered" >    if (val !== '') {</span>
+<span class="cstat-no" title="statement not covered" >      this.setAttribute('lang', val);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.removeAttribute('lang');</span>
+    }
+  }
+  /**
+   * get font() 
+   * Check if font exists in HTML.
+   * Returns: True or False 
+   */
+  get font<span class="fstat-no" title="function not covered" >() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.getAttribute('font');</span>
+  }
+  /**
+   * set font(val) 
+   * Sets font to value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set font<span class="fstat-no" title="function not covered" >(val) {</span>
+<span class="cstat-no" title="statement not covered" >    if (val !== '') {</span>
+<span class="cstat-no" title="statement not covered" >      this.setAttribute('font', val);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.removeAttribute('font');</span>
+    }
+  }
+  /**
+   * get fontsize() 
+   * Check if fontsize exists in HTML.
+   * Returns: True or False 
+   */
+  get fontsize<span class="fstat-no" title="function not covered" >() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.getAttribute('fontsize');</span>
+  }
+  /**
+   * set fontsize(val) 
+   * Sets fontsize to value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set fontsize<span class="fstat-no" title="function not covered" >(val) {</span>
+<span class="cstat-no" title="statement not covered" >    if (val !== '') {</span>
+<span class="cstat-no" title="statement not covered" >      this.setAttribute('fontsize', val);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.removeAttribute('fontsize');</span>
+    }
+  }
+  /**
+   * Constructor for setting up shadow dom and class definitions 
+   * for web component.
+   */
+  constructor <span class="fstat-no" title="function not covered" >() {</span>
+<span class="cstat-no" title="statement not covered" >    super();</span>
+    // Dictionary for Hello World in different languages
+<span class="cstat-no" title="statement not covered" >    let languages = { "en": "Hello World",</span>
+                      "ar": "مرحبا بالعالم",
+                      "es": "Hola Mundo",
+                      "fr": "Bonjour le monde",
+                      "zh": "你好" };
+&nbsp;
+    // Initialize shadow root
+<span class="cstat-no" title="statement not covered" >    const shadowRoot = this.attachShadow({mode: 'open'});</span>
+    
+    // Check if rainbow is set and if it is append the css file to shadow dom
+<span class="cstat-no" title="statement not covered" >    if(this.rainbow) {</span>
+<span class="cstat-no" title="statement not covered" >      let style = "&lt;link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\"&gt;&lt;/link&gt;";</span>
+<span class="cstat-no" title="statement not covered" >      shadowRoot.innerHTML += style;</span>
+    }
+&nbsp;
+    // Determine and filter the right language for Hello world, defaults to English
+<span class="cstat-no" title="statement not covered" >    let hello = "Hello World";</span>
+<span class="cstat-no" title="statement not covered" >    if(this.lang) {</span>
+<span class="cstat-no" title="statement not covered" >      hello = languages[this.lang];</span>
+    }
+&nbsp;
+    // Determine font
+<span class="cstat-no" title="statement not covered" >    let font = ""</span>
+<span class="cstat-no" title="statement not covered" >    if(this.font) {</span>
+<span class="cstat-no" title="statement not covered" >      font = "font-family:" + this.font + ";";</span>
+    }
+    // Determine font size
+<span class="cstat-no" title="statement not covered" >    let size = ""</span>
+<span class="cstat-no" title="statement not covered" >    if(this.fontsize) {</span>
+<span class="cstat-no" title="statement not covered" >      size =  "font-size:" + this.fontsize + "px;";</span>
+    }
+    // Append to shadowdom style
+<span class="cstat-no" title="statement not covered" >    shadowRoot.innerHTML += "&lt;style&gt;  p{" + size  + font +  "} &lt;/style&gt;";</span>
+&nbsp;
+    // Create p element
+<span class="cstat-no" title="statement not covered" >    let p = document.createElement('p');</span>
+    // Generate proper version of hello world
+<span class="cstat-no" title="statement not covered" >    p.innerHTML += "&lt;span&gt; " + hello + " " + this.innerHTML + "&lt;/span&gt;";</span>
+    // Append p to shadow dom
+<span class="cstat-no" title="statement not covered" >    shadowRoot.appendChild(p);</span>
+&nbsp;
+    // For fun, user can customize language through buttons
+&nbsp;
+    // For each language code, add a button to shadowROM
+<span class="cstat-no" title="statement not covered" >    Object.keys(languages).forEach( (e)=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      const b = document.createElement('button');</span>
+<span class="cstat-no" title="statement not covered" >      b.innerHTML = e;</span>
+<span class="cstat-no" title="statement not covered" >      shadowRoot.append(b);</span>
+    });
+&nbsp;
+    // Attach click event to all buttons so that hello world text will change
+<span class="cstat-no" title="statement not covered" >    shadowRoot.querySelectorAll("button").forEach( (elem)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >      elem.addEventListener('click',()=&gt;{</span>
+          // Change content of p from above with new language
+<span class="cstat-no" title="statement not covered" >          p.innerHTML = "&lt;span&gt; " + languages[elem.innerHTML] + " " + this.innerHTML + "&lt;/span&gt;";</span>
+          // Set attribute
+<span class="cstat-no" title="statement not covered" >          this.lang = elem.innerHTML;</span>
+      });
+    });
+&nbsp;
+    // For fun, let user change size of text through slider
+&nbsp;
+    // Create slider element
+<span class="cstat-no" title="statement not covered" >    let slider = document.createElement('input');</span>
+<span class="cstat-no" title="statement not covered" >    slider.min = 12;</span>
+<span class="cstat-no" title="statement not covered" >    slider.max = 72;</span>
+<span class="cstat-no" title="statement not covered" >    slider.type='range';</span>
+<span class="cstat-no" title="statement not covered" >    slider.value = this.fontsize;</span>
+<span class="cstat-no" title="statement not covered" >    shadowRoot.appendChild(slider);</span>
+&nbsp;
+    // Add event listener that changes font size
+<span class="cstat-no" title="statement not covered" >    slider.addEventListener('change', ()=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >      this.fontsize = slider.value;</span>
+<span class="cstat-no" title="statement not covered" >      shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';</span>
+    });
+  }
+}
+&nbsp;
+// Register HelloWorld class as core-hello element
+customElements.define('core-hello', HelloWorld);</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri May 03 2019 00:19:59 GMT-0700 (GMT-07:00)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

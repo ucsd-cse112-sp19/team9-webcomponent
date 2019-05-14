@@ -1,6 +1,6 @@
 {
     "source": {
-        "include": ["./src"],
+        "include": ["./web_component"],
         "includePattern": ".js$",
         "excludePattern": "(node_modules/|docs)"
     },
@@ -11,11 +11,20 @@
     ],
     "opts": {
         "encoding": "utf8",
-        "readme": "./readme.md",
+        "readme": "./README.md",
         "destination": "docs/",
         "recurse": true,
         "verbose": true,
         "tutorials": "./tutorials",
         "template": "node_modules/better-docs/"
+    },
+    "templates": {
+        "default": {
+         "staticFiles": {
+            "include": [
+                "./images"
+            ]
+            }
+        }
     }
 }
