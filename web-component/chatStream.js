@@ -4,18 +4,18 @@
  */
 class ChatStream extends HTMLElement {
     /**
-     * get width() 
+     * get width()
      * Check if font exists in HTML.
-     * Returns: True or False 
+     * Returns: True or False
      */
     get width() {
         return this.getAttribute('width');
     }
 
     /**
-     * get height() 
+     * get height()
      * Check if font exists in HTML.
-     * Returns: True or False 
+     * Returns: True or False
      */
     get height() {
         return this.getAttribute('height');
@@ -23,7 +23,7 @@ class ChatStream extends HTMLElement {
 
 
     /**
-     * Constructor for setting up shadow dom and class definitions 
+     * Constructor for setting up shadow dom and class definitions
      * for web component.
      */
     constructor () {
@@ -33,11 +33,34 @@ class ChatStream extends HTMLElement {
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
-      
+
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
       shadowRoot.innerHTML += this.innerHTML;
+      this.innerHTML = "";
+
+
+      /////////////////////////////////////////////////////
+      var addStyleSheet = function(){
+        const linkDiv = document.createElement('link');
+        linkDiv.setAttribute('rel','stylesheet');
+        linkDiv.setAttribute('type','text/css');
+        linkDiv.setAttribute('href','highlight.css');
+        shadowRoot.append(linkDiv);
+      };
+      var addDivs = function(){
+        const backdropDiv = document.createElement('div');
+        backdropDiv.setAttribute('class','backdrop');
+        const highlightsDiv = document.createElement('div');
+        highlightsDiv.setAttribute('class','highlights');
+        backdropDiv.appendChild(highlightsDiv);
+        shadowRoot.append(backdropDiv);
+      };
+      addStyleSheet();
+      addDivs();
+      ///////////////////////////////////////////////////
+
 
       const text = document.createElement('textarea');
       text.setAttribute('id','msg');
@@ -51,22 +74,52 @@ class ChatStream extends HTMLElement {
       const b = document.createElement('button');
       b.innerHTML = "Fake Update";
       shadowRoot.append(b);
-      
+
       b.addEventListener('click', ()=>{
+        console.log("hi");
           const box = shadowRoot.querySelector('textarea');
           box.scrollTop = box.scrollHeight;
           const receiver = shadowRoot.querySelector('#receiver');
           receiver.observe(this, this.append);
-     
+
       });
+
+
+      ////////////////////////////////////////////////////////////////
+      var reHighlight = function(){
+        let $textarea = shadowRoot.querySelector('textarea');
+        let $highlights = shadowRoot.querySelector('.highlights');
+        let user = "Georgie:";
+        let rx = new RegExp(user,'g');
+        $highlights.innerHTML = $textarea.value.replace(/\n$/g,'\n\n').replace(rx,'<mark>$&</mark>');;
+      }
+
+      var adjustScroll = function(){
+        let $textarea = shadowRoot.querySelector('textarea');
+        let $backdrop = shadowRoot.querySelector('.backdrop');
+        $backdrop.scrollTop = $textarea.scrollTop;
+        $backdrop.scrollLeft = $textarea.scrollLeft;
+      }
+
+      shadowRoot.querySelector('textarea').addEventListener('input',()=>{
+        reHighlight();
+        adjustScroll();
+      });
+
+      shadowRoot.querySelector('textarea').addEventListener('scroll',()=>{
+        adjustScroll();
+      });
+      ////////////////////////////////////////////////////////////////
+
     }
+
     // FIXME: add that as hack to use set Interval
     append(that, messages){
         const text = that.shadowRoot.querySelector('textarea');
         // TODO: Decide on where we should reconstruct message
         if(messages !== null){
             for(let i = 0; i < messages.length; i++){
-                let toAppend = messages[i].user + ': ' + messages[i].message + '\n'; 
+                let toAppend = messages[i].user + ': ' + messages[i].message + '\n';
                 text.innerHTML += toAppend;
                 // TODO: We will need a way to allow user scrolling to override this
                 text.scrollTop = text.scrollHeight;
