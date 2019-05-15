@@ -21,7 +21,6 @@ class ChatStream extends HTMLElement {
         return this.getAttribute('height');
     }
 
-
     /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
@@ -29,7 +28,11 @@ class ChatStream extends HTMLElement {
     constructor () {
       super();
     }
-
+    
+    /**
+     * connectedCallback is called when the web component is loaded into
+     * the site.
+     */
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
@@ -60,8 +63,15 @@ class ChatStream extends HTMLElement {
      
       });
     }
-    // FIXME: add that as hack to use set Interval
+    
+    /**
+     * Append is a callback function for an observe function
+     * that will update the textarea.
+     * @param {*} that allows this to be used in setInterval
+     * @param {*} messages the messages to be printed
+     */
     append(that, messages){
+        // FIXME: add that as hack to use set Interval
         const text = that.shadowRoot.querySelector('textarea');
         // TODO: Decide on where we should reconstruct message
         if(messages !== null){
