@@ -50,6 +50,9 @@ class ChatBox extends HTMLElement {
       this.innerHTML = ''; 
       
 
+      // Append to shadowdom style
+      // Eventually turn into text area so that we can scroll
+      // Through - if not sprint1 def sprint 2
       const i = document.createElement('input');
       i.setAttribute("id","msg");
       i.setAttribute("name","msg");
@@ -70,8 +73,6 @@ class ChatBox extends HTMLElement {
 
       b.addEventListener('click', () => {
           const msgInput = shadowRoot.querySelector('input');
-          
-          console.log(msgInput.value);
           //call send function
           const sender = shadowRoot.querySelector('#sender');
           sender.send(msgInput.value);
