@@ -87,33 +87,35 @@ class ChatStream extends HTMLElement {
 
       });
 
+      //this should be changed to that of the current user's username
+      let username = "Georgie";
 
-      ////////////////////////////////////////////////////////////////
-      var reHighlight = function(){
-        let $textarea = shadowRoot.querySelector('textarea');
-        let $highlights = shadowRoot.querySelector('.highlights');
-        let user = "Georgie:";
-        let rx = new RegExp(user,'g');
-        $highlights.innerHTML = $textarea.value.replace(/\n$/g,'\n\n').replace(rx,'<mark>$&</mark>');;
-      }
-
-      var adjustScroll = function(){
-        let $textarea = shadowRoot.querySelector('textarea');
-        let $backdrop = shadowRoot.querySelector('.backdrop');
+      /* This function adjusts the scroll of the backdrop to match the textarea */
+      const adjustScroll = function(){
+        const $textarea = shadowRoot.querySelector('textarea');
+        const $backdrop = shadowRoot.querySelector('.backdrop');
         $backdrop.scrollTop = $textarea.scrollTop;
         $backdrop.scrollLeft = $textarea.scrollLeft;
       }
 
+      /* This function rehighlights the textarea so that the current user's username is highlighted
+         This should be called whenever data is added to the textarea */
+      const reHighlight = function(){
+        const $textarea = shadowRoot.querySelector('textarea');
+        const $highlights = shadowRoot.querySelector('.highlights');
+        const regexString = username + ":";
+        let rx = new RegExp(regexString,'g');
+        $highlights.innerHTML = $textarea.value.replace(/\n$/g,'\n\n').replace(rx,'<mark>$&</mark>');
+        adjustScroll();
+      }
+
       shadowRoot.querySelector('textarea').addEventListener('input',()=>{
         reHighlight();
-        adjustScroll();
       });
 
       shadowRoot.querySelector('textarea').addEventListener('scroll',()=>{
         adjustScroll();
       });
-      ////////////////////////////////////////////////////////////////
-
     }
 
 
