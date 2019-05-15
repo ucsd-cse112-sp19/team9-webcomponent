@@ -1,11 +1,11 @@
 /**
- * HelloWorld class
- * Provides template for core-hello element
+ * MsgFetch class
+ * API for fetching messages over a network
  */
 class MsgFetch extends HTMLElement {
     /**
-     * get rainbow() 
-     * Check if rainbow exists in HTML.
+     * get url() 
+     * Check if url exists in HTML.
      * Returns: True or False 
      */
     get url() {
@@ -42,7 +42,6 @@ class MsgFetch extends HTMLElement {
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
       
- 
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
@@ -51,7 +50,6 @@ class MsgFetch extends HTMLElement {
       i.setAttribute("name","userId");
       i.setAttribute("value","anonymous");
       shadowRoot.append(i);
-
 
       // Listen for userId Change
       i.addEventListener('change', ()=>{
