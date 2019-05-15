@@ -40,7 +40,6 @@ class MsgSend extends HTMLElement {
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
-      
  
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
@@ -55,7 +54,6 @@ class MsgSend extends HTMLElement {
       // Listen for userId Change
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;
-        console.log(this.userId);
       });
     }
 
@@ -68,26 +66,25 @@ class MsgSend extends HTMLElement {
                             body:body,
                             hash:"TBD"
                         }
-        return message
+        return [message]
     }
 
     send(body){
         const message = this.constructMessage(body);
-        console.log(message);
-        // const http = new XMLHttpRequest();
-        // const url = this.url;
-        // const params = JSON.stringify(message);
-        // http.open('POST', url, true);
+        const http = new XMLHttpRequest();
+        const url = this.url;
+        const params = JSON.stringify(message);
+        http.open('POST', url, true);
         
-        // //Send the proper header information along with the request
-        // http.setRequestHeader('Content-type', 'application/json');
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/json');
         
-        // http.onreadystatechange = function() {//Call a function when the state changes.
-        //     if(http.readyState == 4 && http.status == 200) {
-        //         alert(http.responseText);
-        //     }
-        // }
-        // http.send(params);
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                alert(http.responseText);
+            }
+        }
+        http.send(params);
 
     }
 }

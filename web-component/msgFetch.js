@@ -35,6 +35,7 @@ class MsgFetch extends HTMLElement {
     
       //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
       this.userId = "anonymous";
+      this.msgId = -1;
     }
 
     connectedCallback(){
@@ -55,38 +56,42 @@ class MsgFetch extends HTMLElement {
       // Listen for userId Change
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;
-        console.log(this.userId);
       });
     }
 
-    deconstructMessage(message){
+    deconstructMessage(messages){
         // TODO: eventually check time stamp against last received?
-        if(message.body !== ''){
-            return {user:message.sender,message:message.body};
+        let ret = [];
+        for(let i = 0; i < messages.length; i++){
+          if(messages[i].body !== ''){
+            const item = {user:messages[i].sender,message:messages[i].body};
+            ret.push(item)
+          }
         }
-        return null
+        return ret
     }
 
     observe(that, callback){
-        // var http = new XMLHttpRequest();
-        // http.open("GET", url, true); // true for asynchronous 
-
-        // http.onreadystatechange = function() { 
-        //     if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-        //         console.log(http.responseText);
-        //         callback(this.deconstructMessage(JSON.parse(http.responseText)));
-        //     }
-        // }
-        console.log("hello");
+        const they = this;
         const autoupdate = setInterval(function(){
-            //http.send(null);
-            const testMessage = { 
-                sender: "tester",
-                timestamp: 14,
-                body: "Hello!",
-                hash:"TBD"
+            let http = new XMLHttpRequest();
+            let url = they.url + '/' + they.msgId;
+    
+            http.open("GET", url, true); // true for asynchronous 
+    
+            http.onreadystatechange = function() { 
+                if (http.readyState == 4 && http.status == 200){
+                    const parsed = JSON.parse(http.responseText);
+                    
+                    they.msgId = parsed["msgId"];
+ 
+                    const msgs = they.deconstructMessage(parsed["msgs"]);
+                    callback(that,msgs);
+                }
             }
-            callback(that, {user:testMessage.sender,body:testMessage.body});
+          
+          
+            http.send(null);
         }, 1000);
         
     }
