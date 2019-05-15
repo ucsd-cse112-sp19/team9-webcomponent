@@ -44,15 +44,14 @@ class ChatStream extends HTMLElement {
       this.innerHTML = "";
 
 
-      /////////////////////////////////////////////////////
-      var addStyleSheet = function(){
+      const addStyleSheet = function(){
         const linkDiv = document.createElement('link');
         linkDiv.setAttribute('rel','stylesheet');
         linkDiv.setAttribute('type','text/css');
         linkDiv.setAttribute('href','highlight.css');
         shadowRoot.append(linkDiv);
       };
-      var addDivs = function(){
+      const addDivs = function(){
         const backdropDiv = document.createElement('div');
         backdropDiv.setAttribute('class','backdrop');
         const highlightsDiv = document.createElement('div');
@@ -62,7 +61,6 @@ class ChatStream extends HTMLElement {
       };
       addStyleSheet();
       addDivs();
-      ///////////////////////////////////////////////////
 
 
       const text = document.createElement('textarea');
