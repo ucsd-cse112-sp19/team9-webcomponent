@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Linter</title>
+    <title>JSDoc: chatBox.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,37 +51,70 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Tutorial</p>
-                        <h1>Linter</h1>
+                        <p>Source</p>
+                        <h1>chatBox.js</h1>
                     </header>
                     
-                    <section>
+                    
 
-<header>
+
+
     
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * HelloWorld class
+ * Provides template for core-hello element
+ */
+class ChatBox extends HTMLElement {
+    /**
+     * Constructor for setting up shadow dom and class definitions 
+     * for web component.
+     */
+    constructor () {
+      super();
+  
+    }
+    
+    connectedCallback() {
+      // Initialize shadowroot
+      const shadowRoot = this.attachShadow({mode: 'open'});
 
-<article>
-    <h1>Lint</h1>
-<p>Linter is a tool that analyzes source code to flag programming errors, bugs, stylistic errors, and suspicious constructs.<br>
-At the moment, we are just using ESlint and Stylelint.</p>
-<h2>ESLint</h2>
-<p>You can run ESLint on any of you JavaScript file in the web_component folder with the command</p>
-<blockquote>
-<p>npm run lint</p>
-</blockquote>
-<p>This is because this is a reference in the package.json file.</p>
-<p>Let's take a look at the eslint.js file.</p>
-<img src="eslint.png">
-<p>We are running the recommended option of ESLint. In this file you can modify the rules etc.. Refer to the ESLint documentation for that.<br>
-The recommended option uses Airbnb style.</p>
-<h2>StyleLint</h2>
-<p>Style lint is used for CSS. In the pipeline, we only run it on the files in the web_component folder but feel free to try it out on your files.<br>
-I just implemented the basic structure and use the recommended style.</p>
-<img src="stylelint.png">
-</article>
 
-</section>
+      shadowRoot.innerHTML += this.innerHTML;
+
+      // Append to shadowdom style
+      // Eventually turn into text area so that we can scroll
+      // Through - if not sprint1 def sprint 2
+      const i = document.createElement('input');
+      i.setAttribute("id","msg");
+      i.setAttribute("name","msg");
+      i.setAttribute("value","");
+      shadowRoot.append(i);
+      // Add Send button
+      const b = document.createElement('button');
+      b.innerHTML = "Send";
+      shadowRoot.append(b);
+      
+      b.addEventListener('click', ()=>{
+          const msgInput = shadowRoot.querySelector('input');
+          //call send function
+          const sender = shadowRoot.querySelector('#sender');
+          sender.send(msgInput.value);
+
+          msgInput.value = '';
+
+      });
+    }
+}
+
+// Register ChatBox class as chat-box element
+customElements.define('chat-box', ChatBox);</code></pre>
+        </article>
+    </section>
+
+
+
 
                 </div>
             </div>
