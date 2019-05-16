@@ -43,7 +43,6 @@ class ChatStream extends HTMLElement {
       shadowRoot.innerHTML += this.innerHTML;
       this.innerHTML = "";
 
-
       const addStyleSheet = function(){
         const linkDiv = document.createElement('link');
         linkDiv.setAttribute('rel','stylesheet');
@@ -56,63 +55,53 @@ class ChatStream extends HTMLElement {
         backdropDiv.setAttribute('class','backdrop');
         const highlightsDiv = document.createElement('div');
         highlightsDiv.setAttribute('class','highlights');
+        
         backdropDiv.appendChild(highlightsDiv);
         shadowRoot.append(backdropDiv);
       };
       addStyleSheet();
       addDivs();
 
-
       const text = document.createElement('textarea');
       text.setAttribute('id','msg');
       text.setAttribute('rows',this.width);
       text.setAttribute('cols',this.height);
-      text.innerHTML = "Your Message will appear here";
       shadowRoot.append(text);
-
 
       // Create a Fake update for testing purposes
       const b = document.createElement('button');
-      b.innerHTML = "Fake Update";
+      b.innerHTML = "Begin Updates";
       shadowRoot.append(b);
 
       b.addEventListener('click', ()=>{
-        console.log("hi");
           const box = shadowRoot.querySelector('textarea');
           box.scrollTop = box.scrollHeight;
           const receiver = shadowRoot.querySelector('#receiver');
           receiver.observe(this, this.append);
-
       });
 
-      //this should be changed to that of the current user's username
-      let username = "Georgie";
 
       /* This function adjusts the scroll of the backdrop to match the textarea */
-      const adjustScroll = function(){
+      this.adjustScroll = function(){
         const $textarea = shadowRoot.querySelector('textarea');
         const $backdrop = shadowRoot.querySelector('.backdrop');
         $backdrop.scrollTop = $textarea.scrollTop;
         $backdrop.scrollLeft = $textarea.scrollLeft;
       }
-
-      /* This function rehighlights the textarea so that the current user's username is highlighted
-         This should be called whenever data is added to the textarea */
-      const reHighlight = function(){
+      // TODO: Change highlight when the user id changes as well
+      this.highlight = function(){
         const $textarea = shadowRoot.querySelector('textarea');
         const $highlights = shadowRoot.querySelector('.highlights');
-        const regexString = username + ":";
+        const receiver = shadowRoot.querySelector('#receiver');
+        
+        const regexString = receiver.userId;
         let rx = new RegExp(regexString,'g');
         $highlights.innerHTML = $textarea.value.replace(/\n$/g,'\n\n').replace(rx,'<mark>$&</mark>');
-        adjustScroll();
+        this.adjustScroll();
       }
 
-      shadowRoot.querySelector('textarea').addEventListener('input',()=>{
-        reHighlight();
-      });
-
       shadowRoot.querySelector('textarea').addEventListener('scroll',()=>{
-        adjustScroll();
+        this.adjustScroll();
       });
     }
 
@@ -133,6 +122,7 @@ class ChatStream extends HTMLElement {
                 text.innerHTML += toAppend;
                 // TODO: We will need a way to allow user scrolling to override this
                 text.scrollTop = text.scrollHeight;
+                that.highlight();
             }
         }
     }
