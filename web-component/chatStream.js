@@ -80,16 +80,18 @@ class ChatStream extends HTMLElement {
           receiver.observe(this, this.append);
       });
 
-
-      /* This function adjusts the scroll of the backdrop to match the textarea */
+      // This function adjusts the scroll of the backdrop to match the textarea
       this.adjustScroll = function(){
         const $textarea = shadowRoot.querySelector('textarea');
         const $backdrop = shadowRoot.querySelector('.backdrop');
         $backdrop.scrollTop = $textarea.scrollTop;
         $backdrop.scrollLeft = $textarea.scrollLeft;
       }
-      // TODO: Change highlight when the user id changes as well
+      
+      // This function rehighlights the textarea so that the current user's username is highlighted
+      // This should be called whenever data is added to the textarea
       this.highlight = function(){
+        // TODO: Change highlight when the user id changes as well
         const $textarea = shadowRoot.querySelector('textarea');
         const $highlights = shadowRoot.querySelector('.highlights');
         const receiver = shadowRoot.querySelector('#receiver');
@@ -104,7 +106,6 @@ class ChatStream extends HTMLElement {
         this.adjustScroll();
       });
     }
-
 
     /**
      * Append is a callback function for an observe function
