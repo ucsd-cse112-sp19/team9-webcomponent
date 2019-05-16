@@ -5,7 +5,7 @@
 class ChatStream extends HTMLElement {
     /**
      * get width()
-     * Check if font exists in HTML.
+     * Check if width exists in HTML.
      * Returns: True or False
      */
     get width() {
@@ -14,7 +14,7 @@ class ChatStream extends HTMLElement {
 
     /**
      * get height()
-     * Check if font exists in HTML.
+     * Check if height exists in HTML.
      * Returns: True or False
      */
     get height() {
@@ -62,6 +62,7 @@ class ChatStream extends HTMLElement {
       addStyleSheet();
       addDivs();
 
+      // Create the text area for where messages will appear.
       const text = document.createElement('textarea');
       text.setAttribute('id','msg');
       text.setAttribute('rows',this.width);
@@ -73,6 +74,8 @@ class ChatStream extends HTMLElement {
       b.innerHTML = "Begin Updates";
       shadowRoot.append(b);
 
+      // Register an Event listener to begin listening for 
+      // messages from the connection.
       b.addEventListener('click', ()=>{
           const box = shadowRoot.querySelector('textarea');
           box.scrollTop = box.scrollHeight;

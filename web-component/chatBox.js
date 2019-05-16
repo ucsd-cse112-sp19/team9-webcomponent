@@ -12,6 +12,10 @@ class ChatBox extends HTMLElement {
   
     }
     
+    /**
+     * Connected Callback is called when the web component is actually
+     * registered. 
+     */
     connectedCallback() {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
