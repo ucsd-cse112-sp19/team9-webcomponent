@@ -44,12 +44,23 @@ class MqttFetch extends HTMLElement {
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
+
+      function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+      }
       
       // Create a client instance
       // NOTE: If you have client issues its because there is another client connected with this name
       // Choose another random client id and it should fix the problem
       // You can determine this by opening dev tools and if it says socket closed that is the problem
-      this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "clientId-AbaseqDRPji");
+      //"clientId-AbaseqDRPji"
+      this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
 
       this.client.onConnectionLost = function(responseObject){
         console.log("Connection Lost" + responseObject.errorMessage);
