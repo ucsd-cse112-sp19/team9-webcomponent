@@ -8,7 +8,6 @@
     "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
     "saucelabs": "testcafe \"saucelabs:chrome\"  test/cafe-tests/test2.js",
     "pretest": "istanbul cover node_modules/mocha/bin/_mocha core-hello-spec.js --exit",
-    "test": "npm run saucelabs",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
