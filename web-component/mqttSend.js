@@ -42,20 +42,26 @@ class MqttSend extends HTMLElement {
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
- 
+      
+      function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+      }
       // Create a client instance
       // NOTE: It appears as tho connecting on the sender side has some issues
       // refreshing multiple times works for me until in devtools you don't see
       // Connection LostAMQJS0008I Socket closed. This is likely do to using a public mqtt
       // server... We can spin up our own some time soon
       // TODO: FIX ABOVE
-      this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "clientId-AAASSSFEW");
+      this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
 
       this.client.onConnectionLost = function(responseObject){
         console.log("Connection Lost" + responseObject.errorMessage);
-        // that.client.connect({onSuccess:function(){
-        //     console.log("send connected");
-        // }});
       };
       // connect the client
       const that = this;
@@ -74,8 +80,6 @@ class MqttSend extends HTMLElement {
       i.setAttribute("value","anonymous");
       shadowRoot.append(i);
       
-
-
       // Listen for userId Change
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;
