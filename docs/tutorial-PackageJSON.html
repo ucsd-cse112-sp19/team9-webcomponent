@@ -42,7 +42,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-JSDoc Guide Coders.html">JSDoc Guide Coders</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-JSDoc Guide Coders.html">JSDoc Guide Coders</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -60,29 +60,42 @@
 </header>
 
 <article>
-    <h1>Core Files</h1><p>The package.json file is the heart of Node.js system. It is the manifest file of any Node.js project and contains the metadata of the project.<br>It can be divided into 2 parts.</p>
-<p><img src="package1.png"></p>
-<p>The main script is in this json file. This is where we can make references to other parts of the project.<br>Look at the script part, </p>
+    <h1>Core Files</h1>
+<p>The package.json file is the heart of Node.js system. It is the manifest file of any Node.js project and contains the metadata of the project.<br>
+It can be divided into 2 parts.</p>
+<img src="package1.png">
+<p>The main script is in this json file. This is where we can make references to other parts of the project.<br>
+Look at the script part,</p>
 <blockquote>
 <p>&quot;lint&quot;: &quot;eslint ./web_component&quot;</p>
 </blockquote>
-<p>We can now use the following command to run eslint on all JavaScript files in the web_component folder.  </p>
+<p>We can now use the following command to run eslint on all JavaScript files in the web_component folder.</p>
 <blockquote>
 <p>npm run lint</p>
 </blockquote>
 <p>In this script, we refer to cypress, nightwatch, jsdoc and coverage.</p>
-<p>Cypress is a tool we are not using yet.<br>Nightwatch is a tool we are trying to use for Browser testing, it uses Selenium Builder.<br>JSDoc is for documentation. We refer it as &quot;docs&quot;.<br>Coverage is used to make a report of the tests and upload it on CodeClimate. We only use it as the end of the script.<br>Please refer to the Travis file to understand the process order.  </p>
-<p>We can basically refer to any tools or configuration in the package.json file.  </p>
-<p>The most important part is the testing phase.  </p>
-<p>Here we are running docs, stylint for all CSS files. If there is no issue, we can continue and run the test.<br>It is just a way of structuring the testing phase. We can also add posttest.<br>The test phase is unit tests using istanbul. It runs mocha and will show the result on the console, then make a report file.<br>Here I just ran the following command</p>
+<p>Cypress is a tool we are not using yet.<br>
+Nightwatch is a tool we are trying to use for Browser testing, it uses Selenium Builder.<br>
+JSDoc is for documentation. We refer it as &quot;docs&quot;.<br>
+Coverage is used to make a report of the tests and upload it on CodeClimate. We only use it as the end of the script.<br>
+Please refer to the Travis file to understand the process order.</p>
+<p>We can basically refer to any tools or configuration in the package.json file.</p>
+<p>The most important part is the testing phase.</p>
+<p>Here we are running docs, stylint for all CSS files. If there is no issue, we can continue and run the test.<br>
+It is just a way of structuring the testing phase. We can also add posttest.<br>
+The test phase is unit tests using istanbul. It runs mocha and will show the result on the console, then make a report file.<br>
+Here I just ran the following command</p>
 <blockquote>
 <p>npm run test</p>
 </blockquote>
-<p><img src="commandtest.png"></p>
-<p>Don't worry, Travis is automatically doing this. DevOps you should be able to switch and run anything you want by changing the script here!  </p>
-<p>The second part deals with dependencies. Just know that if you install something new and it is not in the dependencies, it won't work!<br>This is why we are running npm install in the .travis.yml file.</p>
-<p><img src="package2.png"></p>
-<p>Last thing, package-lock.json is automatically generated for any operations where npm modifies either the node_modules tree, or package.json.<br>It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees.<br>==&gt; Regardless of intermediate dependency updates &lt;==</p>
+<img src="commandtest.png">
+<p>Don't worry, Travis is automatically doing this. DevOps you should be able to switch and run anything you want by changing the script here!</p>
+<p>The second part deals with dependencies. Just know that if you install something new and it is not in the dependencies, it won't work!<br>
+This is why we are running npm install in the .travis.yml file.</p>
+<img src="package2.png">
+<p>Last thing, package-lock.json is automatically generated for any operations where npm modifies either the node_modules tree, or package.json.<br>
+It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees.<br>
+==&gt; Regardless of intermediate dependency updates &lt;==</p>
 </article>
 
 </section>
@@ -94,7 +107,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu May 09 2019 11:55:10 GMT-0700 (GMT-07:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Wed May 15 2019 21:48:15 GMT-0700 (GMT-07:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

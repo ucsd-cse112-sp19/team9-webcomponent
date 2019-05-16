@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Linter</title>
+    <title>JSDoc: msgSend.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,37 +51,115 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Tutorial</p>
-                        <h1>Linter</h1>
+                        <p>Source</p>
+                        <h1>msgSend.js</h1>
                     </header>
                     
-                    <section>
+                    
 
-<header>
+
+
     
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * HelloWorld class
+ * Provides template for core-hello element
+ */
+class MsgSend extends HTMLElement {
+    /**
+     * get rainbow() 
+     * Check if rainbow exists in HTML.
+     * Returns: True or False 
+     */
+    get url() {
+      return this.getAttribute('url');
+    }
+    /**
+     * set url(val) 
+     * Sets url if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set url(val) {
+      if (val !== '') {
+        this.setAttribute('url', val);
+      } else {
+        this.removeAttribute('url');
+      }
+    }
 
-<article>
-    <h1>Lint</h1>
-<p>Linter is a tool that analyzes source code to flag programming errors, bugs, stylistic errors, and suspicious constructs.<br>
-At the moment, we are just using ESlint and Stylelint.</p>
-<h2>ESLint</h2>
-<p>You can run ESLint on any of you JavaScript file in the web_component folder with the command</p>
-<blockquote>
-<p>npm run lint</p>
-</blockquote>
-<p>This is because this is a reference in the package.json file.</p>
-<p>Let's take a look at the eslint.js file.</p>
-<img src="eslint.png">
-<p>We are running the recommended option of ESLint. In this file you can modify the rules etc.. Refer to the ESLint documentation for that.<br>
-The recommended option uses Airbnb style.</p>
-<h2>StyleLint</h2>
-<p>Style lint is used for CSS. In the pipeline, we only run it on the files in the web_component folder but feel free to try it out on your files.<br>
-I just implemented the basic structure and use the recommended style.</p>
-<img src="stylelint.png">
-</article>
 
-</section>
+    /**
+     * Constructor for setting up shadow dom and class definitions 
+     * for web component.
+     */
+    constructor () {
+      super();
+    
+      //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+      this.userId = "anonymous";
+    }
+
+    connectedCallback(){
+      // Initialize shadow root
+      const shadowRoot = this.attachShadow({mode: 'open'});
+ 
+      // Append to shadowdom style
+      // Eventually turn into text area so that we can scroll
+      // Through - if not sprint1 def sprint 2
+      const i = document.createElement('input');
+      i.setAttribute("id","userId");
+      i.setAttribute("name","userId");
+      i.setAttribute("value","anonymous");
+      shadowRoot.append(i);
+
+
+      // Listen for userId Change
+      i.addEventListener('change', ()=>{
+        this.userId = shadowRoot.querySelector('input').value;
+      });
+    }
+
+    constructMessage(body){
+        const date = new Date();
+        const timeStamp = date.getTime();
+        const message = { 
+                            sender:this.userId,
+                            timestamp:timeStamp,
+                            body:body,
+                            hash:"TBD"
+                        }
+        return [message]
+    }
+
+    send(body){
+        const message = this.constructMessage(body);
+        const http = new XMLHttpRequest();
+        const url = this.url;
+        const params = JSON.stringify(message);
+        http.open('POST', url, true);
+        
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/json');
+        
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 &amp;&amp; http.status == 200) {
+                alert(http.responseText);
+            }
+        }
+        http.send(params);
+
+    }
+}
+
+// Register ChatBox class as chat-box element
+customElements.define('msg-send', MsgSend);</code></pre>
+        </article>
+    </section>
+
+
+
 
                 </div>
             </div>

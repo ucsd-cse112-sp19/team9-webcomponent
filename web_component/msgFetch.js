@@ -68,31 +68,6 @@ class MsgFetch extends HTMLElement {
         }
         return ret
     }
-
-    observe(that, callback){
-        const they = this;
-        const autoupdate = setInterval(function(){
-            let http = new XMLHttpRequest();
-            let url = they.url + '/' + they.msgId;
-    
-            http.open("GET", url, true); // true for asynchronous 
-    
-            http.onreadystatechange = function() { 
-                if (http.readyState == 4 && http.status == 200){
-                    const parsed = JSON.parse(http.responseText);
-                    
-                    they.msgId = parsed["msgId"];
- 
-                    const msgs = they.deconstructMessage(parsed["msgs"]);
-                    callback(that,msgs);
-                }
-            }
-          
-          
-            http.send(null);
-        }, 1000);
-        
-    }
 }
 
 // Register ChatBox class as chat-box element
