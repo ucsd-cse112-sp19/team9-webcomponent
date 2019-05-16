@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>test</title>
+  <title>Web Chat Demo</title>
 </head>
+
+<!-- temp styles -->
+<style>
+
+
+body {
+    height: 100vh; 
+}
+
+</style>
+
+
 <body>
-    <div>
-        <chat-box defaultstyle><msg-send id="sender" url="http://localhost:8082/db"></msg-send></chat-box>
-    </div>
-
+    <chat-stream width="5" height="33">
+        <msg-fetch id="receiver" url="http://localhost:8082/db"></msg-fetch>
+    </chat-stream>
     <br>
-    <br>
-    <br>
-
-    <div>
-        <chat-stream width="5" height="33"><msg-fetch id="receiver" url="http://localhost:8082/db"></msg-fetch></chat-stream>
-    </div>
+    <chat-box>
+        <msg-send id="sender" url="http://localhost:8082/db"></msg-send>
+    </chat-box>
+        
+   
+        
     
     <script src="chatBox.js"></script>
     <script src="msgSend.js"></script>
