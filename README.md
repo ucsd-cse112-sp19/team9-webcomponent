@@ -12,6 +12,9 @@
 # Documentation
 Check out the documentation in the Docs folder
 
+## Dev Server
+see `./tutorials/webpack.md`
+
 # Web Component
 Take a look at our first web component HelloWorld!
 
