@@ -68,26 +68,13 @@ class ChatStream extends HTMLElement {
       text.setAttribute('cols',this.height);
       shadowRoot.append(text);
 
-    //   // Create a Fake update for testing purposes
-    //   const b = document.createElement('button');
-    //   b.innerHTML = "Begin Updates";
-    //   shadowRoot.append(b);
-
       const that = this;
       setTimeout(function(){
         const receiver = shadowRoot.querySelector('#receiver');
         //receiver.observe(this, this.append);
         receiver.observe(that,that.append);
       },1000);
-
-    //   b.addEventListener('click', ()=>{
-    //       const box = shadowRoot.querySelector('textarea');
-    //       box.scrollTop = box.scrollHeight;
-    //     //   const receiver = shadowRoot.querySelector('#receiver');
-    //     //   //receiver.observe(this, this.append);
-    //     //   receiver.observe(this.append);
-    //   });
-
+      
       // This function adjusts the scroll of the backdrop to match the textarea
       this.adjustScroll = function(){
         const $textarea = shadowRoot.querySelector('textarea');
