@@ -59,7 +59,6 @@ class MqttFetch extends HTMLElement {
       // NOTE: If you have client issues its because there is another client connected with this name
       // Choose another random client id and it should fix the problem
       // You can determine this by opening dev tools and if it says socket closed that is the problem
-      //"clientId-AbaseqDRPji"
       this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
 
       this.client.onConnectionLost = function(responseObject){
