@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test</title>
+</head>
+<body>
+    <div>
+        <chat-box><msg-send id="sender" url="http://localhost:8082/db"></msg-send></chat-box>
+    </div>
+    <div>
+        <chat-stream width="5" height="33"><msg-fetch id="receiver" url="http://localhost:8082/db"></msg-fetch></chat-stream>
+    </div>
+    
+    <script src="chatBox.js"></script>
+    <script src="msgSend.js"></script>
+    <script src="chatStream.js"></script>
+    <script src="msgFetch.js"></script>
+</body>
+</html>
