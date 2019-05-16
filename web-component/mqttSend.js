@@ -44,10 +44,10 @@ class MqttSend extends HTMLElement {
       const shadowRoot = this.attachShadow({mode: 'open'});
  
       // Create a client instance
-      // NOTE: If you have client issues its because there is another client connected with this name
-      // Choose another random client id and it should fix the problem
-      // You can determine this by opening dev tools and if it says socket closed that is the problem
-      this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "clientId-asfsMWjX");
+      // NOTE: It appears as tho connecting on the sender side has some issues
+      // refreshing multiple times works for me
+      // TODO: FIX ABOVE
+      this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "clientId-AAASSSFEW");
 
       this.client.onConnectionLost = function(responseObject){
         console.log("Connection Lost" + responseObject.errorMessage);
