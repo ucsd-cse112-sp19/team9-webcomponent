@@ -45,7 +45,9 @@ class MqttSend extends HTMLElement {
  
       // Create a client instance
       // NOTE: It appears as tho connecting on the sender side has some issues
-      // refreshing multiple times works for me
+      // refreshing multiple times works for me until in devtools you don't see
+      // Connection LostAMQJS0008I Socket closed. This is likely do to using a public mqtt
+      // server... We can spin up our own some time soon
       // TODO: FIX ABOVE
       this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "clientId-AAASSSFEW");
 
