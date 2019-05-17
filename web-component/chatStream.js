@@ -53,19 +53,19 @@ class ChatStream extends HTMLElement {
       setTimeout(function(){
         const receiver = shadowRoot.querySelector('#receiver');
         //receiver.observe(this, this.append);
-        receiver.observe(that,that.append);
+        const append = that.append.bind(that);
+        receiver.observe(append);
       },1000);
     }
 
     /**
      * Append is a callback function for an observe function
      * that will update the textarea.
-     * @param {*} that allows this to be used in setInterval
      * @param {*} messages the messages to be printed
      * TODO: Allow append to take in an array or a single message
      */
-    append(that,message){
-        const text = that.shadowRoot.querySelector('textarea');
+    append(message){
+        const text = this.shadowRoot.querySelector('textarea');
         text.innerHTML += message + "\n";
         // TODO: We will need a way to allow user scrolling to override this
         text.scrollTop = text.scrollHeight;
