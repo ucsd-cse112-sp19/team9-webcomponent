@@ -15,9 +15,9 @@ class ChatBox extends HTMLElement {
     connectedCallback() {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
-
-
+      
       shadowRoot.innerHTML += this.innerHTML;
+      this.innerHTML = "";
 
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
