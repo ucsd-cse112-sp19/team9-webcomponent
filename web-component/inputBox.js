@@ -1,8 +1,8 @@
 /**
- * HelloWorld class
- * Provides template for core-hello element
+ * inputBox class
+ * Provides template for input element
  */
-class ChatBox extends HTMLElement {
+class InputBox extends HTMLElement {
     /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
@@ -42,4 +42,4 @@ class ChatBox extends HTMLElement {
 }
 
 // Register ChatBox class as chat-box element
-customElements.define('chat-box', ChatBox);
+customElements.define('input-box', InputBox);
