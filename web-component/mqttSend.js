@@ -98,5 +98,5 @@ class MqttSend extends HTMLElement {
     }
 }
 
-// Register ChatBox class as chat-box element
+// Register MqttSend class as mqtt-send element
 customElements.define('mqtt-send', MqttSend);

@@ -100,5 +100,5 @@ class MqttFetch extends HTMLElement {
     }
 }
 
-// Register ChatBox class as chat-box element
+// Register mqtt-fetch class as mqtt-fetch element
 customElements.define('mqtt-fetch', MqttFetch);
