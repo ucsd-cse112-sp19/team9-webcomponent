@@ -49,23 +49,20 @@ class ChatStream extends HTMLElement {
         text.setAttribute('cols',this.height);
         shadowRoot.append(text);
 
-      
-
-
-        const that = this;
-        setTimeout(function(){
-            const receiver = shadowRoot.querySelector('#receiver');
-            //receiver.observe(this, this.append);
-            const append = that.append.bind(that);
+        const onloaded = function(){
+            const receiver = this.shadowRoot.querySelector('#receiver');
+            const append = this.append.bind(this);
             receiver.observe(append);
-        },1000);
+        }.bind(this);
+
+        setTimeout(onloaded);
     }
 
     /**
      * Append is a callback function for an observe function
      * that will update the textarea.
      * @param {*} messages the messages to be printed
-     * TODO: Allow append to take in an array or a single message
+     * TODO Maybe: Allow append to take in an array or a single message
      */
     append(message){
         const text = this.shadowRoot.querySelector('textarea');
