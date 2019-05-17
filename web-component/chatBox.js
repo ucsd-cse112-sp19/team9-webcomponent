@@ -1,6 +1,6 @@
 /**
- * HelloWorld class
- * Provides template for core-hello element
+ * ChatBox class
+ * Provides template for chat-box element
  */
 class ChatBox extends HTMLElement {
     /**
@@ -20,8 +20,8 @@ class ChatBox extends HTMLElement {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
 
-
       shadowRoot.innerHTML += this.innerHTML;
+      this.innerHTML="";
 
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
@@ -38,12 +38,11 @@ class ChatBox extends HTMLElement {
       
       b.addEventListener('click', ()=>{
           const msgInput = shadowRoot.querySelector('input');
-          //call send function
+          // call send function
           const sender = shadowRoot.querySelector('#sender');
           sender.send(msgInput.value);
 
           msgInput.value = '';
-
       });
     }
 }

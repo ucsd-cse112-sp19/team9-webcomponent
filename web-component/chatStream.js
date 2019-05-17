@@ -116,21 +116,14 @@ class ChatStream extends HTMLElement {
      * @param {*} that allows this to be used in setInterval
      * @param {*} messages the messages to be printed
      */
-    append(that, messages){
-        // FIXME: add that as hack to use set Interval
+    append(that,message){
         const text = that.shadowRoot.querySelector('textarea');
-        // TODO: Decide on where we should reconstruct message
-        if(messages !== null){
-            for(let i = 0; i < messages.length; i++){
-                let toAppend = messages[i].user + ': ' + messages[i].message + '\n';
-                text.innerHTML += toAppend;
-                // TODO: We will need a way to allow user scrolling to override this
-                text.scrollTop = text.scrollHeight;
-                that.highlight();
-            }
-        }
+        text.innerHTML += message + "\n";
+        // TODO: We will need a way to allow user scrolling to override this
+        text.scrollTop = text.scrollHeight;
+        that.highlight();
     }
 }
 
-// Register ChatBox class as chat-box element
+// Register ChatStream class as chat-stream element
 customElements.define('chat-stream', ChatStream);

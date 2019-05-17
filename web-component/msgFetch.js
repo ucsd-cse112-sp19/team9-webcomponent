@@ -25,7 +25,6 @@ class MsgFetch extends HTMLElement {
       }
     }
 
-
     /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
@@ -74,21 +73,27 @@ class MsgFetch extends HTMLElement {
         const autoupdate = setInterval(function(){
             let http = new XMLHttpRequest();
             let url = they.url + '/' + they.msgId;
-    
+
+            // http get request
             http.open("GET", url, true); // true for asynchronous 
-    
+
+            // asynchrounous handler 
             http.onreadystatechange = function() { 
                 if (http.readyState == 4 && http.status == 200){
                     const parsed = JSON.parse(http.responseText);
                     
                     they.msgId = parsed["msgId"];
- 
+                    // Note: This code is very slow, and inefficient however
+                    // it is not part of our deliverable and the new and improved
+                    // mqtt functionality is available.
                     const msgs = they.deconstructMessage(parsed["msgs"]);
-                    callback(that,msgs);
+                    for(let i = 0; i < msgs.length; i++){
+                        const msg = msgs[i].user + ': ' + msgs[i].message;
+                        callback(that,msg);
+                    }   
                 }
             }
-          
-          
+            //send to url
             http.send(null);
         }, 1000);
         
