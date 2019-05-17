@@ -26,7 +26,7 @@ class ChatStream extends HTMLElement {
      * for web component.
      */
     constructor () {
-      super();
+        super();
     }
 
     /**
@@ -34,28 +34,31 @@ class ChatStream extends HTMLElement {
      * the site.
      */
     connectedCallback(){
-      // Initialize shadow root
-      const shadowRoot = this.attachShadow({mode: 'open'});
+        // Initialize shadow root
+        const shadowRoot = this.attachShadow({mode: 'open'});
 
-      // Append to shadowdom style
-      // Eventually turn into text area so that we can scroll
-      // Through - if not sprint1 def sprint 2
-      shadowRoot.innerHTML += this.innerHTML;
-      this.innerHTML = "";
+        // Append to shadowdom style
+        // Eventually turn into text area so that we can scroll
+        // Through - if not sprint1 def sprint 2
+        shadowRoot.innerHTML += this.innerHTML;
+        this.innerHTML = "";
 
-      const text = document.createElement('textarea');
-      text.setAttribute('id','msg');
-      text.setAttribute('rows',this.width);
-      text.setAttribute('cols',this.height);
-      shadowRoot.append(text);
+        const text = document.createElement('textarea');
+        text.setAttribute('id','msg');
+        text.setAttribute('rows',this.width);
+        text.setAttribute('cols',this.height);
+        shadowRoot.append(text);
 
-      const that = this;
-      setTimeout(function(){
-        const receiver = shadowRoot.querySelector('#receiver');
-        //receiver.observe(this, this.append);
-        const append = that.append.bind(that);
-        receiver.observe(append);
-      },1000);
+      
+
+
+        const that = this;
+        setTimeout(function(){
+            const receiver = shadowRoot.querySelector('#receiver');
+            //receiver.observe(this, this.append);
+            const append = that.append.bind(that);
+            receiver.observe(append);
+        },1000);
     }
 
     /**
