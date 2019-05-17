@@ -1,8 +1,8 @@
 /**
- * HelloWorld class
- * Provides template for core-hello element
+ * OutputStream class
+ * Provides template for output element
  */
-class ChatStream extends HTMLElement {
+class OutputStream extends HTMLElement {
     /**
      * get width()
      * Check if font exists in HTML.
@@ -73,5 +73,5 @@ class ChatStream extends HTMLElement {
 
 }
 
-// Register ChatBox class as chat-box element
-customElements.define('chat-stream', ChatStream);
+// Register OutputStream class as output-stream element
+customElements.define('output-stream', OutputStream);

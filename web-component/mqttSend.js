@@ -40,6 +40,7 @@ class MqttSend extends HTMLElement {
         super();
     
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+        // Such as using that html template that generates requirements to be used by wrappers (like an interface).
         this.userId = "anonymous";
     }
 
