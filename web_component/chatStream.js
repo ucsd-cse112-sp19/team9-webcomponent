@@ -68,18 +68,13 @@ class ChatStream extends HTMLElement {
       text.setAttribute('cols',this.height);
       shadowRoot.append(text);
 
-      // Create a Fake update for testing purposes
-      const b = document.createElement('button');
-      b.innerHTML = "Begin Updates";
-      shadowRoot.append(b);
-
-      b.addEventListener('click', ()=>{
-          const box = shadowRoot.querySelector('textarea');
-          box.scrollTop = box.scrollHeight;
-          const receiver = shadowRoot.querySelector('#receiver');
-          receiver.observe(this, this.append);
-      });
-
+      const that = this;
+      setTimeout(function(){
+        const receiver = shadowRoot.querySelector('#receiver');
+        //receiver.observe(this, this.append);
+        receiver.observe(that,that.append);
+      },1000);
+      
       // This function adjusts the scroll of the backdrop to match the textarea
       this.adjustScroll = function(){
         const $textarea = shadowRoot.querySelector('textarea');
@@ -112,21 +107,16 @@ class ChatStream extends HTMLElement {
      * that will update the textarea.
      * @param {*} that allows this to be used in setInterval
      * @param {*} messages the messages to be printed
+     * TODO: Allow append to take in an array or a single message
      */
-    append(that, messages){
-        // FIXME: add that as hack to use set Interval
+    append(that,message){
         const text = that.shadowRoot.querySelector('textarea');
-        // TODO: Decide on where we should reconstruct message
-        if(messages !== null){
-            for(let i = 0; i < messages.length; i++){
-                let toAppend = messages[i].user + ': ' + messages[i].message + '\n';
-                text.innerHTML += toAppend;
-                // TODO: We will need a way to allow user scrolling to override this
-                text.scrollTop = text.scrollHeight;
-                that.highlight();
-            }
-        }
+        text.innerHTML += message + "\n";
+        // TODO: We will need a way to allow user scrolling to override this
+        text.scrollTop = text.scrollHeight;
+        that.highlight();
     }
+
 }
 
 // Register ChatBox class as chat-box element
