@@ -93,9 +93,9 @@ class MqttFetch extends HTMLElement {
       });
     }
 
-    observe(that,callback){
+    observe(callback){
         this.client.onMessageArrived = function(message){
-            callback(that,message.payloadString);
+            callback(message.payloadString);
         };
     }
 }
