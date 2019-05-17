@@ -24,7 +24,11 @@ class MqttSend extends HTMLElement {
         this.removeAttribute('url');
       }
     }
-
+    /**
+     * get topic() 
+     * Check if topic exists in HTML.
+     * Returns: True or False 
+     */
     get topic() {
         return this.getAttribute('topic');
     }
@@ -43,6 +47,8 @@ class MqttSend extends HTMLElement {
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
       
+      // TODO: This should be optimized or another method should be implemented.
+      // This is a helper function that generates a random client id.
       function makeid(length) {
         let result           = '';
         const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -57,7 +63,7 @@ class MqttSend extends HTMLElement {
       // refreshing multiple times works for me until in devtools you don't see
       // Connection LostAMQJS0008I Socket closed. This is likely do to using a public mqtt
       // server... We can spin up our own some time soon
-      // TODO: FIX ABOVE
+      // TODO: FIX ABOVE -- kinda fixed but perhaps a better fix can be implemented
       this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
 
       this.client.onConnectionLost = function(responseObject){
@@ -67,9 +73,7 @@ class MqttSend extends HTMLElement {
       const that = this;
       this.client.connect({onSuccess:function(){
         console.log("send connected");
-        that.client.subscribe(that.topic);
       }});
-
 
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
