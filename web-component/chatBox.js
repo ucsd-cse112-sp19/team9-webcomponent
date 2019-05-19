@@ -3,33 +3,33 @@
  * Provides template for core-hello element
  */
 class ChatBox extends HTMLElement {
-    // /**
-    //  * Constructor for setting up shadow dom and class definitions 
-    //  * for web component.
-    //  */
 
-    //  /**
-    //  * get defaultstyle() 
-    //  * Check if defaultstyle exists in HTML.
-    //  * Returns: True or False 
-    //  */
-    // get defaultstyle() {
-    //   return this.hasAttribute('defaultstyle');
-    // }
-    // /**
-    //  * set defaultstyle(val) 
-    //  * Sets defaultstyle if value passed in, or removes it if nothing
-    //  * is passed.
-    //  * Returns: Null
-    //  */
-    // set defaultstyle(val) {
-    //   if (val !== '') {
-    //     this.setAttribute('defaultstyle', '');
-    //   } else {
-    //     this.removeAttribute('defaultstyle');
-    //   }
-    // }
-    
+  /**
+   * get bootstrap() 
+   * Check if bootstrap exists in HTML.
+   * Returns: True or False 
+   */
+  get bootstrap() {
+    return this.hasAttribute('bootstrap');
+  }
+  /**
+   * set bootstrap(val) 
+   * Sets bootstrap if value passed in, or removes it if nothing
+   * is passed.
+   * Returns: Null
+   */
+  set bootstrap(val) {
+    if (val !== '') {
+      this.setAttribute('bootstrap', val);
+    } else {
+      this.removeAttribute('bootstrap');
+    }
+  }
+
+  /**
+     * Constructor for setting up shadow dom and class definitions 
+     * for web component.
+     */
     constructor () {
       super();
   
@@ -38,11 +38,12 @@ class ChatBox extends HTMLElement {
     connectedCallback() {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
-      // Append to shadowdom style
-      // Eventually turn into text area so that we can scroll
-      // Through - if not sprint1 def sprint 2
-      // console.log(this.innerHTML);
 
+      if (this.boostrap) {
+        let boostrapStyles = 
+        `<link rel="stylesheet" type="text/css" href="./bootstrap.min.css"></link>`;
+      }
+      
       let defaultStyle = `<link rel="stylesheet" type="text/css" href="chatbox-default-style.css"></link>`;
       shadowRoot.innerHTML += defaultStyle;
 
