@@ -3,10 +3,33 @@
  * Provides template for core-hello element
  */
 class ChatBox extends HTMLElement {
-    /**
-     * Constructor for setting up shadow dom and class definitions 
-     * for web component.
-     */
+    // /**
+    //  * Constructor for setting up shadow dom and class definitions 
+    //  * for web component.
+    //  */
+
+    //  /**
+    //  * get defaultstyle() 
+    //  * Check if defaultstyle exists in HTML.
+    //  * Returns: True or False 
+    //  */
+    // get defaultstyle() {
+    //   return this.hasAttribute('defaultstyle');
+    // }
+    // /**
+    //  * set defaultstyle(val) 
+    //  * Sets defaultstyle if value passed in, or removes it if nothing
+    //  * is passed.
+    //  * Returns: Null
+    //  */
+    // set defaultstyle(val) {
+    //   if (val !== '') {
+    //     this.setAttribute('defaultstyle', '');
+    //   } else {
+    //     this.removeAttribute('defaultstyle');
+    //   }
+    // }
+    
     constructor () {
       super();
   
@@ -15,9 +38,18 @@ class ChatBox extends HTMLElement {
     connectedCallback() {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
+      // Append to shadowdom style
+      // Eventually turn into text area so that we can scroll
+      // Through - if not sprint1 def sprint 2
+      // console.log(this.innerHTML);
 
+      let defaultStyle = `<link rel="stylesheet" type="text/css" href="chatbox-default-style.css"></link>`;
+      shadowRoot.innerHTML += defaultStyle;
 
+      
       shadowRoot.innerHTML += this.innerHTML;
+      this.innerHTML = ''; 
+      
 
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
@@ -32,7 +64,15 @@ class ChatBox extends HTMLElement {
       b.innerHTML = "Send";
       shadowRoot.append(b);
       
-      b.addEventListener('click', ()=>{
+      i.addEventListener('keypress', (e) => {
+        let key = e.which || e.keyCode;
+        if (key === 13) { // 13 is enter
+          console.log("entered before clicking");
+          b.click();
+        }
+      });
+
+      b.addEventListener('click', () => {
           const msgInput = shadowRoot.querySelector('input');
           //call send function
           const sender = shadowRoot.querySelector('#sender');
@@ -41,6 +81,13 @@ class ChatBox extends HTMLElement {
           msgInput.value = '';
 
       });
+
+      const defaultScript = document.createElement('script'); 
+      defaultScript.setAttribute('src', './chatbox-default-script.js');
+      shadowRoot.appendChild(defaultScript); 
+
+
+      
     }
 }
 
