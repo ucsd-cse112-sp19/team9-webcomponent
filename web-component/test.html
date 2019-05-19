@@ -6,15 +6,37 @@
 </head>
 
 <style> body { height: 100vh;}</style>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
 
     <div>
-        <chat-box><mqtt-send id="sender" topic="chattest/1"></mqtt-send></chat-box>
+        <chat-box bootstrap="col-sm-3"><mqtt-send id="sender" topic="chattest/1"></mqtt-send></chat-box>
     </div>
-    <div>
+
+       <div class="container">
+            <div class="row ">
+                <div class="col-sm-3 bg-primary">
+                    <chat-box bootstrap="col-sm-3">
+                        <mqtt-send id="sender" topic="chattest/1"></mqtt-send>
+                    </chat-box>
+                </div>
+                <div class="col-sm-3">
+                    <chat-box bootstrap="col-sm-3">
+                        <mqtt-send id="sender" topic="chattest/1"></mqtt-send>
+                    </chat-box>
+                </div>
+                <div class="col-sm-3">
+                    <chat-box bootstrap="col-sm-3">
+                        <mqtt-send id="sender" topic="chattest/1"></mqtt-send>
+                    </chat-box>
+                </div>
+            </div>
+       </div>
+   
+    <!-- <div>
         <chat-stream width="5" height="33"><mqtt-fetch id="receiver" topic="chattest/1"></mqtt-fetch></chat-stream>
-    </div>
+    </div> -->
     
     <script src="chatBox.js"></script>
     <script src="mqttSend.js"></script>
