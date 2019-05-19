@@ -9,14 +9,12 @@ class ChatBox extends HTMLElement {
      */
     constructor () {
       super();
-  
+
     }
     
     connectedCallback() {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
-
-
       shadowRoot.innerHTML += this.innerHTML;
 
       // Append to shadowdom style
@@ -37,7 +35,7 @@ class ChatBox extends HTMLElement {
           //call send function
           const sender = shadowRoot.querySelector('#sender');
           sender.send(msgInput.value);
-
+          
           msgInput.value = '';
 
       });
