@@ -51,7 +51,6 @@ class ChatStream extends HTMLElement {
         const linkDiv = document.createElement('link');
         linkDiv.setAttribute('rel','stylesheet');
         linkDiv.setAttribute('type','text/css');
-        linkDiv.setAttribute('href','highlight.css');
         shadowRoot.append(linkDiv);
       };
       const addDivs = function(){
@@ -122,9 +121,6 @@ class ChatStream extends HTMLElement {
         this.adjustScroll();
       });
 
-      const defaultScript = document.createElement('script');
-      defaultScript.setAttribute('src', './chatstream-default-script.js');
-      shadowRoot.appendChild(defaultScript); 
     }
 
     /**

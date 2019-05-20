@@ -1,35 +1,34 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+/* default styles */
+* { box-sizing: border-box;}
 
 input, button {
     padding: 5px 5px;
     font-size: 15px;
-    border: 2px solid #685972;
-    
+    border: 2px solid black;
+    color: black;
 }
 
 input {
     border-right: none;
-    width: 250px;
+    min-width: 250px;
 }
 
+button:focus, input:focus {outline:0;}
 button { 
     border-radius: 0 0 5px 0; 
-    position: absolute;
-    right: 0px;
-    width: 50px;
+    min-width: 50px;
 }
-
 button:hover { 
     cursor: pointer;
     background-color: lightgreen; 
 }
 
 :host {
-    display:block;
-    position: relative; 
+    display: block;
     width: 300px;
 }
+/* end of default styles */
+
+
 
 

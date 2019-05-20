@@ -43,8 +43,8 @@ class ChatBox extends HTMLElement {
         let boostrapStyles = 
         `<link rel="stylesheet" type="text/css" href="./bootstrap.min.css"></link>`;
       }
-      
       let defaultStyle = `<link rel="stylesheet" type="text/css" href="chatbox-default-style.css"></link>`;
+      
       shadowRoot.innerHTML += defaultStyle;
 
       
@@ -52,43 +52,36 @@ class ChatBox extends HTMLElement {
       this.innerHTML = ''; 
       
 
-      // Append to shadowdom style
-      // Eventually turn into text area so that we can scroll
-      // Through - if not sprint1 def sprint 2
       const i = document.createElement('input');
       i.setAttribute("id","msg");
       i.setAttribute("name","msg");
       i.setAttribute("value","");
+
+
       shadowRoot.append(i);
-      // Add Send button
       const b = document.createElement('button');
       b.innerHTML = "Send";
       shadowRoot.append(b);
-      
+
+      // listen to enter press
       i.addEventListener('keypress', (e) => {
         let key = e.which || e.keyCode;
-        if (key === 13) { // 13 is enter
+        if (key === 13) {
           console.log("entered before clicking");
           b.click();
         }
       });
 
+      // listen to button click 
       b.addEventListener('click', () => {
           const msgInput = shadowRoot.querySelector('input');
-          //call send function
           const sender = shadowRoot.querySelector('#sender');
+          //call send function
           sender.send(msgInput.value);
-
           msgInput.value = '';
 
       });
 
-      const defaultScript = document.createElement('script'); 
-      defaultScript.setAttribute('src', './chatbox-default-script.js');
-      shadowRoot.appendChild(defaultScript); 
-
-
-      
     }
 }
 
