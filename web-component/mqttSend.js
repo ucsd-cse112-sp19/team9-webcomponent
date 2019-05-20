@@ -4,8 +4,8 @@
  */
 class MqttSend extends HTMLElement {
     /**
-     * get rainbow() 
-     * Check if rainbow exists in HTML.
+     * get url() 
+     * Check if url exists in HTML.
      * Returns: True or False 
      */
     get url() {
