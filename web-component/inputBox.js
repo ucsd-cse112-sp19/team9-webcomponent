@@ -27,6 +27,9 @@ class InputBox extends HTMLElement {
         i.setAttribute("value","");
         shadowRoot.append(i);
 
+        // TODO: We need to make a logical filter that can 
+        // listen to some sort of backplane that could trigger this
+        // from an internal button 
         // Register a listener to trigger on enter.
         i.addEventListener('keypress', (e) => {
             const key = e.which || e.keyCode;
