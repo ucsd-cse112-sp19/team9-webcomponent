@@ -10,7 +10,7 @@ class ChatBox extends HTMLElement {
    * Returns: True or False 
    */
   get bootstrap() {
-    return this.hasAttribute('bootstrap');
+    return this.getAttribute('bootstrap');
   }
   /**
    * set bootstrap(val) 
@@ -39,18 +39,15 @@ class ChatBox extends HTMLElement {
       // Initialize shadowroot
       const shadowRoot = this.attachShadow({mode: 'open'});
 
-      if (this.boostrap) {
-        let boostrapStyles = 
-        `<link rel="stylesheet" type="text/css" href="./bootstrap.min.css"></link>`;
-      }
-      let defaultStyle = `<link rel="stylesheet" type="text/css" href="chatbox-default-style.css"></link>`;
-      
-      shadowRoot.innerHTML += defaultStyle;
-
-      
       shadowRoot.innerHTML += this.innerHTML;
       this.innerHTML = ''; 
       
+
+      const l = document.createElement('link');
+      l.setAttribute('rel', 'stylesheet');
+      l.setAttribute('type', 'text/css');
+      shadowRoot.appendChild(l);
+
 
       const i = document.createElement('input');
       i.setAttribute("id","msg");
@@ -62,6 +59,18 @@ class ChatBox extends HTMLElement {
       const b = document.createElement('button');
       b.innerHTML = "Send";
       shadowRoot.append(b);
+
+      if (this.bootstrap) {
+      
+        console.log(this.bootstrap);
+        console.log("bootstrap")
+
+        i.setAttribute('class', this.bootstrap);
+        l.setAttribute('href', './bootstrap.min.css');
+
+      } else {
+        l.setAttribute('href', 'chatbox-default-style.css');
+      } 
 
       // listen to enter press
       i.addEventListener('keypress', (e) => {
