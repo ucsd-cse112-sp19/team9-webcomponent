@@ -42,6 +42,9 @@ class MqttSend extends HTMLElement {
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
+
+      let defaultStyle = `<link rel="stylesheet" type="text/css" href="mqtt-send-default-style.css"></link>`;
+      shadowRoot.innerHTML += defaultStyle;
       
       function makeid(length) {
         let result           = '';
