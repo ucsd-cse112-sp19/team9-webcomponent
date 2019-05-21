@@ -49,11 +49,8 @@ class MsgSend extends HTMLElement {
       i.setAttribute("id","userId");
       i.setAttribute("name","userId");
       i.setAttribute("value","anonymous");
-      // i.setAttribute("placeholder","Enter Your Name");
 
       shadowRoot.append(i);
-
-      
       // Listen for userId Change
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;
