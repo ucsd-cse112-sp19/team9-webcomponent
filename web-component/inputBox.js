@@ -26,17 +26,20 @@ class InputBox extends HTMLElement {
         i.setAttribute("name","msg");
         i.setAttribute("value","");
         shadowRoot.append(i);
-        // Add Send button
-        const b = document.createElement('button');
-        b.innerHTML = "Send";
-        shadowRoot.append(b);
-        
-        b.addEventListener('click', ()=>{
-            const msgInput = shadowRoot.querySelector('input');
-            //call send function
-            const sender = shadowRoot.querySelector('#sender');
-            sender.send(msgInput.value);
-            msgInput.value = '';
+
+        // TODO: We need to make a logical filter that can 
+        // listen to some sort of backplane that could trigger this
+        // from an internal button 
+        // Register a listener to trigger on enter.
+        i.addEventListener('keypress', (e) => {
+            const key = e.which || e.keyCode;
+            if(key === 13){
+                const msgInput = shadowRoot.querySelector('input');
+                //call send function
+                const sender = shadowRoot.querySelector('#sender');
+                sender.send(msgInput.value);
+                msgInput.value = '';
+            }
         });
     }
 }
