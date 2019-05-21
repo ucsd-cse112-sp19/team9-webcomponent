@@ -4,6 +4,27 @@
  */
 class OutputStream extends HTMLElement {
     /**
+     * get bootstrap() 
+     * Check if bootstrap exists in HTML.
+     * Returns: True or False 
+     */
+    get bootstrap() {
+        return this.getAttribute('bootstrap');
+    }
+    /**
+     * set bootstrap(val) 
+     * Sets bootstrap if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set bootstrap(val) {
+        if (val !== '') {
+            this.setAttribute('bootstrap', val);
+        } else {
+            this.removeAttribute('bootstrap');
+        }
+    }
+    /**
      * get width()
      * Check if font exists in HTML.
      * Returns: True or False
@@ -43,15 +64,25 @@ class OutputStream extends HTMLElement {
         shadowRoot.innerHTML += this.innerHTML;
         this.innerHTML = "";
 
-        let defaultStyle = `<link rel="stylesheet" type="text/css" href="chatstream-default-style.css"></link>`;
-        shadowRoot.innerHTML += defaultStyle;
+        const l = document.createElement('link');
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('type', 'text/css');
+        shadowRoot.appendChild(l);
 
+    
         const text = document.createElement('textarea');
         text.setAttribute('id','msg');
         text.setAttribute('rows',this.width);
         text.setAttribute('cols',this.height);
         text.setAttribute('readonly', '');
         shadowRoot.append(text);
+
+        if (this.bootstrap) {
+            text.setAttribute('class', this.bootstrap);
+            l.setAttribute('href', './bootstrap.min.css');
+        } else {
+            l.setAttribute('href', 'outputstream-default-style.css');
+        } 
 
         const onloaded = function(){
             const receiver = this.shadowRoot.querySelector('#receiver');

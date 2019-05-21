@@ -57,7 +57,7 @@ class InputBox extends HTMLElement {
             i.setAttribute('class', this.bootstrap);
             l.setAttribute('href', './bootstrap.min.css');
         } else {
-            l.setAttribute('href', 'chatbox-default-style.css');
+            l.setAttribute('href', 'inputbox-default-style.css');
         } 
 
         // TODO: We need to make a logical filter that can 
