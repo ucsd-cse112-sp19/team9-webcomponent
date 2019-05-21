@@ -46,16 +46,11 @@ class MqttFetch extends HTMLElement {
     }
 
     connectedCallback(){
-<<<<<<< HEAD
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
       let defaultStyle = `<link rel="stylesheet" type="text/css" href="mqtt-fetch-default-style.css"></link>`;
       shadowRoot.innerHTML += defaultStyle;
 
-=======
-        // Initialize shadow root
-        const shadowRoot = this.attachShadow({mode: 'open'});
->>>>>>> 620c090aec20e6366aa501ce449179ed2b14123d
 
         // TODO: This should be optimized or another method should be implemented.
         // This is a helper function that generates a random client id.
