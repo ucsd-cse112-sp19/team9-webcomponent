@@ -27,8 +27,6 @@ class OutputStream extends HTMLElement {
      */
     constructor () {
         super();
-
-        console.log("hello there :^)");
     }
 
     /**
