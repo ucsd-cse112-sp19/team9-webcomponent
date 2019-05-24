@@ -51,8 +51,10 @@ class OutputStream extends HTMLElement {
 
         const onloaded = function(){
             const receiver = this.shadowRoot.querySelector('#receiver');
-            const append = this.append.bind(this);
-            receiver.observe(append);
+            if(receiver !== null){
+                const append = this.append.bind(this);
+                receiver.observe(append);
+            }
         }.bind(this);
 
         setTimeout(onloaded);
