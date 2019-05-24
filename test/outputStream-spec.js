@@ -1,6 +1,5 @@
 const assert = require('chai').assert
 
-const jsdom = require('jsdom-global')();
 const doc = require('document-register-element');
 
 const inputBox = require('../web-component/outputStream');
@@ -17,7 +16,7 @@ describe('output-stream element', () => {
     });
 
     beforeEach(() => {
-        cs = document.createElement('output-stream');   
+        cs = document.createElement('output-stream');
         cs.connectedCallback();
     });
 

@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "docs": "jsdoc -c jsdoc.json",
-    "test": "mocha --exit"
+    "test": "mocha --exit -r jsdom-global/register -r document-register-element"
   },
   "repository": {
     "type": "git",

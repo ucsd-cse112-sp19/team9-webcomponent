@@ -27,6 +27,8 @@ class OutputStream extends HTMLElement {
      */
     constructor () {
         super();
+
+        console.log("hello there :^)");
     }
 
     /**
@@ -77,3 +79,5 @@ class OutputStream extends HTMLElement {
 
 // Register OutputStream class as output-stream element
 customElements.define('output-stream', OutputStream);
+
+module.exports = { OutputStream };
