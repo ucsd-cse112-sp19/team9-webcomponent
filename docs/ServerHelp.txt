@@ -12,3 +12,9 @@ How to spin up your own server:
 
 5. run: node server.js
 6. You should be able to find it on localhost:8082
+
+How to spin up your own MQTT web component:
+1. Pull from git
+2. Checkout sprint2-eric ... eventually dev
+3. Open the webcomponent from file.
+4. Use as expected!
