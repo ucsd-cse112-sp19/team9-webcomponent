@@ -11,7 +11,8 @@
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
-    "resume": "npx webpack-dev-server"
+    "resume": "npx webpack-dev-server",
+    "test": "mocha --exit -r jsdom-global/register -r document-register-element"
   },
   "husky": {
     "hooks": {
@@ -71,6 +72,10 @@
     "selenium-webdriver": "^4.0.0-alpha.1",
     "socket.io": "^2.2.0",
     "webpack": "^4.31.0",
-    "webpack-dev-server": "^3.3.1"
+    "webpack-dev-server": "^3.3.1",
+    "document-register-element": "^1.13.2",
+    "jsdom": "^15.1.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^6.1.4"
   }
 }
