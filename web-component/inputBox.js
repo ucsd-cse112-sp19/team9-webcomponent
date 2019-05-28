@@ -30,6 +30,75 @@ class InputBox extends HTMLElement {
     }
 
     /**
+     * get width() 
+     * Check if width exists in HTML.
+     * Returns: True or False 
+     */
+    get width() {
+        return this.getAttribute('width');
+    }
+    /**
+     * set width(val) 
+     * Sets width if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set width(val) {
+        const isWidth = String(val);
+        if (isWidth) {
+            this.setAttribute('width', val);
+        } else {
+            this.removeAttribute('width');
+        }
+    }
+
+    /**
+    * get height() 
+    * Check if height exists in HTML.
+    * Returns: True or False 
+    */
+    get height() {
+        return this.getAttribute('height');
+    }
+    /**
+     * set height(val) 
+     * Sets height if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set height(val) {
+        const isHeight = String(val);
+        if (isHeight) {
+            this.setAttribute('height', val);
+        } else {
+            this.removeAttribute('height');
+        }
+    }
+
+    /**
+     * get size() 
+     * Check if size exists in HTML.
+     * Returns: String: size of input 
+     */
+    get size() {
+        return this.getAttribute('size');
+    }
+    /**
+     * set size(val) 
+     * Sets size if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set size(val) {
+        const isSize = String(val);
+        if (isSize) {
+            this.setAttribute('size', val);
+        } else {
+            this.removeAttribute('size');
+        }
+    }
+
+    /**
      * get bootstrap() 
      * Check if bootstrap exists in HTML.
      * Returns: True or False 
@@ -78,9 +147,18 @@ class InputBox extends HTMLElement {
      */
     constructor () {
         super();
+        
+
     }
     
     connectedCallback() {
+
+        const SIZES = {
+            "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+            "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+            "d": "width: 300px; height: 30px; font-size: 18px !important;",
+            "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+        };
         // Initialize shadowroot
         const shadowRoot = this.attachShadow({mode: 'open'});
 
@@ -117,10 +195,34 @@ class InputBox extends HTMLElement {
                 background-color: #ccc;
             }`; 
             i.setAttribute('disabled', true)
-           
-            console.log(shadowRoot.querySelector('link'));
             shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", disabledStyle)
         }  
+
+        // size configurations 
+        let sizeStyle = document.createElement('style');
+        if (this.size) {
+            sizeStyle.innerHTML += `input {
+                ${SIZES[this.size]}
+            }`;
+        }  else {
+            sizeStyle.innerHTML += `input {
+                ${SIZES["d"]}
+            }`;
+        } 
+        
+        if (this.width) {
+            sizeStyle.innerHTML += `input {
+                width: ${this.width} !important; 
+            }`;
+        } 
+        if (this.height) {
+            sizeStyle.innerHTML += `input {
+                height: ${this.height} !important; 
+            }`;
+        } 
+        shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", sizeStyle)
+
+
         // TODO: We need to make a logical filter that can 
         // listen to some sort of backplane that could trigger this
         // from an internal button 
