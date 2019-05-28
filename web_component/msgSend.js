@@ -45,12 +45,12 @@ class MsgSend extends HTMLElement {
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
       const i = document.createElement('input');
+
       i.setAttribute("id","userId");
       i.setAttribute("name","userId");
       i.setAttribute("value","anonymous");
+
       shadowRoot.append(i);
-
-
       // Listen for userId Change
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;

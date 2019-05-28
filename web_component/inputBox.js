@@ -4,6 +4,27 @@
  */
 class InputBox extends HTMLElement {
     /**
+     * get bootstrap() 
+     * Check if bootstrap exists in HTML.
+     * Returns: True or False 
+     */
+    get bootstrap() {
+        return this.getAttribute('bootstrap');
+    }
+    /**
+     * set bootstrap(val) 
+     * Sets bootstrap if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set bootstrap(val) {
+        if (val !== '') {
+            this.setAttribute('bootstrap', val);
+        } else {
+            this.removeAttribute('bootstrap');
+        }
+    }
+    /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
      */
@@ -18,6 +39,11 @@ class InputBox extends HTMLElement {
         shadowRoot.innerHTML += this.innerHTML;
         this.innerHTML = "";
 
+        const l = document.createElement('link');
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('type', 'text/css');
+        shadowRoot.appendChild(l);
+
         // Append to shadowdom style
         // Eventually turn into text area so that we can scroll
         // Through - if not sprint1 def sprint 2
@@ -26,6 +52,13 @@ class InputBox extends HTMLElement {
         i.setAttribute("name","msg");
         i.setAttribute("value","");
         shadowRoot.append(i);
+
+        if (this.bootstrap) {
+            i.setAttribute('class', this.bootstrap);
+            l.setAttribute('href', './bootstrap.min.css');
+        } else {
+            l.setAttribute('href', 'inputbox-default-style.css');
+        } 
 
         // TODO: We need to make a logical filter that can 
         // listen to some sort of backplane that could trigger this
