@@ -1,0 +1,34 @@
+/* default styles */
+* { box-sizing: border-box;}
+
+input, button {
+    padding: 5px 5px;
+    font-size: 15px;
+    border: 2px solid black;
+    color: black;
+}
+
+input {
+    border-right: none;
+    min-width: 250px;
+}
+
+button:focus, input:focus {outline:0;}
+button { 
+    border-radius: 0 0 5px 0; 
+    min-width: 50px;
+}
+button:hover { 
+    cursor: pointer;
+    background-color: lightgreen; 
+}
+
+:host {
+    display: block;
+    width: 300px;
+}
+/* end of default styles */
+
+
+
+
