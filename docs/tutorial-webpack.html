@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: CodeClimate</title>
+    <title>JSDoc: webpack</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -50,7 +50,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Tutorial</p>
-                        <h1>CodeClimate</h1>
+                        <h1>webpack</h1>
                     </header>
                     
                     <section>
@@ -60,17 +60,40 @@
 </header>
 
 <article>
-    <h1>CodeClimate</h1>
-<p>When setting up test coverage reporting with Code Climate, we must instrument test coverage ourselves as part of our CI build.<br>
-It must be done in one of our supported languages and formats which is the Icov format with JavaScript.<br>
-Istanbul is just a JavaScript code coverage tool written in JS.</p>
-<p>We added the repository in the .travis.yml file. We are running basic mocha tests here.<br>
-All you need to understand is that for the test coverage percentage is the percentage of lines of code scanned by tests.<br>
-This is why we must try to have a test coverage of 90+ to ensure quality!</p>
-<p>You can check the status with the GitHub badges or by checking online https://codeclimate.com.<br>
-You should be able to see this.</p>
-<img src="codeclimate.png">
-<p>We run the coverage part after the tests: the report is made and encoded and updated to our repository.</p>
+    <h1>Webpack</h1>
+<p>Webpack is a utility for bundling javascript code. This allows use to organize
+our code into multiple files and use <code>require()</code> and <code>import</code> in javascript
+meant to run in the browser.</p>
+<p>Webpack works by resolving dependincies and concatenating javascript files into
+a single <code>bundle.js</code>.</p>
+<p>Run webpack by typing <code>npm run build</code>. <code>bundle.js</code> will appear in <code>./dist/</code>.</p>
+<h1>Webpack Dev Server</h1>
+<p><code>webpack-dev-server</code> is a package for running a javascript development server.</p>
+<p>Start the server by typing <code>npm start</code>. Any changes you make will cause the
+server to rebuild your bundle and reload your browser tab.</p>
+<h2>Hot reload</h2>
+<p>When you make changes to a file in the dependency tree of your bundle
+entrypoints, webpack <em>should</em> automatically rebuild the bundle and reload the
+page it is serving. If the automatic rebuild isn't triggering, it may be due to
+your OS limiting the number of files that can be &quot;watched&quot;. Restarting VSCode
+helps sometimes, or you can <a href="https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers">increase the number of files to watch</a>.</p>
+<h2>Bundling</h2>
+<p>The dev server will serve a generated html page. It is currently configured to
+use <code>./web_component/HelloAxios.html</code> as a template to generate the page.
+The files specified in <code>module.exports.entry.components</code> are the target files
+to bundle, and will have <code>&lt;script&gt;</code> tags automatically inserted into the
+generated page.</p>
+<p>Any components you are developing should be specified as entrypoints for
+webpack.</p>
+<p>The first file in the list is used to set up <code>axios</code> for testing. There are two
+files in <code>./util/</code> for setup. <code>./util/enableTestingHooks.js</code> will activate
+testing mode, which will intercept requests and serve phony responses. This
+allows us to test frontend API use without a backend server, which significantly</p>
+<h2>Request Proxying</h2>
+<p>The dev server is configured to proxy requests to another server if they can't
+be served from the base directory. The proxy targets are defined in
+<code>webpack.config.js</code>:<code>module.exports.devServer.proxy</code>.</p>
+<p>This setup allows us to avoid <strong>CORS</strong> issues with our backend server.</p>
 </article>
 
 </section>

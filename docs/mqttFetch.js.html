@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: msgFetch.js</title>
+    <title>JSDoc: mqttFetch.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>msgFetch.js</h1>
+                        <h1>mqttFetch.js</h1>
                     </header>
                     
                     
@@ -66,14 +66,14 @@
  * MsgFetch class
  * API for fetching messages over a network
  */
-class MsgFetch extends HTMLElement {
+class MqttFetch extends HTMLElement {
     /**
      * get url() 
      * Check if url exists in HTML.
      * Returns: True or False 
      */
     get url() {
-      return this.getAttribute('url');
+        return this.getAttribute('url');
     }
     /**
      * set url(val) 
@@ -82,81 +82,94 @@ class MsgFetch extends HTMLElement {
      * Returns: Null
      */
     set url(val) {
-      if (val !== '') {
-        this.setAttribute('url', val);
-      } else {
-        this.removeAttribute('url');
-      }
+        if (val !== '') {
+          this.setAttribute('url', val);
+        } else {
+          this.removeAttribute('url');
+        }
     }
-
+    /**
+     * get topic() 
+     * Check if topic exists in HTML.
+     * Returns: True or False 
+     */
+    get topic() {
+        return this.getAttribute('topic');
+    }
 
     /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
      */
     constructor () {
-      super();
-    
-      //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
-      this.userId = "anonymous";
-      this.msgId = -1;
+        super();
+      
+        //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+        this.userId = "anonymous";
+        this.msgId = -1;
     }
 
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
-      
-      // Append to shadowdom style
-      // Eventually turn into text area so that we can scroll
-      // Through - if not sprint1 def sprint 2
+      let defaultStyle = `&lt;link rel="stylesheet" type="text/css" href="mqtt-fetch-default-style.css">&lt;/link>`;
+      shadowRoot.innerHTML += defaultStyle;
 
-      // let defaultStyle = `
-      // &lt;style>
-      // input {
-      //   color: #006A96;
-      //   border: none; 
-      //   font-size: 15px;
-      //   box-sizing: border-box;
-      //   border: 2px solid #685972;
-      //   width: 100%; 
-      //   height: 25px;
-      //   border-radius: 5px 5px 0 0; 
-      //   border-bottom: none;
-      // }
-      // &lt;/style>`;
-      // shadowRoot.innerHTML += defaultStyle;
 
-      const i = document.createElement('input');
-      i.setAttribute("id","userId");
-      i.setAttribute("name","userId");
-      i.setAttribute("value","anonymous");
-      shadowRoot.append(i);
+        // TODO: This should be optimized or another method should be implemented.
+        // This is a helper function that generates a random client id.
+        function makeid(length) {
+            let result           = '';
+            const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            for ( let i = 0; i &lt; length; i++ ) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        
+        // Create a client instance
+        // NOTE: If you have client issues its because there is another client connected with this name
+        // Choose another random client id and it should fix the problem
+        // You can determine this by opening dev tools and if it says socket closed that is the problem
+        // TODO: FIX ABOVE -- kinda fixed but perhaps a better fix can be implemented
+        this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
 
-      // Listen for userId Change
-      i.addEventListener('change', ()=>{
-        this.userId = shadowRoot.querySelector('input').value;
-      });
-      console.log('printing from msgFetch')
-      // console.log(document.querySelector(this.));
-      console.log(this);
-      
+        this.client.onConnectionLost = function(responseObject){
+            console.log("Connection Lost" + responseObject.errorMessage);
+        };
+        // connect the client
+        const onConnect = function(){
+            console.log("fetch Connected");
+            this.client.subscribe(this.topic);
+        }.bind(this);
+
+        this.client.connect({onSuccess:onConnect});
+        
+        // Append to shadowdom style
+        // Eventually turn into text area so that we can scroll
+        // Through - if not sprint1 def sprint 2
+        const i = document.createElement('input');
+        i.setAttribute("id","userId");
+        i.setAttribute("name","userId");
+        i.setAttribute("value","anonymous");
+        shadowRoot.append(i);
+
+        // Listen for userId Change
+        i.addEventListener('change', ()=>{
+            this.userId = shadowRoot.querySelector('input').value;
+        });
     }
 
-    deconstructMessage(messages){
-        // TODO: eventually check time stamp against last received?
-        let ret = [];
-        for(let i = 0; i &lt; messages.length; i++){
-          if(messages[i].body !== ''){
-            const item = {user:messages[i].sender,message:messages[i].body};
-            ret.push(item)
-          }
-        }
-        return ret
+    observe(callback){
+        this.client.onMessageArrived = function(message){
+            callback(message.payloadString);
+        };
     }
 }
 
-// Register ChatBox class as chat-box element
-customElements.define('msg-fetch', MsgFetch);</code></pre>
+// Register mqtt-fetch class as mqtt-fetch element
+customElements.define('mqtt-fetch', MqttFetch);</code></pre>
         </article>
     </section>
 
