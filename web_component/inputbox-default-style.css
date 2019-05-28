@@ -4,13 +4,13 @@
 input, button {
     padding: 5px 5px;
     font-size: 15px;
-    border: 2px solid black;
+    border: 1px solid black;
     color: black;
 }
 
 input {
-    border-right: none;
     min-width: 250px;
+    height: 30px;
 }
 
 button:focus, input:focus {outline:0;}
