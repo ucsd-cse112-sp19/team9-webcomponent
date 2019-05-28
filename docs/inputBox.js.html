@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: CodeClimate</title>
+    <title>JSDoc: inputBox.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,31 +51,103 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Tutorial</p>
-                        <h1>CodeClimate</h1>
+                        <p>Source</p>
+                        <h1>inputBox.js</h1>
                     </header>
                     
-                    <section>
+                    
 
-<header>
+
+
     
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * inputBox class
+ * Provides template for input element
+ */
+class InputBox extends HTMLElement {
+    /**
+     * get bootstrap() 
+     * Check if bootstrap exists in HTML.
+     * Returns: True or False 
+     */
+    get bootstrap() {
+        return this.getAttribute('bootstrap');
+    }
+    /**
+     * set bootstrap(val) 
+     * Sets bootstrap if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set bootstrap(val) {
+        if (val !== '') {
+            this.setAttribute('bootstrap', val);
+        } else {
+            this.removeAttribute('bootstrap');
+        }
+    }
+    /**
+     * Constructor for setting up shadow dom and class definitions 
+     * for web component.
+     */
+    constructor () {
+        super();
+    }
+    
+    connectedCallback() {
+        // Initialize shadowroot
+        const shadowRoot = this.attachShadow({mode: 'open'});
 
-<article>
-    <h1>CodeClimate</h1>
-<p>When setting up test coverage reporting with Code Climate, we must instrument test coverage ourselves as part of our CI build.<br>
-It must be done in one of our supported languages and formats which is the Icov format with JavaScript.<br>
-Istanbul is just a JavaScript code coverage tool written in JS.</p>
-<p>We added the repository in the .travis.yml file. We are running basic mocha tests here.<br>
-All you need to understand is that for the test coverage percentage is the percentage of lines of code scanned by tests.<br>
-This is why we must try to have a test coverage of 90+ to ensure quality!</p>
-<p>You can check the status with the GitHub badges or by checking online https://codeclimate.com.<br>
-You should be able to see this.</p>
-<img src="codeclimate.png">
-<p>We run the coverage part after the tests: the report is made and encoded and updated to our repository.</p>
-</article>
+        shadowRoot.innerHTML += this.innerHTML;
+        this.innerHTML = "";
 
-</section>
+        const l = document.createElement('link');
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('type', 'text/css');
+        shadowRoot.appendChild(l);
+
+        // Append to shadowdom style
+        // Eventually turn into text area so that we can scroll
+        // Through - if not sprint1 def sprint 2
+        const i = document.createElement('input');
+        i.setAttribute("id","msg");
+        i.setAttribute("name","msg");
+        i.setAttribute("value","");
+        shadowRoot.append(i);
+
+        if (this.bootstrap) {
+            i.setAttribute('class', this.bootstrap);
+            l.setAttribute('href', './bootstrap.min.css');
+        } else {
+            l.setAttribute('href', 'inputbox-default-style.css');
+        } 
+
+        // TODO: We need to make a logical filter that can 
+        // listen to some sort of backplane that could trigger this
+        // from an internal button 
+        // Register a listener to trigger on enter.
+        i.addEventListener('keypress', (e) => {
+            const key = e.which || e.keyCode;
+            if(key === 13){
+                const msgInput = shadowRoot.querySelector('input');
+                //call send function
+                const sender = shadowRoot.querySelector('#sender');
+                sender.send(msgInput.value);
+                msgInput.value = '';
+            }
+        });
+    }
+}
+
+// Register ChatBox class as chat-box element
+customElements.define('input-box', InputBox);</code></pre>
+        </article>
+    </section>
+
+
+
 
                 </div>
             </div>

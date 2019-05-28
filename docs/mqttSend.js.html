@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: msgFetch.js</title>
+    <title>JSDoc: mqttSend.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>msgFetch.js</h1>
+                        <h1>mqttSend.js</h1>
                     </header>
                     
                     
@@ -63,10 +63,10 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * MsgFetch class
- * API for fetching messages over a network
+ * HelloWorld class
+ * Provides template for core-hello element
  */
-class MsgFetch extends HTMLElement {
+class MqttSend extends HTMLElement {
     /**
      * get url() 
      * Check if url exists in HTML.
@@ -88,75 +88,85 @@ class MsgFetch extends HTMLElement {
         this.removeAttribute('url');
       }
     }
-
-
+    /**
+     * get topic() 
+     * Check if topic exists in HTML.
+     * Returns: True or False 
+     */
+    get topic() {
+        return this.getAttribute('topic');
+    }
     /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
      */
     constructor () {
-      super();
+        super();
     
-      //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
-      this.userId = "anonymous";
-      this.msgId = -1;
+        //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+        // Such as using that html template that generates requirements to be used by wrappers (like an interface).
+        this.userId = "anonymous";
     }
 
     connectedCallback(){
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
+
+      let defaultStyle = `&lt;link rel="stylesheet" type="text/css" href="mqtt-send-default-style.css">&lt;/link>`;
+      shadowRoot.innerHTML += defaultStyle;
       
-      // Append to shadowdom style
-      // Eventually turn into text area so that we can scroll
-      // Through - if not sprint1 def sprint 2
+        // TODO: This should be optimized or another method should be implemented.
+        // This is a helper function that generates a random client id.
+        function makeid(length) {
+            let result           = '';
+            const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            for ( let i = 0; i &lt; length; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        // Create a client instance
+        // NOTE: It appears as tho connecting on the sender side has some issues
+        // refreshing multiple times works for me until in devtools you don't see
+        // Connection LostAMQJS0008I Socket closed. This is likely do to using a public mqtt
+        // server... We can spin up our own some time soon
+        // TODO: FIX ABOVE -- kinda fixed but perhaps a better fix can be implemented
+        this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
 
-      // let defaultStyle = `
-      // &lt;style>
-      // input {
-      //   color: #006A96;
-      //   border: none; 
-      //   font-size: 15px;
-      //   box-sizing: border-box;
-      //   border: 2px solid #685972;
-      //   width: 100%; 
-      //   height: 25px;
-      //   border-radius: 5px 5px 0 0; 
-      //   border-bottom: none;
-      // }
-      // &lt;/style>`;
-      // shadowRoot.innerHTML += defaultStyle;
+        this.client.onConnectionLost = function(responseObject){
+            console.log("Connection Lost" + responseObject.errorMessage);
+        };
+        // connect the client
+        this.client.connect({onSuccess:function(){
+            console.log("send connected");
+        }});
 
-      const i = document.createElement('input');
-      i.setAttribute("id","userId");
-      i.setAttribute("name","userId");
-      i.setAttribute("value","anonymous");
-      shadowRoot.append(i);
-
-      // Listen for userId Change
-      i.addEventListener('change', ()=>{
-        this.userId = shadowRoot.querySelector('input').value;
-      });
-      console.log('printing from msgFetch')
-      // console.log(document.querySelector(this.));
-      console.log(this);
+        // Append to shadowdom style
+        // Eventually turn into text area so that we can scroll
+        // Through - if not sprint1 def sprint 2
+        const i = document.createElement('input');
+        i.setAttribute("id","userId");
+        i.setAttribute("name","userId");
+        i.setAttribute("value","anonymous");
+        shadowRoot.append(i);
       
+        // Listen for userId Change
+        i.addEventListener('change', ()=>{
+            this.userId = shadowRoot.querySelector('input').value;
+        });
     }
 
-    deconstructMessage(messages){
-        // TODO: eventually check time stamp against last received?
-        let ret = [];
-        for(let i = 0; i &lt; messages.length; i++){
-          if(messages[i].body !== ''){
-            const item = {user:messages[i].sender,message:messages[i].body};
-            ret.push(item)
-          }
-        }
-        return ret
+    send(body){
+        const message = this.userId + ": " + body;
+        const mqtt_msg = new Paho.MQTT.Message(message);
+        mqtt_msg.destinationName = this.topic;
+        this.client.send(mqtt_msg);
     }
 }
 
-// Register ChatBox class as chat-box element
-customElements.define('msg-fetch', MsgFetch);</code></pre>
+// Register MqttSend class as mqtt-send element
+customElements.define('mqtt-send', MqttSend);</code></pre>
         </article>
     </section>
 
