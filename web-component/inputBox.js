@@ -30,6 +30,30 @@ class InputBox extends HTMLElement {
     }
 
     /**
+        * get password() 
+        * Check if password exists in HTML.
+        * Returns: True or False 
+        */
+    get password() {
+        return this.hasAttribute('password');
+    }
+    /**
+     * set password(val) 
+     * Sets password if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set password(val) {
+        const isPassword = Boolean(val);
+        if (isPassword) {
+            this.setAttribute('password', val);
+        } else {
+            this.removeAttribute('password');
+        }
+    }
+
+
+    /**
      * get width() 
      * Check if width exists in HTML.
      * Returns: True or False 
@@ -185,6 +209,10 @@ class InputBox extends HTMLElement {
             
         } else {
             l.setAttribute('href', 'inputbox-default-style.css');
+        } 
+
+        if (this.password) {
+            i.setAttribute('type', "password");
         } 
 
         if (this.disabled) {
