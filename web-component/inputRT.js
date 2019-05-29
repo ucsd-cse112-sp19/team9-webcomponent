@@ -5,7 +5,6 @@
 
     const template = document.createElement('template');
 
-    //<slot name="append"></slot>
     // TODO: will the above be necessary
     // I think we don't want to use slots for the input and 
     // text div?
@@ -29,6 +28,8 @@
         constructor(){
             super();
             this._append = this._append.bind(this);
+            this._send = this._send.bind(this);
+            this._onEnter = this._onEnter.bind(this);
 
             this.attachShadow({mode: 'open'});
             this.shadowRoot.appendChild(template.content.cloneNode(true));
@@ -47,7 +48,7 @@
                 case 'sender':
                     // TODO: think of a way to refactor to handle more cases
                     // Also perhaps allow user to input
-                    this.addEventListener('keypress',this._onEnter);
+                    this._textSlot.addEventListener('keypress',this._onEnter);
                     //this._appendSlot.addEventListener('onclick', this._send);
                 case 'input':
                     const input = document.createElement('input');
