@@ -30,6 +30,29 @@ class InputBox extends HTMLElement {
     }
 
     /**
+    * get clearable() 
+    * Check if clearable exists in HTML.
+    * Returns: True or False 
+    */
+    get clearable() {
+        return this.hasAttribute('clearable');
+    }
+    /**
+     * set clearable(val) 
+     * Sets clearable if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set clearable(val) {
+        const isClearable = Boolean(val);
+        if (isClearable) {
+            this.setAttribute('clearable', val);
+        } else {
+            this.removeAttribute('clearable');
+        }
+    }
+
+    /**
         * get password() 
         * Check if password exists in HTML.
         * Returns: True or False 
@@ -250,6 +273,27 @@ class InputBox extends HTMLElement {
         } 
         shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", sizeStyle)
 
+        if (this.clearable) {
+            let clearBtn = document.createElement('button'); 
+            clearBtn.innerHTML = "x"; 
+            let clearBtnStyle = document.createElement('style'); 
+            clearBtn.setAttribute('id', 'clearBtn');
+            clearBtnStyle.innerHTML = `
+                input { position: relative; opacity: 0.9;  }
+                button { border: 1px solid #ccc; padding: 5px;}
+                :host button { vertical-align: middle;  }
+                button { position: absolute; vertical-align: middle; background-color: white; }
+                button:hover { cursor: pointer; background-color: lightgreen; }
+                button:focus, input:focus {outline:0;}
+                button { border-radius: 100%;
+            }`;
+            shadowRoot.appendChild(clearBtn);
+            clearBtn.addEventListener('click', (e) => { 
+                console.log("clicked here")
+                i.value = '';
+            })
+            shadowRoot.querySelector('button').insertAdjacentElement("beforebegin", clearBtnStyle);
+        }
 
         // TODO: We need to make a logical filter that can 
         // listen to some sort of backplane that could trigger this
