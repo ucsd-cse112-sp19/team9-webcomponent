@@ -144,7 +144,7 @@
         }
 
         /**
-         * public append function that works as a callback to populate the internal 
+         * public function that works as a callback to populate the internal 
          * text area with JS if desired
          * @param {*} message thing to print out
          */
@@ -165,7 +165,7 @@
                 case KEYCODE.ENTER:
                     this.send();
                 default:
-                    return;
+                    break;
             }
         }
     }
