@@ -43,16 +43,9 @@ class MqttFetch extends HTMLElement {
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         this.userId = "anonymous";
         this.msgId = -1;
-        // this._callback = function(){
-        //     console.log("You messed up somewhere");
-        // }
 
         // Initialize shadow root
-        const shadowRoot = this.attachShadow({mode: 'open'});
-    }
-
-    connectedCallback(){
-
+        this.attachShadow({mode: 'open'});
 
         // TODO: This should be optimized or another method should be implemented.
         // This is a helper function that generates a random client id.
@@ -92,15 +85,16 @@ class MqttFetch extends HTMLElement {
         i.setAttribute("name","userId");
         i.setAttribute("value","anonymous");
         this.shadowRoot.append(i);
+    }
 
+    connectedCallback(){
         // Listen for userId Change
-        i.addEventListener('change', ()=>{
-            this.userId = this.shadowRoot.querySelector('input').value;
+        const input = this.shadowRoot.querySelector('input');
+        input.addEventListener('change', ()=>{
+            this.userId = input.value;
         });
 
-
-        this.observe(this.parentElement._append);
-        
+        this.observe(this.parentElement.append);
     }
 
     observe(callback){
