@@ -28,6 +28,7 @@
     "extension": [
       ".js"
     ],
+    "temp-directory": ".nyc_output",
     "reporter": [
       "html",
       "lcov",
