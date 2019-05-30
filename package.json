@@ -11,12 +11,30 @@
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
     "resume": "npx webpack-dev-server",
-    "test": "mocha --exit -r jsdom-global/register -r document-register-element"
+    "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
+    "test": "nyc npm run mocha"
   },
   "husky": {
     "hooks": {
-      "pre-push":"npm run docs"
+      "pre-commit":"npm run docs"
     }
+  },
+  "nyc": {
+    "lines": 50,
+    "statements": 50,
+    "functions": 50,
+    "branches": 20,
+    "check-coverage": true,
+    "extension": [
+      ".js"
+    ],
+    "reporter": [
+      "html",
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "report-dir": "coverage"
   },
   "repository": {
     "type": "git",
