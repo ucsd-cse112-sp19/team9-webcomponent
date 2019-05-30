@@ -43,18 +43,20 @@
             // keep switch else a simple if - else might be better
             switch(this.mode){
                 case 'sender':
-                case 'input':
+                case 'input':{
                     const input = document.createElement('input');
                     input.setAttribute("slot","text");
                     this._textSlot.appendChild(input);
                     break;
-                case 'textarea':
+                }
+                case 'textarea':{
                     const textarea = document.createElement('textarea');
                     textarea.setAttribute("slot","text");
                     // TODO: should we have a receiveer object as well
                     textarea.setAttribute("readonly","true");
                     this._textSlot.appendChild(textarea);
                     break;
+                }
                 default:
                     // Don't do anything on default because user can implement there 
                     // own thing in the slot as well
@@ -164,6 +166,7 @@
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
+                    break;
                 default:
                     break;
             }

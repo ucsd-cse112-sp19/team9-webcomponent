@@ -3,11 +3,10 @@
   "description": "RuntimeTerror",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint ./web_component && stylelint ./web_component",
+    "lint": "eslint ./web-component && stylelint ./web-component",
     "docs": "jsdoc -c jsdoc.json",
     "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
     "saucelabs": "testcafe \"saucelabs:chrome\"  test/cafe-tests/test2.js",
-    "pretest": "istanbul cover node_modules/mocha/bin/_mocha chatBox-spec.js --exit",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
@@ -16,6 +15,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-push":"npm run docs"
     }
   },
   "repository": {
@@ -33,6 +33,7 @@
     "better-docs": "^1.1.6",
     "chromedriver": "^74.0.0",
     "coveralls": "^3.0.3",
+    "document-register-element": "^1.13.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -45,7 +46,7 @@
     "eslint-plugin-react": "^7.12.4",
     "geckodriver": "^1.16.2",
     "husky": "^2.2.0",
-    "jsdom": "^15.0.0",
+    "jsdom": "^15.1.1",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "puppeteer": "^1.16.0",
@@ -61,21 +62,20 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chai": "^4.2.0",
+    "clean-webpack-plugin": "^2.0.2",
     "ent": "^2.2.0",
     "express": "^4.16.4",
-    "jsdoc": "^3.6.2",
-    "clean-webpack-plugin": "^2.0.2",
     "html-webpack-plugin": "^3.2.0",
+    "jsdoc": "^3.6.2",
     "jsdoc-mermaid": "^1.0.0",
+    "jsdom-global": "^3.0.2",
     "mermaid": "^8.0.0",
+    "mocha": "^6.1.4",
     "sauce-connect-launcher": "^1.2.6",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "socket.io": "^2.2.0",
     "webpack": "^4.31.0",
     "webpack-dev-server": "^3.3.1",
-    "document-register-element": "^1.13.2",
-    "jsdom": "^15.1.0",
-    "jsdom-global": "^3.0.2",
-    "mocha": "^6.1.4"
+    "yargs": "^13.2.4"
   }
 }
