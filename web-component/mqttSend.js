@@ -42,15 +42,8 @@ class MqttSend extends HTMLElement {
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         // Such as using that html template that generates requirements to be used by wrappers (like an interface).
         this.userId = "anonymous";
-    }
+        this.attachShadow({mode: 'open'});
 
-    connectedCallback(){
-      // Initialize shadow root
-      const shadowRoot = this.attachShadow({mode: 'open'});
-
-      let defaultStyle = `<link rel="stylesheet" type="text/css" href="mqtt-send-default-style.css"></link>`;
-      shadowRoot.innerHTML += defaultStyle;
-      
         // TODO: This should be optimized or another method should be implemented.
         // This is a helper function that generates a random client id.
         function makeid(length) {
@@ -85,11 +78,14 @@ class MqttSend extends HTMLElement {
         i.setAttribute("id","userId");
         i.setAttribute("name","userId");
         i.setAttribute("value","anonymous");
-        shadowRoot.append(i);
-      
+        this.shadowRoot.append(i);
+    }
+
+    connectedCallback(){      
         // Listen for userId Change
-        i.addEventListener('change', ()=>{
-            this.userId = shadowRoot.querySelector('input').value;
+        const input = this.shadowRoot.querySelector('input');
+        input.addEventListener('change', ()=>{
+            this.userId = input.value;
         });
     }
 

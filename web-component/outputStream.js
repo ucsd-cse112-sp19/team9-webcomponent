@@ -86,8 +86,10 @@ class OutputStream extends HTMLElement {
 
         const onloaded = function(){
             const receiver = this.shadowRoot.querySelector('#receiver');
-            const append = this.append.bind(this);
-            receiver.observe(append);
+            if(receiver !== null){
+                const append = this.append.bind(this);
+                receiver.observe(append);
+            }
         }.bind(this);
 
         setTimeout(onloaded);
@@ -109,3 +111,5 @@ class OutputStream extends HTMLElement {
 
 // Register OutputStream class as output-stream element
 customElements.define('output-stream', OutputStream);
+
+module.exports = { OutputStream };
