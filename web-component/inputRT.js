@@ -42,24 +42,23 @@
             // if we plan on adding more modes then we should 
             // keep switch else a simple if - else might be better
             switch(this.mode){
-                case 'sender':
-                case 'input':{
-                    const input = document.createElement('input');
-                    input.setAttribute("slot","text");
-                    this._textSlot.appendChild(input);
+                case 'custom':
+                    // Don't do anything on custom because user can implement there 
+                    // own thing in the slot as well
                     break;
-                }
-                case 'textarea':{
+                case 'textarea':
                     const textarea = document.createElement('textarea');
                     textarea.setAttribute("slot","text");
                     // TODO: should we have a receiveer object as well
                     textarea.setAttribute("readonly","true");
                     this._textSlot.appendChild(textarea);
                     break;
-                }
+                case 'sender':
                 default:
-                    // Don't do anything on default because user can implement there 
-                    // own thing in the slot as well
+                    // Set default to input box.
+                    const input = document.createElement('input');
+                    input.setAttribute("slot","text");
+                    this._textSlot.appendChild(input);
                     break;
             }
         }
@@ -115,7 +114,7 @@
             this._appendSlot = this.shadowRoot.querySelector('slot[name=append]');
 
             // Initialize attributes
-            this._init_mode()
+            this._init_mode();
         }
 
         connectedCallback(){
