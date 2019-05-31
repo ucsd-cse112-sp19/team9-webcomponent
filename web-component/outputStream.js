@@ -18,7 +18,7 @@ class OutputStream extends HTMLElement {
      * Returns: Null
      */
     set bootstrap(val) {
-        if (val !== '') {
+        if (val != '') {
             this.setAttribute('bootstrap', val);
         } else {
             this.removeAttribute('bootstrap');
