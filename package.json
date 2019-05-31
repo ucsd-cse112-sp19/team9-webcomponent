@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "docs": "jsdoc -c jsdoc.json",
-    "test": "mocha --exit"
+    "test": "mocha --exit -r jsdom-global/register -r document-register-element"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,10 @@
   },
   "dependencies": {
     "chai": "^4.2.0",
+    "document-register-element": "^1.13.2",
     "express": "^4.16.4",
+    "jsdom": "^15.1.0",
+    "jsdom-global": "^3.0.2",
     "mocha": "^6.1.4"
   }
 }
