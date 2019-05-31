@@ -29,5 +29,6 @@ describe('input-box element', () => {
         
         assert.equal(input.getAttribute('id'), 'msg');
         assert.equal(input.getAttribute('name'), 'msg');
+        assert.equal(input.getAttribute('value'), '');
     });
 });
