@@ -1,8 +1,16 @@
+//function allows keycode and template to only be accessed by inputRT
 (function(){
     // Dictionary for comparing key presses
     const KEYCODE = {
         ENTER: 13
     };
+
+    // const SIZES = {
+    //     "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+    //     "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+    //     "d": "width: 300px; height: 30px; font-size: 18px !important;",
+    //     "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+    // };
 
     // Create and define a template for WC
     const template = document.createElement('template');
@@ -14,6 +22,7 @@
         </div>
         <slot name="text"></slot>
         <slot name="append"></slot>
+        <slot name="link"></slot>
     `;
 
     class inputRT extends HTMLElement {
@@ -61,6 +70,166 @@
                     this._textSlot.appendChild(input);
                     break;
             }
+        }
+
+        /**
+         * get bootstrap() 
+         * Check if bootstrap exists in HTML.
+         * Returns: True or False 
+         */
+        get bootstrap() {
+            return this.getAttribute('bootstrap');
+        }
+        /**
+         * set bootstrap(val) 
+         * Sets bootstrap if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set bootstrap(val) {
+            if (val !== '') {
+                this.setAttribute('bootstrap', val);
+            } else {
+                this.removeAttribute('bootstrap');
+            }
+        }
+        /**
+         * get url() 
+         * Check if url exists in HTML.
+         * Returns: True or False 
+         */
+        get url() {
+            return this.getAttribute('url');
+        }
+        /**
+         * set url(val) 
+         * Sets url if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set url(val) {
+            if (val !== '') {
+                this.setAttribute('url', val);
+            } else {
+                this.removeAttribute('url');
+            }
+        }
+
+        _init_bootstrap_URL(){
+            const link = document.createElement('link');
+            link.setAttribute('rel', 'stylesheet');
+            link.setAttribute('type', 'text/css');
+            if (this.url && this.bootstrap) {
+                link.setAttribute('href', this.url);
+                if(this.mode !== null){
+                    this._textSlot.querySelector(this.mode).setAttribute('class', this.bootstrap);
+                } else {
+                    this._textSlot.querySelector('input').setAttribute('class', this.bootstrap);
+                }
+            } else {
+                link.setAttribute('href', 'inputbox-default-style.css');
+            } 
+            this._linkSlot.appendChild(link);
+        }
+
+        /**
+         * get password() 
+         * Check if password exists in HTML.
+         * Returns: True or False 
+         */
+        get password() {
+            return this.hasAttribute('password');
+        }
+        /**
+         * set password(val) 
+         * Sets password if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set password(val) {
+            const isPassword = Boolean(val);
+            if (isPassword) {
+                this.setAttribute('password', val);
+            } else {
+                this.removeAttribute('password');
+            }
+        }
+
+        _init_password(){
+            if (this.password) {
+                if(this.mode !== null){
+                    this._textSlot.querySelector(this.mode).setAttribute('type', "password");
+                } else {
+                    this._textSlot.querySelector('input').setAttribute('type', "password");
+                }
+            } 
+        }
+
+        // /**
+        //  * get width() 
+        //  * Check if width exists in HTML.
+        //  * Returns: True or False 
+        //  */
+        // get width() {
+        //     return this.getAttribute('width');
+        // }
+        // /**
+        //  * set width(val) 
+        //  * Sets width if value passed in, or removes it if nothing
+        //  * is passed.
+        //  * Returns: Null
+        //  */
+        // set width(val) {
+        //     const isWidth = String(val);
+        //     if (isWidth) {
+        //         this.setAttribute('width', val);
+        //     } else {
+        //         this.removeAttribute('width');
+        //     }
+        // }
+
+        // _init_width(){
+        //     if (this.width) {
+        //         const sizeStyle = `input {
+        //             width: ${this.width} !important; 
+        //         }`;
+        //         this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+        //     }
+        // }
+
+        /**
+         * get disabled() 
+         * Check if disabled exists in HTML.
+         * Returns: True or False 
+         */
+        get disabled() {
+            return this.hasAttribute('disabled');
+        }
+        /**
+         * set disabled(val) 
+         * Sets disabled if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set disabled(val) {
+            const isDisabled = Boolean(val);
+            if (isDisabled) {
+                this.setAttribute('disabled', val);
+            } else {
+                this.removeAttribute('disabled');
+            }
+        }
+
+        _init_disabled(){
+            if(this.disabled){
+                const disabledStyle = `input {
+                    opacity: 0.5!important;
+                    cursor: not-allowed;
+                    background-color: #ccc;
+                }`; 
+                //input.setAttribute('disabled', true) TO DO: is this necessary? already true to begin with
+                this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
+            }      
         }
 
         /**
@@ -112,9 +281,14 @@
             this._messengerSlot = this.shadowRoot.querySelector('slot[name=messenger]');
             this._textSlot = this.shadowRoot.querySelector('slot[name=text]');
             this._appendSlot = this.shadowRoot.querySelector('slot[name=append]');
+            this._linkSlot = this.shadowRoot.querySelector('slot[name=link]');
 
             // Initialize attributes
             this._init_mode();
+            this._init_disabled();
+            this._init_bootstrap_URL();
+            this._init_password();
+            // this._init_width();
         }
 
         connectedCallback(){

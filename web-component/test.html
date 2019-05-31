@@ -6,8 +6,9 @@
 </head>
 <body>
 
+    <input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap = "border border-danger"> </input-rt>
 
-    <input-box id="myInput"></input-box><br>
+    <!-- <input-box id="myInput"></input-box><br>
 
     <rt-button url = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             disable > hello </rt-button>
@@ -22,7 +23,7 @@
     <input-box url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" size="m" bootstrap="border border-secondary">   </input-box> 
 
     <br> <br>
-    <input-box url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" size="l" bootstrap="border border-danger">   </input-box> 
+    <input-box url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" size="l" bootstrap="border border-danger">   </input-box>  -->
 
 <!-- 
     <mqtt-send id="sender" topic="chattest/1"></mqtt-send>
@@ -31,21 +32,22 @@
     </output-stream>  -->
     
     <script src="inputBox.js"></script>
+    <script src = "inputRT.js"></script>
     <script src ="rt-button/rt-button.js"></script>
     <script src="mqttSend.js"></script>
     <script src="mqttFetch.js"></script>
 
-    <script>
+    <!-- <script>
         let btn = document.querySelector('button#btn'); 
         btn.addEventListener("click", function() {
             console.log("hi there")
             
             // play around with rt-button 
-            let el = document.querySelector ("rt-buton"); 
+            let el = document.querySelector ("rt-button"); 
             el.setAttribute("disabled", false);
         })
         
-    </script>
+    </script> -->
 
 
 
