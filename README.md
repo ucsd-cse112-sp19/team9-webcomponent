@@ -13,3 +13,8 @@ See the index.html file for documentation
 Unit tests  
 Eslint  
 Humor
+
+# Acknowledgements
+This project uses the following open source software: 
+- [Sauce Labs](https://saucelabs.com/) - for offering automated cross browser testing
+  
