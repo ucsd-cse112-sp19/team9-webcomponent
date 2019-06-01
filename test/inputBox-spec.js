@@ -114,4 +114,26 @@ describe('input-box element', () => {
         assert.equal(link.getAttribute('href'),'inputbox-default-style.css');
     });
 
+    it('should add a style if disabled',() => {
+        cs.disabled=true
+        cs.connectedCallback();
+        const style = cs.shadowRoot.querySelector('style');
+        assert.equal(style.innerHTML,'input {\n                opacity: 0.5!important;\n                cursor: not-allowed;\n                background-color: #ccc;\n            }')
+    });
+
+    it('should configurate size',() => {
+        cs.size='s';
+        cs.width=200;
+        cs.height=300;
+        cs.connectedCallback();
+        const style = cs.shadowRoot.querySelector('style');
+        assert.equal(style.innerHTML,'input {\n                width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;\n            }input {\n                width: 200 !important; \n            }input {\n                height: 300 !important; \n            }')
+    })
+
+    it('should add a default style if no size given and not disabled',() => {
+        cs.disabled=false
+        cs.connectedCallback();
+        const style = cs.shadowRoot.querySelector('style');
+        assert.equal(style.innerHTML,'input {\n                width: 300px; height: 30px; font-size: 18px !important;\n            }')
+    });    
 });
