@@ -15,3 +15,8 @@ See `./tutorials/webpack.md`
 
 HelloWorld  
 :bomb: InputBox & OutputStream :bomb:
+
+## Acknowledgements
+This project uses the following open source software: 
+- [Sauce Labs](https://saucelabs.com/) - for offering automated cross browser testing
+  
