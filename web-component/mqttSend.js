@@ -44,7 +44,7 @@ class MqttSend extends HTMLElement {
         this.userId = "anonymous";
         this.attachShadow({mode: 'open'});
 
-                // TODO: This should be optimized or another method should be implemented.
+        // TODO: This should be optimized or another method should be implemented.
         // This is a helper function that generates a random client id.
         function makeid(length) {
             let result           = '';
