@@ -5,12 +5,14 @@
         ENTER: 13
     };
 
-    // const SIZES = {
-    //     "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
-    //     "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
-    //     "d": "width: 300px; height: 30px; font-size: 18px !important;",
-    //     "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
-    // };
+    const SIZES = {
+        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+        "d": "width: 300px; height: 30px; font-size: 18px !important;",
+        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+    };
+
+    let currentMode = "input"; 
 
     // Create and define a template for WC
     const template = document.createElement('template');
@@ -122,12 +124,19 @@
             if (this.url && this.bootstrap) {
                 link.setAttribute('href', this.url);
                 if(this.mode !== null){
-                    this._textSlot.querySelector(this.mode).setAttribute('class', this.bootstrap);
+                    let el = ""; 
+                    console.log(el);
+                    if (this.mode === "sender") {
+                        el = "input";
+                    } else if (this.mode === "textarea") {
+                        el = "textarea"; 
+                    } 
+                    this._textSlot.querySelector(el).setAttribute('class', this.bootstrap);
                 } else {
                     this._textSlot.querySelector('input').setAttribute('class', this.bootstrap);
                 }
             } else {
-                link.setAttribute('href', 'inputbox-default-style.css');
+                link.setAttribute('href', 'inputbox-rt-default-style.css');
             } 
             this._linkSlot.appendChild(link);
         }
@@ -165,37 +174,104 @@
             } 
         }
 
-        // /**
-        //  * get width() 
-        //  * Check if width exists in HTML.
-        //  * Returns: True or False 
-        //  */
-        // get width() {
-        //     return this.getAttribute('width');
-        // }
-        // /**
-        //  * set width(val) 
-        //  * Sets width if value passed in, or removes it if nothing
-        //  * is passed.
-        //  * Returns: Null
-        //  */
-        // set width(val) {
-        //     const isWidth = String(val);
-        //     if (isWidth) {
-        //         this.setAttribute('width', val);
-        //     } else {
-        //         this.removeAttribute('width');
-        //     }
-        // }
+        /**
+         * get width() 
+         * Check if width exists in HTML.
+         * Returns: True or False 
+         */
+        get width() {
+            return this.getAttribute('width');
+        }
+        /**
+         * set width(val) 
+         * Sets width if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set width(val) {
+            const isWidth = String(val);
+            if (isWidth) {
+                this.setAttribute('width', val);
+            } else {
+                this.removeAttribute('width');
+            }
+        }
 
-        // _init_width(){
-        //     if (this.width) {
-        //         const sizeStyle = `input {
-        //             width: ${this.width} !important; 
-        //         }`;
-        //         this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
-        //     }
-        // }
+        _init_width(){
+            if (this.width) {
+                const sizeStyle = `input {
+                    width: ${this.width} !important; 
+                }`;
+                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+            }
+        }
+
+        /**
+         * get height() 
+         * Check if height exists in HTML.
+         * Returns: True or False 
+         */
+        get height() {
+            return this.getAttribute('height');
+        }
+        /**
+         * set height(val) 
+         * Sets height if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set height(val) {
+            const isHeight = String(val);
+            if (isHeight) {
+                this.setAttribute('height', val);
+            } else {
+                this.removeAttribute('height');
+            }
+        }
+
+        _init_height() {
+            if (this.height) {
+                const sizeStyle = `input {
+                    height: ${this.height} !important; 
+                }`;
+                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+            }
+        }
+
+        /**
+         * get size() 
+         * Check if size exists in HTML.
+         * Returns: True or False 
+         */
+        get size() {
+            return this.getAttribute('size');
+        }
+        /**
+         * set size(val) 
+         * Sets size if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set size(val) {
+            const isSize = String(val);
+            if (isSize) {
+                this.setAttribute('size', val);
+            } else {
+                this.removeAttribute('size');
+            }
+        }
+
+        _init_size() {
+            if (this.size && ! this.width && ! this.height) {
+                const sizeStyle = `input {
+                    ${SIZES[this.size]}
+                }`;
+                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+            } else if (!this.size && !this.width && !this.height) { // default size 
+
+            } 
+        }
+
 
         /**
          * get disabled() 
@@ -288,7 +364,9 @@
             this._init_disabled();
             this._init_bootstrap_URL();
             this._init_password();
-            // this._init_width();
+            this._init_width();
+            this._init_height();
+            this._init_size();
         }
 
         connectedCallback(){

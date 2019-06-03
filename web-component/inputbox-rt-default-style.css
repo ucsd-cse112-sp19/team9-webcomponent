@@ -10,7 +10,6 @@ input {
 
 input {
     min-width: 250px;
-    height: 30px;
 }
 :host {
     display: block;
