@@ -40,12 +40,10 @@ class MsgFetch extends HTMLElement {
 
     connectedCallback(){
       // Initialize shadow root
-      const shadowRoot = this.attachShadow({mode: 'open'});
-      
+      const shadowRoot = this.attachShadow({mode: 'open'}); 
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
-
       // let defaultStyle = `
       // <style>
       // input {
@@ -61,7 +59,6 @@ class MsgFetch extends HTMLElement {
       // }
       // </style>`;
       // shadowRoot.innerHTML += defaultStyle;
-
       const i = document.createElement('input');
       i.setAttribute("id","userId");
       i.setAttribute("name","userId");

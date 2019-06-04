@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-JSDoc Guide Coders.html">JSDoc Guide Coders</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-webpack.html">webpack</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -62,12 +62,19 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Dictionary for comparing key presses
-const KEYCODE = {
-    ENTER: 13
-};
+            <pre class="prettyprint source linenums"><code>
+    /** 
+     * @typedef {Integer} KEYCODE
+     *  Dictionary for comparing key presses
+    */
+    const KEYCODE = {
+        ENTER: 13
+    };
 
-    // Create and define a template for WC
+    /**
+     * @typedef {HTMLDocument} template
+     * Creates and defines a template for web component
+     */
     const template = document.createElement('template');
     template.innerHTML = `
         &lt;style>
@@ -79,7 +86,8 @@ const KEYCODE = {
         &lt;slot name="append">&lt;/slot>
     `;
 
-    class inputRT extends HTMLElement {
+    class InputRT extends HTMLElement {
+
         static get observedAttributes(){
             return [];
         }
@@ -97,17 +105,20 @@ const KEYCODE = {
         }
 
         /**
-         * Init function that generates the internal value based on 
-         * the mode being set.
+         * Init function that generates the internal value based on the mode being set
+         * 
+         * @property {String} custom user can implement their own mode in this slot
+         * @property {String} textarea create a textarea which will display text
+         * @property {String} sender set default to input box
+         * 
+         * @example this._init_mode();
+         * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
+         * @todo should we have a receiver object as well
          */
         _init_mode(){
-            // TODO: need discussion on if this is the right approach 
-            // if we plan on adding more modes then we should 
-            // keep switch else a simple if - else might be better
             switch(this.mode){
                 case 'custom':
-                    // Don't do anything on custom because user can implement there 
-                    // own thing in the slot as well
+                    //Do not put anything there
                     break;
                 case 'textarea':
                     const textarea = document.createElement('textarea');
@@ -127,14 +138,18 @@ const KEYCODE = {
         }
 
         /**
-         * Internal function that helps with setting the event handlers
-         * for the mode attribute
+         * Internal function that helps with setting the event handlers for the mode attribute hello
+         * 
+         * @property {String} sender add eventListener keypress &amp; click 
+         * 
+         * @example connectedCallback(){this._register_mode();}
+         * 
+         * @todo think of a way to refactor to handle more cases
+         * @todo perhaps allow user to input
          */
         _register_mode(){
             switch(this.mode){
                 case 'sender':
-                    // TODO: think of a way to refactor to handle more cases
-                    // Also perhaps allow user to input
                     this._textSlot.addEventListener('keypress',this._onEnter);
                     this._appendSlot.addEventListener('onclick', this.send);
                     break;
@@ -144,14 +159,18 @@ const KEYCODE = {
         }
 
         /**
-         * Internal function that helps with removing the event handlers
-         * for the mode attribute
+         * Internal function that helps with removing the event handlers for the mode attribute
+         * 
+         * @property {String} sender remove eventListener keypress &amp; click 
+         * 
+         * @example disconnectedCallback(){this._unregister_mode();}
+         * 
+         * @todo think of a way to refactor to handle more cases
+         * @todo perhaps allow user to input
          */
         _unregister_mode(){
             switch(this.mode){
                 case 'sender':
-                    // TODO: think of a way to refactor to handle more cases
-                    // Also perhaps allow user to input
                     this._textSlot.removeEventListener('keypress',this._onEnter);
                     this._appendSlot.removeEventListener('onclick', this.send);
                     break;
@@ -159,7 +178,18 @@ const KEYCODE = {
                     break;
             }
         }
-
+            
+        /**
+         * InputRT Web Component
+         * 
+         * Initialize ShadowRoot, create text slot and bind to object
+         * 
+         * @class InputRT
+         *          
+         * @example &lt;input-rt mode="sender">
+         * 
+         * @see mqttFetch and mqttSend for more information
+         */
         constructor(){
             super();
             // Bind to this object
@@ -195,36 +225,45 @@ const KEYCODE = {
         }
 
         /**
-         * public function for sending messages, leverages an internal WC's 
-         * send functionality. 
+         * Public function for sending messages, leverages an internal WC's send functionality
+         * @property {String} msgInput query the input
+         * @property {Function} send the sender sends the msgInput value
+         * 
+         * @example case KEYCODE.ENTER: this.send();
+         * 
+         * @todo need to find a way the input element and poluate that
          */
         send(){
             const msgInput = this._textSlot.querySelector('input');
             //call send function
             const sender = this.querySelector('#sender');
-            // TODO: need to find a way the input element and poluate that
             sender.send(msgInput.value);
             msgInput.value = '';
         }
 
         /**
-         * public function that works as a callback to populate the internal 
-         * text area with JS if desired
-         * @param {*} message thing to print out
+         * Public function that works as a callback to populate the internal text area with JS if desired
+         * @param {String} message text to print out
+         * 
+         * @example append('Runtime Terror is the best team!')
+         * 
+         * @todo we will need a way to allow user scrolling to override this
          */
         append(message){
             const textarea = this._textSlot.querySelector('textarea');
             textarea.innerHTML += message + "\n";
-            // TODO: We will need a way to allow user scrolling to override this
             textarea.scrollTop = textarea.scrollHeight;
         }
         
         /**
          * Internal function that handles an enter press
-         * @param {*} event the keypress to check against
+         * @param {Event} event the keypress to check against
+         * 
+         * @example this._textSlot.addEventListener('keypress',this._onEnter)
+         * 
+         * @todo might be better to just have an if?
          */
-        _onEnter(event){
-            // Might be better to just have an if?
+        _onEnter(event){   
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
@@ -233,7 +272,8 @@ const KEYCODE = {
             }
         }
     }
-    customElements.define('input-rt', inputRT);</code></pre>
+    customElements.define('input-rt', inputRT);
+    </code></pre>
         </article>
     </section>
 
@@ -247,7 +287,7 @@ const KEYCODE = {
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Mon Jun 03 2019 20:01:48 GMT-0700 (GMT-07:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 04 2019 14:33:16 GMT-0700 (GMT-07:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

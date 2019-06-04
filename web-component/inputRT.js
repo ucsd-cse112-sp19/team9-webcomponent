@@ -1,10 +1,16 @@
-(function(){
-    // Dictionary for comparing key presses
+
+    /** 
+     * @typedef {Integer} KEYCODE
+     *  Dictionary for comparing key presses
+    */
     const KEYCODE = {
         ENTER: 13
     };
 
-    // Create and define a template for WC
+    /**
+     * @typedef {HTMLDocument} template
+     * Creates and defines a template for web component
+     */
     const template = document.createElement('template');
     template.innerHTML = `
         <style>
@@ -16,7 +22,8 @@
         <slot name="append"></slot>
     `;
 
-    class inputRT extends HTMLElement {
+    class InputRT extends HTMLElement {
+
         static get observedAttributes(){
             return [];
         }
@@ -34,17 +41,20 @@
         }
 
         /**
-         * Init function that generates the internal value based on 
-         * the mode being set.
+         * Init function that generates the internal value based on the mode being set
+         * 
+         * @property {String} custom user can implement their own mode in this slot
+         * @property {String} textarea create a textarea which will display text
+         * @property {String} sender set default to input box
+         * 
+         * @example this._init_mode();
+         * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
+         * @todo should we have a receiver object as well
          */
         _init_mode(){
-            // TODO: need discussion on if this is the right approach 
-            // if we plan on adding more modes then we should 
-            // keep switch else a simple if - else might be better
             switch(this.mode){
                 case 'custom':
-                    // Don't do anything on custom because user can implement there 
-                    // own thing in the slot as well
+                    //Do not put anything there
                     break;
                 case 'textarea':
                     const textarea = document.createElement('textarea');
@@ -64,14 +74,18 @@
         }
 
         /**
-         * Internal function that helps with setting the event handlers
-         * for the mode attribute
+         * Internal function that helps with setting the event handlers for the mode attribute hello
+         * 
+         * @property {String} sender add eventListener keypress & click 
+         * 
+         * @example connectedCallback(){this._register_mode();}
+         * 
+         * @todo think of a way to refactor to handle more cases
+         * @todo perhaps allow user to input
          */
         _register_mode(){
             switch(this.mode){
                 case 'sender':
-                    // TODO: think of a way to refactor to handle more cases
-                    // Also perhaps allow user to input
                     this._textSlot.addEventListener('keypress',this._onEnter);
                     this._appendSlot.addEventListener('onclick', this.send);
                     break;
@@ -81,14 +95,18 @@
         }
 
         /**
-         * Internal function that helps with removing the event handlers
-         * for the mode attribute
+         * Internal function that helps with removing the event handlers for the mode attribute
+         * 
+         * @property {String} sender remove eventListener keypress & click 
+         * 
+         * @example disconnectedCallback(){this._unregister_mode();}
+         * 
+         * @todo think of a way to refactor to handle more cases
+         * @todo perhaps allow user to input
          */
         _unregister_mode(){
             switch(this.mode){
                 case 'sender':
-                    // TODO: think of a way to refactor to handle more cases
-                    // Also perhaps allow user to input
                     this._textSlot.removeEventListener('keypress',this._onEnter);
                     this._appendSlot.removeEventListener('onclick', this.send);
                     break;
@@ -96,7 +114,18 @@
                     break;
             }
         }
-
+            
+        /**
+         * InputRT Web Component
+         * 
+         * Initialize ShadowRoot, create text slot and bind to object
+         * 
+         * @class InputRT
+         *          
+         * @example <input-rt mode="sender">
+         * 
+         * @see mqttFetch and mqttSend for more information
+         */
         constructor(){
             super();
             // Bind to this object
@@ -132,36 +161,45 @@
         }
 
         /**
-         * public function for sending messages, leverages an internal WC's 
-         * send functionality. 
+         * Public function for sending messages, leverages an internal WC's send functionality
+         * @property {String} msgInput query the input
+         * @property {Function} send the sender sends the msgInput value
+         * 
+         * @example case KEYCODE.ENTER: this.send();
+         * 
+         * @todo need to find a way the input element and poluate that
          */
         send(){
             const msgInput = this._textSlot.querySelector('input');
             //call send function
             const sender = this.querySelector('#sender');
-            // TODO: need to find a way the input element and poluate that
             sender.send(msgInput.value);
             msgInput.value = '';
         }
 
         /**
-         * public function that works as a callback to populate the internal 
-         * text area with JS if desired
-         * @param {*} message thing to print out
+         * Public function that works as a callback to populate the internal text area with JS if desired
+         * @param {String} message text to print out
+         * 
+         * @example append('Runtime Terror is the best team!')
+         * 
+         * @todo we will need a way to allow user scrolling to override this
          */
         append(message){
             const textarea = this._textSlot.querySelector('textarea');
             textarea.innerHTML += message + "\n";
-            // TODO: We will need a way to allow user scrolling to override this
             textarea.scrollTop = textarea.scrollHeight;
         }
         
         /**
          * Internal function that handles an enter press
-         * @param {*} event the keypress to check against
+         * @param {Event} event the keypress to check against
+         * 
+         * @example this._textSlot.addEventListener('keypress',this._onEnter)
+         * 
+         * @todo might be better to just have an if?
          */
-        _onEnter(event){
-            // Might be better to just have an if?
+        _onEnter(event){   
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
@@ -171,4 +209,4 @@
         }
     }
     customElements.define('input-rt', inputRT);
-})();
+    
