@@ -20,10 +20,10 @@
     }
   },
   "nyc": {
-    "lines": 50,
-    "statements": 50,
-    "functions": 50,
-    "branches": 20,
+    "lines": 90,
+    "statements": 90,
+    "functions": 100,
+    "branches": 90,
     "check-coverage": true,
     "extension": [
       ".js"
