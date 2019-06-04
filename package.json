@@ -3,7 +3,7 @@
   "description": "RuntimeTerror",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint ./web-component && stylelint ./web-component",
+    "lint": "eslint ./web_component && stylelint ./web_component",
     "docs": "jsdoc -c jsdoc.json",
     "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
     "saucelabs": "testcafe \"saucelabs:chrome\"  test/cafe-tests/test2.js",
@@ -16,6 +16,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run lint"
     }
   },
   "nyc": {
