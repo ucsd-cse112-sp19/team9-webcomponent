@@ -428,7 +428,6 @@
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
-                    break;
                 default:
                     break;
             }

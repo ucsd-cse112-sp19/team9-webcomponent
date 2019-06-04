@@ -4,18 +4,26 @@
         <meta charset="utf-8">
         <title>Core Hello</title>
         <meta name="viewport" content="initial-scale=1,width=device-width">
-        <!-- <link rel="stylesheet" href="StarRating.css"> -->
         <style>
             .pink-bg{
                 background-color: pink;
             }
         </style>
+        <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+       
     </head>
     <body>
-        <core-hello rainbow lang="ar" font="verdana" fontsize=30>Georgie</core-hello>
-        <core-hello class="pink-bg">Georgie</core-hello>
-        <!-- <x-star-rating value="3" number="5"></x-star-rating> -->
-        <script src="CoreHello.js"></script>
+
+      <core-hello rainbow lang="ar" font="verdana" fontsize=30>Georgie</core-hello>
+      <script src="CoreHello.js"></script>
+
+
+        <!-- <script type="module">
+          import './CoreHello.js';
+          const template = html`<core-hello rainbow lang="ar" font="verdana" fontsize=30>Georgie</core-hello>`;
+        </script> -->
+
+
     </body>
 </html>
 
