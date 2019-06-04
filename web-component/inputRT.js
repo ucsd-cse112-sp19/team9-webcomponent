@@ -11,9 +11,6 @@
         "d": "width: 300px; height: 30px; font-size: 18px !important;",
         "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
     };
-
-    let currentMode = "input"; 
-
     // Create and define a template for WC
     const template = document.createElement('template');
     template.innerHTML = `
@@ -154,11 +151,13 @@
             }
         }
 
+        /**
+         * Initializes this element to be of type password only if the element in concern is input
+         */
         _init_password(){
             if (this.password) {
-                if(this.mode !== null){
-                    this._textSlot.querySelector(this.mode).setAttribute('type', "password");
-                } else {
+                const el = this._choose_element(this.mode);  
+                if(el && el === "input") {
                     this._textSlot.querySelector('input').setAttribute('type', "password");
                 }
             } 
@@ -251,15 +250,19 @@
             }
         }
 
-        _init_size() {
-            if (this.size && ! this.width && ! this.height) {
-                const sizeStyle = `input {
-                    ${SIZES[this.size]}
-                }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
-            } else if (!this.size && !this.width && !this.height) { // default size 
 
-            } 
+        /**
+         * Initializes size if specificed, and chooses default if not. 
+         */
+        _init_size() {
+            let size = "d"; 
+            if (this.size && ! this.width && ! this.height) {
+                size = this.size; 
+            }
+            const sizeStyle = `input {
+                    ${SIZES[size]}
+            }`;
+            this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
         }
 
 
@@ -288,13 +291,14 @@
 
         _init_disabled(){
             if(this.disabled){
-                const disabledStyle = `input {
+                const el = this._choose_element(this.mode);
+                const disabledStyle = `${el} {
                     opacity: 0.5!important;
                     cursor: not-allowed;
                     background-color: #ccc;
                 }`; 
-                //input.setAttribute('disabled', true) TO DO: is this necessary? already true to begin with
                 this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
+                this._textSlot.querySelector(el).setAttribute('disabled', '');
             }      
         }
 
