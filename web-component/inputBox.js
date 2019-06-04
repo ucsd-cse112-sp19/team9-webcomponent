@@ -5,7 +5,6 @@
 class InputBox extends HTMLElement {
 
 
-
     /**
      * get disabled() 
      * Check if disabled exists in HTML.
@@ -35,7 +34,7 @@ class InputBox extends HTMLElement {
      * Returns: True or False 
      */
     get width() {
-        return this.getAttribute('width');]
+        return this.getAttribute('width');
     }
     /**
      * set width(val) 
