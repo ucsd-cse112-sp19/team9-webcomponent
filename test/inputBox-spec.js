@@ -1,7 +1,5 @@
 const assert = require('chai').assert
 
-const doc = require('document-register-element');
-
 const inputBox = require('../web-component/inputBox');
 
 describe('input-box element', () => {
@@ -135,5 +133,14 @@ describe('input-box element', () => {
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML,'input {\n                width: 300px; height: 30px; font-size: 18px !important;\n            }')
-    });    
+    }); 
+
+    it('should trigger keypress',() => {
+        cs.connectedCallback();
+        const input = cs.shadowRoot.querySelector('input');
+        const e=new KeyboardEvent('keypress',{'key':'13'});
+        input.dispatchEvent(e)
+
+    });
+    
 });

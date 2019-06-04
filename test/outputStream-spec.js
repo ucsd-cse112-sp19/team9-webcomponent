@@ -1,7 +1,5 @@
 const assert = require('chai').assert
 
-const doc = require('document-register-element');
-
 const outputStream = require('../web-component/outputStream');
 
 describe('output-stream element', () => {

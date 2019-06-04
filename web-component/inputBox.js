@@ -228,12 +228,13 @@ class InputBox extends HTMLElement {
         // from an internal button 
         // Register a listener to trigger on enter.
         i.addEventListener('keypress', (e) => {
-            const key = e.which || e.keyCode;
-            if(key === 13){
+            if(e.key == 13){
                 const msgInput = shadowRoot.querySelector('input');
                 //call send function
-                const sender = shadowRoot.querySelector('#sender');
-                sender.send(msgInput.value);
+                var sender = shadowRoot.querySelector('#sender');
+                if(sender!=null){
+                    sender.send(msgInput.value);
+                }
                 msgInput.value = '';
             }
         });
