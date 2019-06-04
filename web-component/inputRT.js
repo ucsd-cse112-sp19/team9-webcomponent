@@ -123,18 +123,8 @@
             link.setAttribute('type', 'text/css');
             if (this.url && this.bootstrap) {
                 link.setAttribute('href', this.url);
-                if(this.mode !== null){
-                    let el = ""; 
-                    console.log(el);
-                    if (this.mode === "sender") {
-                        el = "input";
-                    } else if (this.mode === "textarea") {
-                        el = "textarea"; 
-                    } 
-                    this._textSlot.querySelector(el).setAttribute('class', this.bootstrap);
-                } else {
-                    this._textSlot.querySelector('input').setAttribute('class', this.bootstrap);
-                }
+                const el = this._choose_element(this.mode); 
+                this._textSlot.querySelector(el).setAttribute('class', this.bootstrap);
             } else {
                 link.setAttribute('href', 'inputbox-rt-default-style.css');
             } 
@@ -340,6 +330,27 @@
                 default:
                     break;
             }
+        }
+
+        /**
+         * Internal function to determine the correct element in concern. 
+         * @param {*} mode 
+         * @returns {string} an html element in concern
+         */
+        _choose_element(mode) {
+            let retVal = "";
+            switch (mode) {
+                case "custom":
+                    break; 
+                case "textarea":
+                    retVal = "textarea"; 
+                    break; 
+                case 'sender':
+                default:
+                    retVal = "input"; 
+                    break;
+            }
+            return retVal; 
         }
 
         constructor(){

@@ -10,49 +10,11 @@
     <input-rt size="m"> </input-rt>
     <input-rt size="s"> </input-rt>
     <input-rt size="d"> </input-rt>
+
+    <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        bootstrap="border border-danger"> </input-rt>
     
-    <!-- <div>
-        <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap = "border border-danger"> Hi there </input-rt> 
-
-        <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap = "border border-danger" >
-            <mqtt-send id="sender" slot="messenger" topic="chattest/1">
-            </mqtt-send>
-        </input-rt>
-        <input-rt mode="textarea" disabled>
-            <mqtt-fetch id="receiver" slot="messenger" topic="chattest/1">
-            </mqtt-fetch>
-        </input-rt>
-    </div> -->
-
-
-    <!-- <input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap = "border border-danger" width = "50px"> </input-rt> -->
-
-    <!-- <input-box id="myInput"></input-box><br>
-
-    <rt-button url = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            disable > hello </rt-button>
-    
-
-    <button type = "button" id = 'btn'> Click to remove disable </button>
-    
-
-
-    <input-box url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" size="s" bootstrap="border border-primary">   </input-box> 
-    <br> <br>
-    <input-box url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" size="m" bootstrap="border border-secondary">   </input-box> 
-
-    <br> <br>
-    <input-box url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" size="l" bootstrap="border border-danger">   </input-box>  -->
-
-<!-- 
-    <mqtt-send id="sender" topic="chattest/1"></mqtt-send>
-    <output-stream width="5" height="33" >
-        <mqtt-fetch id="receiver" topic="chattest/1"></mqtt-fetch>
-    </output-stream>  -->
-    
-    <script src="inputBox.js"></script>
     <script src = "inputRT.js"></script>
-    <script src ="rt-button/rt-button.js"></script>
     <script src="mqttSend.js"></script>
     <script src="mqttFetch.js"></script>
 
