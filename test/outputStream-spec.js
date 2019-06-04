@@ -28,7 +28,7 @@ describe('output-stream element', () => {
         const output = cs.shadowRoot.querySelector('textarea');
         
         assert.equal(output.getAttribute('id'), 'msg');
-        assert.equal(output.getAttribute('readonly'), null);
+        assert.equal(output.getAttribute('readonly'), '');
         assert.equal(output.getAttribute('rows'), 'null');
         assert.equal(output.getAttribute('cols'), 'null');
     });
