@@ -147,12 +147,9 @@ class InputBox extends HTMLElement {
      */
     constructor () {
         super();
-        
-
     }
     
     connectedCallback() {
-
         const SIZES = {
             "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
             "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",

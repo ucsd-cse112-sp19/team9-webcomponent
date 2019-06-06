@@ -16,9 +16,9 @@
         <slot name="append"></slot>
     `;
 
-    class inputRT extends HTMLElement {
+    class InputRT extends HTMLElement {
         static get observedAttributes(){
-            return [];
+            return ['mode'];
         }
 
         get mode() {
@@ -37,11 +37,11 @@
          * Init function that generates the internal value based on 
          * the mode being set.
          */
-        _init_mode(){
+        _init_mode(mode){
             // TODO: need discussion on if this is the right approach 
             // if we plan on adding more modes then we should 
             // keep switch else a simple if - else might be better
-            switch(this.mode){
+            switch(mode){
                 case 'custom':
                     // Don't do anything on custom because user can implement there 
                     // own thing in the slot as well
@@ -64,16 +64,44 @@
         }
 
         /**
+         * An uninit function so that we can properly replace
+         * what was internally set as mode.
+         * @param {*} mode the mode to undo
+         */
+        _uninit_mode(mode){
+            switch(mode){
+                case 'custom':
+                    // Don't do anything on custom because user can implement there 
+                    // own thing in the slot as well
+                    break;
+                case 'textarea':
+                    const textarea = this._textSlot.querySelector('textarea');
+                    this._textSlot.removeChild(textarea);
+                    break;
+                case 'sender':
+                default:
+                    // Set default to input box.
+                    const input = this._textSlot.querySelector('input');
+                    this._textSlot.removeChild(input);
+                    break;
+            }
+        }
+
+        /**
          * Internal function that helps with setting the event handlers
          * for the mode attribute
          */
-        _register_mode(){
-            switch(this.mode){
+        _register_mode(mode){
+            switch(mode){
                 case 'sender':
                     // TODO: think of a way to refactor to handle more cases
                     // Also perhaps allow user to input
+
+                    // UHHHH?? TODO: figure out why this is a thing essentially
+                    // in our test environment the bind expires?????
+                    const bound = this.send.bind(this);
                     this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('click', this.send);
+                    this._appendSlot.addEventListener('click', bound);
                     break;
                 default:
                     break;
@@ -84,8 +112,8 @@
          * Internal function that helps with removing the event handlers
          * for the mode attribute
          */
-        _unregister_mode(){
-            switch(this.mode){
+        _unregister_mode(mode){
+            switch(mode){
                 case 'sender':
                     // TODO: think of a way to refactor to handle more cases
                     // Also perhaps allow user to input
@@ -104,31 +132,48 @@
             this.send = this.send.bind(this);
             this._onEnter = this._onEnter.bind(this);
 
-            // Initialize shadowRoot
-            this.attachShadow({mode: 'open'});
-            this.shadowRoot.appendChild(template.content.cloneNode(true));
+            // // Initialize shadowRoot
+            // this.attachShadow({mode: 'open'});
+            // this.shadowRoot.appendChild(template.content.cloneNode(true));
             
-            // Grab slots for easier use
-            this._messengerSlot = this.shadowRoot.querySelector('slot[name=messenger]');
-            this._textSlot = this.shadowRoot.querySelector('slot[name=text]');
-            this._appendSlot = this.shadowRoot.querySelector('slot[name=append]');
+            // // Grab slots for easier use
+            // this._messengerSlot = this.shadowRoot.querySelector('slot[name=messenger]');
+            // this._textSlot = this.shadowRoot.querySelector('slot[name=text]');
+            // this._appendSlot = this.shadowRoot.querySelector('slot[name=append]');
 
-            // Initialize attributes
-            this._init_mode();
+            // // Initialize attributes
+            // this._init_mode(this.mode);
         }
 
         connectedCallback(){
+                        // Initialize shadowRoot
+                        this.attachShadow({mode: 'open'});
+                        this.shadowRoot.appendChild(template.content.cloneNode(true));
+                        
+                        // Grab slots for easier use
+                        this._messengerSlot = this.shadowRoot.querySelector('slot[name=messenger]');
+                        this._textSlot = this.shadowRoot.querySelector('slot[name=text]');
+                        this._appendSlot = this.shadowRoot.querySelector('slot[name=append]');
+            
+                        // Initialize attributes
+                        this._init_mode(this.mode);
+
             // Add Event listeners
-            this._register_mode();
+            this._register_mode(this.mode);
         }
 
         disconnectedCallback(){
             // Remove Event listeners
-            this._unregister_mode();
+            this._unregister_mode(this.mode);
         }
 
-        attributeChangedCallback(){
-
+        attributeChangedCallback(name, oldValue, newValue){
+            switch(name){
+                case('mode'):
+                    // this._uninit_mode(oldValue);
+                    // this._init_mode(newValue);
+                    break;
+            }
         }
 
         /**
@@ -170,5 +215,5 @@
             }
         }
     }
-    customElements.define('input-rt', inputRT);
+    customElements.define('input-rt', InputRT);
 })();
