@@ -6,10 +6,18 @@
     };
 
     const SIZES = {
-        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
-        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
-        "d": "width: 300px; height: 30px; font-size: 18px !important;",
-        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+        input: {
+            "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+            "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+            "d": "width: 300px; height: 30px; font-size: 12px !important;",
+            "s": "width: 250px; height: 30px; font-size: 12px !important; padding: 5px 5px;"
+        }, 
+        textarea: {
+            "l": "width: 500px; height: 800px; font-size: 25px !important; padding: 10px 10px;",
+            "m": "width: 400px; height: 600px; font-size: 20px !important; padding: 8px 8px;",
+            "d": "width: 300px; height: 100px; font-size: 12px !important;",
+            "s": "width: 250px; height: 75px; font-size: 10px !important; padding: 5px 5px;",
+        }
     };
 
     // Create and define a template for WC
@@ -152,11 +160,13 @@
             }
         }
 
+        /**
+         * Initializes this element to be of type password only if the element in concern is input
+         */
         _init_password(){
             if (this.password) {
-                if(this.mode !== null){
-                    this._textSlot.querySelector(this.mode).setAttribute('type', "password");
-                } else {
+                const el = this._choose_element(this.mode);  
+                if(el && el === "input") {
                     this._textSlot.querySelector('input').setAttribute('type', "password");
                 }
             } 
@@ -187,7 +197,8 @@
 
         _init_width(){
             if (this.width) {
-                const sizeStyle = `input {
+                const el = this._choose_element(this.mode);
+                const sizeStyle = `${el} {
                     width: ${this.width} !important; 
                 }`;
                 this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
@@ -219,7 +230,8 @@
 
         _init_height() {
             if (this.height) {
-                const sizeStyle = `input {
+                const el = this._choose_element(this.mode);
+                const sizeStyle = `${el} {
                     height: ${this.height} !important; 
                 }`;
                 this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
@@ -242,6 +254,7 @@
          */
         set size(val) {
             const isSize = String(val);
+            console.log(isSize);
             if (isSize) {
                 this.setAttribute('size', val);
             } else {
@@ -249,15 +262,20 @@
             }
         }
 
-        _init_size() {
-            if (this.size && ! this.width && ! this.height) {
-                const sizeStyle = `input {
-                    ${SIZES[this.size]}
-                }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
-            } else if (!this.size && !this.width && !this.height) { // default size 
 
-            } 
+        /**
+         * Initializes size if specificed, and chooses default if not. 
+         */
+        _init_size() {
+            let size = "d"; 
+            if (this.size && ! this.width && ! this.height) {
+                size = this.size; 
+            }
+            const el = this._choose_element(this.mode);
+            const sizeStyle = `${el} { 
+                    ${SIZES[el][size]}
+            }`;
+            this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
         }
 
 
@@ -286,13 +304,14 @@
 
         _init_disabled(){
             if(this.disabled){
-                const disabledStyle = `input {
+                const el = this._choose_element(this.mode);
+                const disabledStyle = `${el} {
                     opacity: 0.5!important;
                     cursor: not-allowed;
                     background-color: #ccc;
                 }`; 
-                //input.setAttribute('disabled', true) TO DO: is this necessary? already true to begin with
                 this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
+                this._textSlot.querySelector(el).setAttribute('disabled', '');
             }      
         }
 
@@ -306,7 +325,7 @@
                     // TODO: think of a way to refactor to handle more cases
                     // Also perhaps allow user to input
                     this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('onclick', this.send);
+                    this._appendSlot.addEventListener('click', this.send);
                     break;
                 default:
                     break;
@@ -323,25 +342,30 @@
                     // TODO: think of a way to refactor to handle more cases
                     // Also perhaps allow user to input
                     this._textSlot.removeEventListener('keypress',this._onEnter);
-                    this._appendSlot.removeEventListener('onclick', this.send);
+                    this._appendSlot.removeEventListener('click', this.send);
                     break;
                 default:
                     break;
             }
         }
 
-        _choose_element(mode){
-            let retVal = "";  
-            switch(mode) {
-                case 'custom':
+        /**
+         * Internal function to determine the correct element in concern. 
+         * @param {*} mode 
+         * @returns {string} an html element in concern
+         */
+        _choose_element(mode) {
+            let retVal = "";
+            switch (mode) {
+                case "custom":
                     break; 
-                case 'textarea': 
+                case "textarea":
                     retVal = "textarea"; 
                     break; 
                 case 'sender':
-                default: 
+                default:
                     retVal = "input"; 
-                    break; 
+                    break;
             }
             return retVal; 
         }
@@ -421,7 +445,6 @@
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
-                    break;
                 default:
                     break;
             }

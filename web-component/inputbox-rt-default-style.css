@@ -3,12 +3,17 @@
 
 input {
     padding: 5px 5px;
-    font-size: 15px;
+    font-size: 12px;
     border: 1px solid black;
     color: black;
+    min-width: 250px;
 }
 
-input {
+textarea {
+    padding: 5px 5px;
+    font-size: 12px;
+    border: 1px solid black;
+    color: black;
     min-width: 250px;
 }
 :host {

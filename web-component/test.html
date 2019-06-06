@@ -6,16 +6,20 @@
 </head>
 <body>
    
-    <input-rt size="l"> </input-rt>
-    <input-rt size="m"> </input-rt>
-    <input-rt size="s"> </input-rt>
-    <input-rt size="d"> </input-rt>
+   
+    <input-rt mode="sender" size="m">
+        <mqtt-send id="sender" slot="messenger" topic="chattest/1">
+        </mqtt-send>
+    </input-rt>
+    <input-rt mode="textarea" size="m">
+        <mqtt-fetch id="receiver" slot="messenger" topic="chattest/1">
+        </mqtt-fetch>
+    </input-rt>
+    <input-rt mode="textarea" size="l">
+        <mqtt-fetch id="receiver" slot="messenger" topic="chattest/1">
+        </mqtt-fetch>
+    </input-rt>
 
-    <br>
-    <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        bootstrap="border border-danger"></input-rt>
-    
-    
     <script src = "inputRT.js"></script>
     <script src="mqttSend.js"></script>
     <script src="mqttFetch.js"></script>
