@@ -3,5 +3,5 @@ package-lock.json
 reports/
 .vscode/
 .nyc_output/
-docs/
-coverage/
+docs/*
+coverage/*
