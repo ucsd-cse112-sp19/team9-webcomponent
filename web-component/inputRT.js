@@ -220,6 +220,7 @@
 
         _init_height() {
             if (this.height) {
+                
                 const sizeStyle = `input {
                     height: ${this.height} !important; 
                 }`;
@@ -243,6 +244,7 @@
          */
         set size(val) {
             const isSize = String(val);
+            console.log(isSize);
             if (isSize) {
                 this.setAttribute('size', val);
             } else {
@@ -256,10 +258,14 @@
          */
         _init_size() {
             let size = "d"; 
+            // console.log(this.size);
+            // console.log(this.width);
+            // console.log(this.height);
             if (this.size && ! this.width && ! this.height) {
                 size = this.size; 
             }
-            const sizeStyle = `input {
+            const el = this._choose_element(this.mode);
+            const sizeStyle = `${el} {
                     ${SIZES[size]}
             }`;
             this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
