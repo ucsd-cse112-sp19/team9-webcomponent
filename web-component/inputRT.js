@@ -87,7 +87,7 @@
             switch(this.mode){
                 case 'sender':
                     this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('onclick', this.send);
+                    this._appendSlot.addEventListener('click', this.send);
                     break;
                 default:
                     break;
@@ -108,7 +108,7 @@
             switch(this.mode){
                 case 'sender':
                     this._textSlot.removeEventListener('keypress',this._onEnter);
-                    this._appendSlot.removeEventListener('onclick', this.send);
+                    this._appendSlot.removeEventListener('click', this.send);
                     break;
                 default:
                     break;
