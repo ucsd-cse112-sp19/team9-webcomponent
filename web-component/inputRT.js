@@ -131,6 +131,10 @@
         }
 
 
+        /**
+         * public function for sending messages, leverages an internal WC's
+         * send functionality.
+         */
         send(){
             const msgInput = this._textSlot.querySelector('input');
             //call send function
@@ -140,6 +144,11 @@
         }
 
 
+        /**
+         * public function that works as a callback to populate the internal
+         * text area with JS if desired
+         * @param {*} message thing to print out
+         */
         append(message){
             const textarea = this._textSlot.querySelector('textarea');
             textarea.innerHTML += message + "\n";
