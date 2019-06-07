@@ -3,6 +3,7 @@
  * API for fetching messages over a network
  */
 class MqttFetch extends HTMLElement {
+
     /**
      * get topic()
      * Check if topic exists in HTML.
@@ -32,7 +33,8 @@ class MqttFetch extends HTMLElement {
         this.client.onConnectionLost = function(responseObject){
             console.log("Connection Lost" + responseObject.errorMessage);
         };
-        // connect the client
+
+        // Connect the client
         const onConnect = function(){
             console.log("fetch Connected");
             this.client.subscribe(this.topic);
