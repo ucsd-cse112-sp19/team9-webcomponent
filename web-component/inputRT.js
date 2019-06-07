@@ -73,7 +73,7 @@
                     // TODO: think of a way to refactor to handle more cases
                     // Also perhaps allow user to input
                     this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('onclick', this.send);
+                    this._appendSlot.addEventListener('click', this.send);
                     break;
                 default:
                     break;
@@ -90,7 +90,7 @@
                     // TODO: think of a way to refactor to handle more cases
                     // Also perhaps allow user to input
                     this._textSlot.removeEventListener('keypress',this._onEnter);
-                    this._appendSlot.removeEventListener('onclick', this.send);
+                    this._appendSlot.removeEventListener('click', this.send);
                     break;
                 default:
                     break;

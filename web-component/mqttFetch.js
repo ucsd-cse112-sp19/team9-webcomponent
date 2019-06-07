@@ -58,7 +58,6 @@ class MqttFetch extends HTMLElement {
             }
             return result;
         }
-        
         // Create a client instance
         // NOTE: If you have client issues its because there is another client connected with this name
         // Choose another random client id and it should fix the problem

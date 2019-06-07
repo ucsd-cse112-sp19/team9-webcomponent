@@ -1,0 +1,16 @@
+/* default styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+input { width: 100%; }
+:host {
+    display: block;
+    width: 300px;
+    border: 2px solid black;
+    border-bottom: 0px;
+}
+/* end of default styles */
+
+
+
+

@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: mqttFetch.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                    
+                        <h1 class="navbar-item">Documentation</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-JSDoc Guide Coders.html">JSDoc Guide Coders</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-webpack.html">webpack</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>mqttFetch.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * MsgFetch class
+ * API for fetching messages over a network
+ */
+class MqttFetch extends HTMLElement {
+    /**
+     * get url() 
+     * Check if url exists in HTML.
+     * Returns: True or False 
+     */
+    get url() {
+        return this.getAttribute('url');
+    }
+    /**
+     * set url(val) 
+     * Sets url if value passed in, or removes it if nothing
+     * is passed.
+     * Returns: Null
+     */
+    set url(val) {
+        if (val !== '') {
+          this.setAttribute('url', val);
+        } else {
+          this.removeAttribute('url');
+        }
+    }
+    /**
+     * get topic() 
+     * Check if topic exists in HTML.
+     * Returns: True or False 
+     */
+    get topic() {
+        return this.getAttribute('topic');
+    }
+
+    /**
+     * Constructor for setting up shadow dom and class definitions 
+     * for web component.
+     */
+    constructor () {
+        super();
+      
+        //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+        this.userId = "anonymous";
+        this.msgId = -1;
+
+        // Initialize shadow root
+        this.attachShadow({mode: 'open'});
+
+        // TODO: This should be optimized or another method should be implemented.
+        // This is a helper function that generates a random client id.
+        function makeid(length) {
+            let result           = '';
+            const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            for ( let i = 0; i &lt; length; i++ ) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        let Paho
+        // Create a client instance
+        // NOTE: If you have client issues its because there is another client connected with this name
+        // Choose another random client id and it should fix the problem
+        // You can determine this by opening dev tools and if it says socket closed that is the problem
+        // TODO: FIX ABOVE -- kinda fixed but perhaps a better fix can be implemented
+        this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
+
+        this.client.onConnectionLost = function(responseObject){
+            console.log("Connection Lost" + responseObject.errorMessage);
+        };
+        // connect the client
+        const onConnect = function(){
+            console.log("fetch Connected");
+            this.client.subscribe(this.topic);
+        }.bind(this);
+
+        this.client.connect({onSuccess:onConnect});
+        
+        // Append to shadowdom style
+        // Eventually turn into text area so that we can scroll
+        // Through - if not sprint1 def sprint 2
+        const i = document.createElement('input');
+        i.setAttribute("id","userId");
+        i.setAttribute("name","userId");
+        i.setAttribute("value","anonymous");
+        this.shadowRoot.append(i);
+    }
+
+    connectedCallback(){
+        // Listen for userId Change
+        const input = this.shadowRoot.querySelector('input');
+        input.addEventListener('change', ()=>{
+            this.userId = input.value;
+        });
+
+        this.observe(this.parentElement.append);
+    }
+
+    observe(callback){
+        this.client.onMessageArrived = function(message){
+            callback(message.payloadString);
+        };
+    }
+}
+
+// Register mqtt-fetch class as mqtt-fetch element
+customElements.define('mqtt-fetch', MqttFetch);</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Thu May 30 2019 13:19:59 GMT-0700 (GMT-07:00)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
+        </p>
+    </div>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

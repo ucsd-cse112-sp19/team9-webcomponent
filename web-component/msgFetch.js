@@ -45,6 +45,23 @@ class MsgFetch extends HTMLElement {
       // Append to shadowdom style
       // Eventually turn into text area so that we can scroll
       // Through - if not sprint1 def sprint 2
+
+      // let defaultStyle = `
+      // <style>
+      // input {
+      //   color: #006A96;
+      //   border: none; 
+      //   font-size: 15px;
+      //   box-sizing: border-box;
+      //   border: 2px solid #685972;
+      //   width: 100%; 
+      //   height: 25px;
+      //   border-radius: 5px 5px 0 0; 
+      //   border-bottom: none;
+      // }
+      // </style>`;
+      // shadowRoot.innerHTML += defaultStyle;
+
       const i = document.createElement('input');
       i.setAttribute("id","userId");
       i.setAttribute("name","userId");
@@ -55,6 +72,10 @@ class MsgFetch extends HTMLElement {
       i.addEventListener('change', ()=>{
         this.userId = shadowRoot.querySelector('input').value;
       });
+      console.log('printing from msgFetch')
+      // console.log(document.querySelector(this.));
+      console.log(this);
+      
     }
 
     deconstructMessage(messages){
@@ -67,31 +88,6 @@ class MsgFetch extends HTMLElement {
           }
         }
         return ret
-    }
-
-    observe(that, callback){
-        const they = this;
-        const autoupdate = setInterval(function(){
-            let http = new XMLHttpRequest();
-            let url = they.url + '/' + they.msgId;
-    
-            http.open("GET", url, true); // true for asynchronous 
-    
-            http.onreadystatechange = function() { 
-                if (http.readyState == 4 && http.status == 200){
-                    const parsed = JSON.parse(http.responseText);
-                    
-                    they.msgId = parsed["msgId"];
- 
-                    const msgs = they.deconstructMessage(parsed["msgs"]);
-                    callback(that,msgs);
-                }
-            }
-          
-          
-            http.send(null);
-        }, 1000);
-        
     }
 }
 
