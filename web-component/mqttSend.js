@@ -1,8 +1,9 @@
 /**
- * HelloWorld class
- * Provides template for core-hello element
+ * MqttSend class
+ * API for sending messages over a network
  */
 class MqttSend extends HTMLElement {
+
     /**
      * get topic()
      * Check if topic exists in HTML.
@@ -11,6 +12,7 @@ class MqttSend extends HTMLElement {
     get topic() {
         return this.getAttribute('topic');
     }
+
     /**
      * Constructor for setting up shadow dom and class definitions
      * for web component.
@@ -29,7 +31,8 @@ class MqttSend extends HTMLElement {
         this.client.onConnectionLost = function(responseObject){
             console.log("Connection Lost" + responseObject.errorMessage);
         };
-        // connect the client
+
+        // Connect the client
         this.client.connect({onSuccess:function(){
             console.log("send connected");
         }});
@@ -52,6 +55,10 @@ class MqttSend extends HTMLElement {
         });
     }
 
+    /**
+     * Sends a message through the paho mqtt client on the topic specified
+     * Message schema: "UserId: body"
+     */
     send(body){
         const message = this.userId + ": " + body;
         const mqtt_msg = new Paho.MQTT.Message(message);
