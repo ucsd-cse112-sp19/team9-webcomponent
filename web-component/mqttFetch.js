@@ -27,10 +27,6 @@ class MqttFetch extends HTMLElement {
         this.attachShadow({mode: 'open'});
 
         // Create a client instance
-        // NOTE: If you have client issues its because there is another client connected with this name
-        // Choose another random client id and it should fix the problem
-        // You can determine this by opening dev tools and if it says socket closed that is the problem
-        // TODO: FIX ABOVE -- kinda fixed but perhaps a better fix can be implemented
         this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "");
 
         this.client.onConnectionLost = function(responseObject){
