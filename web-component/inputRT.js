@@ -407,7 +407,6 @@
         }
 
         attributeChangedCallback(name, oldVal, newVal){
-            
             switch (name) {
                 case 'disabled':
                     this._init_disabled();
@@ -415,7 +414,6 @@
                 default: 
                     break; 
             } 
-            
         }
 
         /**
