@@ -1,18 +1,14 @@
-/**
- * HelloWorld class
- * Provides template for core-hello element
- */
 class MqttSend extends HTMLElement {
     /**
-     * get url() 
+     * get url()
      * Check if url exists in HTML.
-     * Returns: True or False 
+     * Returns: True or False
      */
     get url() {
       return this.getAttribute('url');
     }
     /**
-     * set url(val) 
+     * set url(val)
      * Sets url if value passed in, or removes it if nothing
      * is passed.
      * Returns: Null
@@ -25,20 +21,28 @@ class MqttSend extends HTMLElement {
       }
     }
     /**
-     * get topic() 
+     * get topic()
      * Check if topic exists in HTML.
-     * Returns: True or False 
+     * Returns: True or False
      */
     get topic() {
         return this.getAttribute('topic');
     }
+
     /**
-     * Constructor for setting up shadow dom and class definitions 
-     * for web component.
+     *
+     * Constructor for setting up shadow dom and class definitions
+     * for web component. The attributes are id, slot, and topic
+     * @example   <input-rt mode="sender">
+           <mqtt-send id="sender" slot="messenger" topic="chattest/1">
+           </mqtt-send>
+       </input-rt>
+     * @class MQTT Send Web Component, This class provides functionality to send messages to a port, given a topic,
+     * It can be attached to inputRT
      */
     constructor () {
         super();
-    
+
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         // Such as using that html template that generates requirements to be used by wrappers (like an interface).
         this.userId = "anonymous";
@@ -81,7 +85,7 @@ class MqttSend extends HTMLElement {
         this.shadowRoot.append(i);
     }
 
-    connectedCallback(){      
+    connectedCallback(){
         // Listen for userId Change
         const input = this.shadowRoot.querySelector('input');
         input.addEventListener('change', ()=>{
