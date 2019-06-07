@@ -4,41 +4,20 @@
  */
 class MqttSend extends HTMLElement {
     /**
-     * get url() 
-     * Check if url exists in HTML.
-     * Returns: True or False 
-     */
-    get url() {
-      return this.getAttribute('url');
-    }
-    /**
-     * set url(val) 
-     * Sets url if value passed in, or removes it if nothing
-     * is passed.
-     * Returns: Null
-     */
-    set url(val) {
-      if (val !== '') {
-        this.setAttribute('url', val);
-      } else {
-        this.removeAttribute('url');
-      }
-    }
-    /**
-     * get topic() 
+     * get topic()
      * Check if topic exists in HTML.
-     * Returns: True or False 
+     * Returns: True or False
      */
     get topic() {
         return this.getAttribute('topic');
     }
     /**
-     * Constructor for setting up shadow dom and class definitions 
+     * Constructor for setting up shadow dom and class definitions
      * for web component.
      */
     constructor () {
         super();
-    
+
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         // Such as using that html template that generates requirements to be used by wrappers (like an interface).
         this.userId = "anonymous";
@@ -81,7 +60,7 @@ class MqttSend extends HTMLElement {
         this.shadowRoot.append(i);
     }
 
-    connectedCallback(){      
+    connectedCallback(){
         // Listen for userId Change
         const input = this.shadowRoot.querySelector('input');
         input.addEventListener('change', ()=>{
