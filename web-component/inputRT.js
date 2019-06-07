@@ -5,6 +5,7 @@
         ENTER: 13
     };
 
+    // Default css sizes for the web-component's size attribute
     const SIZES = {
         input: {
             "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
@@ -88,6 +89,7 @@
         get bootstrap() {
             return this.getAttribute('bootstrap');
         }
+
         /**
          * set bootstrap(val) 
          * Sets bootstrap if value passed in, or removes it if nothing
@@ -101,6 +103,7 @@
                 this.removeAttribute('bootstrap');
             }
         }
+
         /**
          * get url() 
          * Check if url exists in HTML.
@@ -109,6 +112,7 @@
         get url() {
             return this.getAttribute('url');
         }
+
         /**
          * set url(val) 
          * Sets url if value passed in, or removes it if nothing
@@ -123,6 +127,10 @@
             }
         }
 
+        /**
+         * Init function that populates url attribute and bootstrap attribute 
+         * if the url and bootstrap are both set. 
+         */
         _init_bootstrap_URL(){
             const link = document.createElement('link');
             link.setAttribute('rel', 'stylesheet');
@@ -145,6 +153,7 @@
         get password() {
             return this.hasAttribute('password');
         }
+
         /**
          * set password(val) 
          * Sets password if value passed in, or removes it if nothing
@@ -180,6 +189,7 @@
         get width() {
             return this.getAttribute('width');
         }
+
         /**
          * set width(val) 
          * Sets width if value passed in, or removes it if nothing
@@ -195,6 +205,9 @@
             }
         }
 
+        /**
+         * Init function that sets the width of the web component. 
+         */
         _init_width(){
             if (this.width) {
                 const el = this._choose_element(this.mode);
@@ -213,6 +226,7 @@
         get height() {
             return this.getAttribute('height');
         }
+
         /**
          * set height(val) 
          * Sets height if value passed in, or removes it if nothing
@@ -246,6 +260,7 @@
         get size() {
             return this.getAttribute('size');
         }
+
         /**
          * set size(val) 
          * Sets size if value passed in, or removes it if nothing
@@ -262,7 +277,6 @@
             }
         }
 
-
         /**
          * Initializes size if specificed, and chooses default if not. 
          */
@@ -278,7 +292,6 @@
             this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
         }
 
-
         /**
          * get disabled() 
          * Check if disabled exists in HTML.
@@ -287,6 +300,7 @@
         get disabled() {
             return this.hasAttribute('disabled');
         }
+
         /**
          * set disabled(val) 
          * Sets disabled if value passed in, or removes it if nothing
@@ -301,7 +315,10 @@
                 this.removeAttribute('disabled');
             }
         }
-
+        
+        /**
+         * Init function that sets the web-component to be disabled.
+         */
         _init_disabled(){
             if(this.disabled){
                 const el = this._choose_element(this.mode);
@@ -349,27 +366,6 @@
             }
         }
 
-        /**
-         * Internal function to determine the correct element in concern. 
-         * @param {*} mode 
-         * @returns {string} an html element in concern
-         */
-        _choose_element(mode) {
-            let retVal = "";
-            switch (mode) {
-                case "custom":
-                    break; 
-                case "textarea":
-                    retVal = "textarea"; 
-                    break; 
-                case 'sender':
-                default:
-                    retVal = "input"; 
-                    break;
-            }
-            return retVal; 
-        }
-
         constructor(){
             super();
             // Bind to this object
@@ -409,6 +405,27 @@
 
         attributeChangedCallback(){
 
+        }
+
+        /**
+         * Internal function to determine the correct element in concern. 
+         * @param {*} mode 
+         * @returns {string} an html element in concern
+         */
+        _choose_element(mode) {
+            let retVal = "";
+            switch (mode) {
+                case "custom":
+                    break;
+                case "textarea":
+                    retVal = "textarea";
+                    break;
+                case 'sender':
+                default:
+                    retVal = "input";
+                    break;
+            }
+            return retVal;
         }
 
         /**
