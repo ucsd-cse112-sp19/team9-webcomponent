@@ -208,5 +208,5 @@
             }
         }
     }
-    customElements.define('input-rt', inputRT);
+    customElements.define('input-rt', InputRT);
     
