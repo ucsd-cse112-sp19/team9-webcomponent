@@ -35,7 +35,7 @@
 
     class inputRT extends HTMLElement {
         static get observedAttributes(){
-            return [];
+            return ['disabled'];
         }
 
         get mode() {
@@ -254,7 +254,6 @@
          */
         set size(val) {
             const isSize = String(val);
-            console.log(isSize);
             if (isSize) {
                 this.setAttribute('size', val);
             } else {
@@ -407,8 +406,16 @@
             this._unregister_mode();
         }
 
-        attributeChangedCallback(){
-
+        attributeChangedCallback(name, oldVal, newVal){
+            
+            switch (name) {
+                case 'disabled':
+                    this._init_disabled();
+                    break;
+                default: 
+                    break; 
+            } 
+            
         }
 
         /**
