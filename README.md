@@ -6,7 +6,7 @@
 ![](images/time_terror.png)
 
 ## Documentation
-Check out `./docs/index.html`
+Check out our [Documentation](http://htmlpreview.github.io/?https://github.com/ucsd-cse112/team9-webcomponent/blob/valentin/docs/index.html)
 
 ## Dev Server
 See `./tutorials/webpack.md`
