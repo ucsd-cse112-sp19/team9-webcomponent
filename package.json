@@ -12,7 +12,7 @@
     "resume": "npx webpack-dev-server",
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
-    "test": "nyc npm run mocha"
+    "test": "nyc npm run mocha & npm run saucelabs"
   },
   "husky": {
     "hooks": {
