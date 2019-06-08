@@ -109,7 +109,6 @@
             if (isDisabled) {
                 this.setAttribute('disabled', val);
             } else {
-                this._remove_attribute_style('disabled');
                 this.removeAttribute('disabled');
             }
         }
@@ -160,13 +159,15 @@
         /**
          * Init function that sets the dimensions of the web component.
          */
-        _init_dimension(dimension) {
+        _init_dimension(type, dimension) {
             if (dimension) {
                 const el = this._choose_element(this.mode);
-                const sizeStyle = `${el} {
-                    height: ${dimension} !important; 
-                }`;
-                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
+                if(el){
+                    const sizeStyle = `${el} {
+                        ${type}: ${dimension} !important; 
+                    }`;
+                    this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
+                }
             }
         }
 
@@ -196,6 +197,7 @@
         /**
          * Init function that generates the internal value based on the mode being set
          * 
+         * @param {String} mode will set mode properly to the mode passed in
          * @property {String} custom user can implement their own mode in this slot
          * @property {String} textarea create a textarea which will display text
          * @property {String} sender set default to input box
@@ -204,8 +206,8 @@
          * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
          * @todo should we have a receiver object as well
          */
-        _init_mode(){
-            switch(this.mode){
+        _init_mode(mode){
+            switch(mode){
                 case 'custom':
                     // Don't do anything on custom because user can implement there 
                     // own thing in the slot as well
@@ -320,10 +322,13 @@
                 size = this.size; 
             }
             const el = this._choose_element(this.mode);
-            const sizeStyle = `${el} { 
+            if(el){
+                const sizeStyle = `${el} { 
                     ${SIZES[el][size]}
-            }`;
-            this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
+                }`;
+                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
+            }
+
         }
 
         /**
@@ -388,6 +393,27 @@
          */
         constructor(){
             super();
+            this._init();
+        }
+
+        connectedCallback(){
+            if(this.shadowRoot === null){
+                this._init();
+            }
+            // Add Event listeners
+            this._register_mode(true);
+        }
+
+        disconnectedCallback(){
+            // Remove Event listeners
+            this._register_mode(false);
+        }
+
+        attributeChangedCallback(name, oldVal, newVal){
+        
+        }
+
+        _init(){
             // Bind to this object
             this.append = this.append.bind(this);
             this.send = this.send.bind(this);
@@ -403,34 +429,15 @@
             this._linkSlot = this.shadowRoot.querySelector('slot[name=link]');
 
             // Initialize attributes
-            this._init_mode();
+            this._init_mode(this.mode);
             this._init_disabled();
             this._init_bootstrap_URL();
             this._init_password();
-            this._init_dimension(this.width);
-            this._init_dimension(this.height);
+            this._init_dimension("width",this.width);
+            this._init_dimension("height",this.height);
             this._init_size();
         }
 
-        connectedCallback(){
-            // Add Event listeners
-            this._register_mode(true);
-        }
-
-        disconnectedCallback(){
-            // Remove Event listeners
-            this.register_mode(false);
-        }
-
-        attributeChangedCallback(name, oldVal, newVal){
-            switch (name) {
-                case 'disabled':
-                    this._init_disabled();
-                    break;
-                default: 
-                    break; 
-            } 
-        }
 
         /**
          * Internal function to determine the correct element in concern. 
@@ -438,7 +445,7 @@
          * @returns {string} an html element in concern
          */
         _choose_element(mode) {
-            let retVal = "";
+            let retVal = null;
             switch (mode) {
                 // TODO: users may specify what type of element they want for custom. 
                 case "custom":
@@ -452,17 +459,6 @@
                     break;
             }
             return retVal;
-        }
-
-        /**
-         * Internal function to remove the styles that are related to each attribute
-         * @param {*} attribute attribute to remove styles for
-         */
-        _remove_attribute_style(attribute) {
-            const elem = this.shadowRoot.querySelector(`style#${attribute}Style`); 
-            if (elem != null) {
-                elem.remove(); 
-            }
         }
 
         /**
