@@ -1,8 +1,5 @@
-/**
- * HelloWorld class
- * Provides template for core-hello element
- */
 class MqttSend extends HTMLElement {
+
     /**
      * get topic()
      * Check if topic exists in HTML.
@@ -11,9 +8,17 @@ class MqttSend extends HTMLElement {
     get topic() {
         return this.getAttribute('topic');
     }
+
     /**
+     *
      * Constructor for setting up shadow dom and class definitions
-     * for web component.
+     * for web component. The attributes are id, slot, and topic
+     * @example   <input-rt mode="sender">
+           <mqtt-send id="sender" slot="messenger" topic="chattest/1">
+           </mqtt-send>
+       </input-rt>
+     * @class MQTT Send Web Component, This class provides functionality to send messages to a port, given a topic,
+     * It can be attached to inputRT
      */
     constructor () {
         super();
@@ -29,7 +34,8 @@ class MqttSend extends HTMLElement {
         this.client.onConnectionLost = function(responseObject){
             console.log("Connection Lost" + responseObject.errorMessage);
         };
-        // connect the client
+
+        // Connect the client
         this.client.connect({onSuccess:function(){
             console.log("send connected");
         }});
@@ -52,6 +58,10 @@ class MqttSend extends HTMLElement {
         });
     }
 
+    /**
+     * Sends a message through the paho mqtt client on the topic specified
+     * Message schema: "UserId: body"
+     */
     send(body){
         const message = this.userId + ": " + body;
         const mqtt_msg = new Paho.MQTT.Message(message);
