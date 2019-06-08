@@ -9,6 +9,7 @@
 
     /**
      * @typedef {HTMLDocument} template
+     * @
      * Creates and defines a template for web component
      */
     const template = document.createElement('template');
@@ -76,6 +77,7 @@
         /**
          * Internal function that helps with setting the event handlers for the mode attribute hello
          * 
+         * @param {Bool} register if True will add evenListener, else will remove them
          * @property {String} sender add eventListener keypress & click 
          * 
          * @example connectedCallback(){this._register_mode();}
@@ -83,32 +85,17 @@
          * @todo think of a way to refactor to handle more cases
          * @todo perhaps allow user to input
          */
-        _register_mode(){
+        _register_mode(register){
             switch(this.mode){
                 case 'sender':
-                    this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('click', this.send);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /**
-         * Internal function that helps with removing the event handlers for the mode attribute
-         * 
-         * @property {String} sender remove eventListener keypress & click 
-         * 
-         * @example disconnectedCallback(){this._unregister_mode();}
-         * 
-         * @todo think of a way to refactor to handle more cases
-         * @todo perhaps allow user to input
-         */
-        _unregister_mode(){
-            switch(this.mode){
-                case 'sender':
-                    this._textSlot.removeEventListener('keypress',this._onEnter);
-                    this._appendSlot.removeEventListener('click', this.send);
+                    if(register){
+                        this._textSlot.addEventListener('keypress',this._onEnter);
+                        this._appendSlot.addEventListener('click', this.send);
+                    }
+                    else{
+                        this._textSlot.removeEventListener('keypress',this._onEnter);
+                        this._appendSlot.removeEventListener('click', this.send);
+                    }
                     break;
                 default:
                     break;
@@ -148,12 +135,12 @@
 
         connectedCallback(){
             // Add Event listeners
-            this._register_mode();
+            this._register_mode(True);
         }
 
         disconnectedCallback(){
             // Remove Event listeners
-            this._unregister_mode();
+            this._register_mode(False);
         }
 
         attributeChangedCallback(){
