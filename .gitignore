@@ -4,3 +4,4 @@ reports/
 .vscode/
 .nyc_output/
 docs/
+coverage/
