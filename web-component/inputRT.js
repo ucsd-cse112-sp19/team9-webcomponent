@@ -32,7 +32,7 @@
      */
     const template = document.createElement('template');
     template.innerHTML = `
-        <style>
+        <style id="default">
         </style>
         <div>
             <slot name="messenger"></slot>
@@ -45,7 +45,7 @@
     class InputRT extends HTMLElement {
 
         static get observedAttributes(){
-            return [];
+            return ['disabled'];
         }
 
         /**
@@ -109,6 +109,7 @@
             if (isDisabled) {
                 this.setAttribute('disabled', val);
             } else {
+                this._remove_attribute_style('disabled');
                 this.removeAttribute('disabled');
             }
         }
@@ -119,16 +120,19 @@
         _init_disabled() {
             if (this.disabled) {
                 const el = this._choose_element(this.mode);
-                const disabledStyle = `${el} {
+                const style = document.createElement('style');
+                style.setAttribute('id', 'disabledStyle');
+                const disabledStyle = `${el}[disabled] {
                     opacity: 0.5!important;
                     cursor: not-allowed;
                     background-color: #ccc;
                 }`;
-                this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
+                style.innerHTML += disabledStyle;
+                this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
         }
-
+        
         /**
          * get height() 
          * Check if height exists in HTML.
@@ -154,15 +158,15 @@
         }
 
         /**
-         * Init function that sets the width of the web component.
+         * Init function that sets the dimensions of the web component.
          */
-        _init_height() {
-            if (this.height) {
+        _init_dimension(dimension) {
+            if (dimension) {
                 const el = this._choose_element(this.mode);
                 const sizeStyle = `${el} {
-                    height: ${this.height} !important; 
+                    height: ${dimension} !important; 
                 }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
             }
         }
 
@@ -319,7 +323,7 @@
             const sizeStyle = `${el} { 
                     ${SIZES[el][size]}
             }`;
-            this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+            this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
         }
 
         /**
@@ -369,19 +373,6 @@
             }
         }
 
-        /**
-         * Init function that sets the width of the web component. 
-         */
-        _init_width() {
-            if (this.width) {
-                const el = this._choose_element(this.mode);
-                const sizeStyle = `${el} {
-                    width: ${this.width} !important; 
-                }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
-            }
-        }
-
         /** InputRT Web Component
          *
          * Initialize ShadowRoot, create text slot and bind to object
@@ -416,8 +407,8 @@
             this._init_disabled();
             this._init_bootstrap_URL();
             this._init_password();
-            this._init_width();
-            this._init_height();
+            this._init_dimension(this.width);
+            this._init_dimension(this.height);
             this._init_size();
         }
 
@@ -431,7 +422,14 @@
             this.register_mode(false);
         }
 
-        attributeChangedCallback(){
+        attributeChangedCallback(name, oldVal, newVal){
+            switch (name) {
+                case 'disabled':
+                    this._init_disabled();
+                    break;
+                default: 
+                    break; 
+            } 
         }
 
         /**
@@ -457,6 +455,19 @@
         }
 
         /**
+         * Internal function to remove the styles that are related to each attribute
+         * @param {*} attribute attribute to remove styles for
+         */
+        _remove_attribute_style(attribute) {
+            const elem = this.shadowRoot.querySelector(`style#${attribute}Style`); 
+            if (elem != null) {
+                elem.remove(); 
+            }
+        }
+
+        /**
+         * public function for sending messages, leverages an internal WC's 
+         * send functionality. 
          * Public function for sending messages, leverages an internal WC's send functionality
          * @property {String} msgInput query the input
          * @property {Function} send the sender sends the msgInput value
