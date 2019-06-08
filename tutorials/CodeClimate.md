@@ -11,6 +11,6 @@ This is why we must try to have a test coverage of 90+ to ensure quality!
 You can check the status with the GitHub badges or by checking online https://codeclimate.com.  
 You should be able to see this.
 
-<img src="codeclimate.png">
+<img src="images/codeclimate.png">
 
 We run the coverage part after the tests: the report is made and encoded and updated to our repository.
