@@ -43,16 +43,16 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set width(val) {
-        this.settingStringAttribute(val,width);
+        this.settingStringAttribute(val,'width');
     }
 
     settingStringAttribute(val,attribute) {
         const stringval = String(val);
         if (stringval) {
-            this.setAttribute(String(attribute), val);
+            this.setAttribute(attribute, val);
         }
         else {
-            this.removeAttribute(String(attribute));
+            this.removeAttribute(attribute);
         }
     }
 
@@ -71,7 +71,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set height(val) {
-        this.settingStringAttribute(val,height);
+        this.settingStringAttribute(val,'height');
     }
 
     /**
@@ -89,7 +89,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set size(val) {
-        this.settingStringAttribute(val,size);
+        this.settingStringAttribute(val,'size');
     }
 
     /**
@@ -107,7 +107,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set bootstrap(val) {
-        this.settingStringAttribute(val,boostrap);
+        this.settingStringAttribute(val,'bootstrap');
     }
 
     /**
@@ -125,7 +125,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set url(val) {
-        this.settingStringAttribute(val,url);
+        this.settingStringAttribute(val,'url');
     }
     /**
      * Constructor for setting up shadow dom and class definitions 
