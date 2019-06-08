@@ -200,7 +200,8 @@
         _init_mode(){
             switch(this.mode){
                 case 'custom':
-                    //Do not put anything there
+                    // Don't do anything on custom because user can implement there 
+                    // own thing in the slot as well
                     break;
                 case 'textarea':
                     const textarea = document.createElement('textarea');
@@ -294,7 +295,6 @@
          */
         set size(val) {
             const isSize = String(val);
-            console.log(isSize);
             if (isSize) {
                 this.setAttribute('size', val);
             } else {
@@ -415,17 +415,19 @@
             this._init_height();
             this._init_size();
         }
+
         connectedCallback(){
             // Add Event listeners
             this._register_mode();
         }
+
         disconnectedCallback(){
             // Remove Event listeners
             this._unregister_mode();
         }
+
         attributeChangedCallback(){
         }
-
 
         /**
          * Internal function to determine the correct element in concern. 
@@ -461,7 +463,6 @@
             msgInput.value = '';
         }
 
-
         /**
          * public function that works as a callback to populate the internal
          * text area with JS if desired
@@ -485,8 +486,7 @@
                     break;
             }
         }
-
-
     }
+    
     customElements.define('input-rt', InputRT);
-});
+})();
