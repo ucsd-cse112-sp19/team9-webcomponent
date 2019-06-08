@@ -435,7 +435,6 @@
             this.register_mode(false);
         }
 
-<<<<<<< HEAD
         attributeChangedCallback(name, oldVal, newVal){
             switch (name) {
                 case 'disabled':
@@ -444,9 +443,6 @@
                 default: 
                     break; 
             } 
-=======
-        attributeChangedCallback(){
->>>>>>> 9b14d9a8498cbccda853504427aec0792dbdb3cf
         }
 
         /**
@@ -472,7 +468,6 @@
         }
 
         /**
-<<<<<<< HEAD
          * Internal function to remove the styles that are related to each attribute
          * @param {*} attribute attribute to remove styles for
          */
@@ -486,13 +481,11 @@
         /**
          * public function for sending messages, leverages an internal WC's 
          * send functionality. 
-=======
          * Public function for sending messages, leverages an internal WC's send functionality
          * @property {String} msgInput query the input
          * @property {Function} send the sender sends the msgInput value
          * @example case KEYCODE.ENTER: this.send();
          * @todo need to find a way the input element and poluate that
->>>>>>> 9b14d9a8498cbccda853504427aec0792dbdb3cf
          */
         send(){
             const msgInput = this._textSlot.querySelector('input');
