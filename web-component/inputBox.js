@@ -20,12 +20,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set disabled(val) {
-        const isDisabled = Boolean(val);
-        if (isDisabled) {
-            this.setAttribute('disabled', val);
-        } else {
-            this.removeAttribute('disabled');
-        }
+        this.settingStringAttribute(val,'disabled');
     }
 
     /**
@@ -47,8 +42,13 @@ class InputBox extends HTMLElement {
     }
 
     settingStringAttribute(val,attribute) {
-        const stringval = String(val);
-        if (stringval) {
+        switch(attribute){
+            case 'disabled':
+            const val = Boolean(val);
+            default:
+             const val = String(val);
+        }
+        if (val) {
             this.setAttribute(attribute, val);
         }
         else {
@@ -133,8 +133,6 @@ class InputBox extends HTMLElement {
      */
     constructor () {
         super();
-        
-
     }
     
     connectedCallback() {
