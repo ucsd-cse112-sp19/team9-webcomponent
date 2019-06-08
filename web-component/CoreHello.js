@@ -11,6 +11,7 @@ class CoreHello extends HTMLElement {
     get rainbow() {
       return this.hasAttribute('rainbow');
     }
+    
     /**
      * set rainbow(val) 
      * Sets rainbow if value passed in, or removes it if nothing
@@ -18,11 +19,8 @@ class CoreHello extends HTMLElement {
      * Returns: Null
      */
     set rainbow(val) {
-      if (val !== '') {
-        this.setAttribute('rainbow', '');
-      } else {
-        this.removeAttribute('rainbow');
-      }
+      this.settingStringAttribute(val,'rainbow');
+    }
     }
     /**
      * get lang() 
@@ -39,11 +37,8 @@ class CoreHello extends HTMLElement {
      * Returns: Null
      */
     set lang(val) {
-      if (val !== '') {
-        this.setAttribute('lang', val);
-      } else {
-        this.removeAttribute('lang');
-      }
+      this.settingStringAttribute(val,'lang');
+    }
     }
     /**
      * get font() 
@@ -60,11 +55,8 @@ class CoreHello extends HTMLElement {
      * Returns: Null
      */
     set font(val) {
-      if (val !== '') {
-        this.setAttribute('font', val);
-      } else {
-        this.removeAttribute('font');
-      }
+      this.settingStringAttribute(val,'font');
+    }
     }
     /**
      * get fontsize() 
@@ -81,11 +73,18 @@ class CoreHello extends HTMLElement {
      * Returns: Null
      */
     set fontsize(val) {
-      if (val !== '') {
-        this.setAttribute('fontsize', val);
-      } else {
-        this.removeAttribute('fontsize');
+      this.settingStringAttribute(val,'fontsize');
+    }
+      
+    settingStringAttribute(val,attribute) {
+      const stringval = String(val);
+      if (stringval) {
+          this.setAttribute(attribute, val);
       }
+      else {
+          this.removeAttribute(attribute);
+      }
+  }
     }
     /**
      * Constructor for setting up shadow dom and class definitions 
