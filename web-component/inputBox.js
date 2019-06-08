@@ -107,11 +107,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set bootstrap(val) {
-        if (val !== '') {
-            this.setAttribute('bootstrap', val);
-        } else {
-            this.removeAttribute('bootstrap');
-        }
+        this.settingStringAttribute(val,boostrap);
     }
 
     /**
@@ -129,11 +125,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set url(val) {
-        if (val !== '') {
-            this.setAttribute('url', val);
-        } else {
-            this.removeAttribute('url');
-        }
+        this.settingStringAttribute(val,url);
     }
     /**
      * Constructor for setting up shadow dom and class definitions 
