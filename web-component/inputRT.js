@@ -24,7 +24,7 @@
     // Create and define a template for WC
     const template = document.createElement('template');
     template.innerHTML = `
-        <style>
+        <style id="default">
         </style>
         <div>
             <slot name="messenger"></slot>
@@ -101,6 +101,7 @@
             if (isDisabled) {
                 this.setAttribute('disabled', val);
             } else {
+                this._remove_attribute_style('disabled');
                 this.removeAttribute('disabled');
             }
         }
@@ -111,16 +112,19 @@
         _init_disabled() {
             if (this.disabled) {
                 const el = this._choose_element(this.mode);
-                const disabledStyle = `${el} {
+                const style = document.createElement('style');
+                style.setAttribute('id', 'disabledStyle');
+                const disabledStyle = `${el}[disabled] {
                     opacity: 0.5!important;
                     cursor: not-allowed;
                     background-color: #ccc;
                 }`;
-                this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
+                style.innerHTML += disabledStyle;
+                this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
         }
-
+        
         /**
          * get height() 
          * Check if height exists in HTML.
@@ -154,7 +158,7 @@
                 const sizeStyle = `${el} {
                     height: ${this.height} !important; 
                 }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
             }
         }
 
@@ -317,7 +321,7 @@
             const sizeStyle = `${el} { 
                     ${SIZES[el][size]}
             }`;
-            this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+            this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
         }
 
         /**
@@ -376,7 +380,7 @@
                 const sizeStyle = `${el} {
                     width: ${this.width} !important; 
                 }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
             }
         }
 
@@ -447,6 +451,17 @@
                     break;
             }
             return retVal;
+        }
+
+        /**
+         * Internal function to remove the styles that are related to each attribute
+         * @param {*} attribute attribute to remove styles for
+         */
+        _remove_attribute_style(attribute) {
+            const disabledStyleElem = this.shadowRoot.querySelector(`style#${attribute}Style`); 
+            if (disabledStyleElem != null) {
+                disabledStyleElem.remove(); 
+            }
         }
 
         /**

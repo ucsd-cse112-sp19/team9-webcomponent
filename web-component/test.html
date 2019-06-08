@@ -6,7 +6,7 @@
 </head>
 <body>
    
-    <input-rt mode="sender">
+    <input-rt mode="sender" id="first" size="l">
         <mqtt-send id="sender" slot="messenger" topic="chattest/1">
         </mqtt-send>
     </input-rt>
@@ -16,18 +16,29 @@
     </input-rt>
 
  
-    <button id="btn">Click Me</button>
+    <button id="btn_dis">Click Me to disable</button>
+    <button id="btn_ena">Click Me to enable</button>
+
+    <style id="myStyle"></style>
 
     <script src = "inputRT.js"></script>
     <script src="mqttSend.js"></script>
     <script src="mqttFetch.js"></script>
 
     <script>
-        let btn = document.querySelector('button#btn'); 
-        btn.addEventListener("click", function() {
+        let btn_dis = document.querySelector('button#btn_dis'); 
+        btn_dis.addEventListener("click", function() {
             console.log("button clicked")
             const el = document.querySelector('input-rt#first')
             el.disabled = true;
+            console.log(el)
+        })
+
+        let btn_ena = document.querySelector('button#btn_ena'); 
+        btn_ena.addEventListener("click", function() {
+            console.log("button clicked")
+            const el = document.querySelector('input-rt#first')
+            el.disabled = false;
             console.log(el)
         })
         
