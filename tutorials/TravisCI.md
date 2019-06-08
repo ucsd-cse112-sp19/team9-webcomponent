@@ -3,7 +3,7 @@
 In order to run travis using GitHub, we need to add a YAML file called .travis.yml  
 This file will tell Travis CI what to do.  
   
-<img src="travis.png">
+<img src="images/travis.png">
 
 We are using Version 10 NodeJS.  
 
@@ -21,7 +21,7 @@ Depending if we are using SauceLab, we might use another addon in order to have 
 # Travis-ci.com
 Now in case the badge shows Build=Failing, you need to check what is wrong on https://travis-ci.com/. Sign in with GitHub, you should see this.  
 
-<img src="travisweb.png">
+<img src="images/travisweb.png">
 
 Now let's look at what Travis executed. You first need to know that if every single test passes, by default it will exit with 0.  
 Depending on your error, you can have a different output and check what is wrong. 
@@ -32,7 +32,7 @@ Here our pretest is just checking css stylelint and creating docs. It then runs 
 We have no error, we can run the command.
 >after_success: npm run coverage
 
-<img src="travisrun.png">
+<img src="images/travisrun.png">
 
 We didn't have any issue, the build exited with 0 so Travis will tell us the build is passing.  
 

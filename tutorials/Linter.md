@@ -12,7 +12,7 @@ This is because this is a reference in the package.json file.
 
 Let's take a look at the eslint.js file.
 
-<img src="eslint.png">
+<img src="images/eslint.png">
 
 We are running the recommended option of ESLint. In this file you can modify the rules etc.. Refer to the ESLint documentation for that.  
 The recommended option uses Airbnb style.  
@@ -22,4 +22,4 @@ The recommended option uses Airbnb style.
 Style lint is used for CSS. In the pipeline, we only run it on the files in the web_component folder but feel free to try it out on your files.  
 I just implemented the basic structure and use the recommended style.
 
-<img src="stylelint.png">
+<img src="images/stylelint.png">
