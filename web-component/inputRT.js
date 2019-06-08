@@ -458,9 +458,9 @@
          * @param {*} attribute attribute to remove styles for
          */
         _remove_attribute_style(attribute) {
-            const disabledStyleElem = this.shadowRoot.querySelector(`style#${attribute}Style`); 
-            if (disabledStyleElem != null) {
-                disabledStyleElem.remove(); 
+            const elem = this.shadowRoot.querySelector(`style#${attribute}Style`); 
+            if (elem != null) {
+                elem.remove(); 
             }
         }
 
