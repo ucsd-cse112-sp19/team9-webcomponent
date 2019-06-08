@@ -156,7 +156,11 @@ class InputBox extends HTMLElement {
         // Eventually turn into text area so that we can scroll
         // Through - if not sprint1 def sprint 2
         const l = this.createLink(shadowRoot);
-        const i = this.createInput(shadowRoot);
+        const i = document.createElement('input');
+        i.setAttribute("id", "msg");
+        i.setAttribute("name", "msg");
+        i.setAttribute("value", "");
+        shadowRoot.append(i);
 
         // Set the attributes href and class if url and boostrap
         this.settingAttributes(l, i); 
@@ -236,15 +240,6 @@ class InputBox extends HTMLElement {
         else {
             l.setAttribute('href', 'inputbox-default-style.css');
         }
-    }
-
-    createInput(shadowRoot) {
-        const i = document.createElement('input');
-        i.setAttribute("id", "msg");
-        i.setAttribute("name", "msg");
-        i.setAttribute("value", "");
-        shadowRoot.append(i);
-        return i;
     }
 
     createLink(shadowRoot) {
