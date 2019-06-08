@@ -219,7 +219,10 @@
                     break;
             }
         }
-
+        /**
+         * Internal function that helps with setting the event handlers
+         * for the mode attribute and any other work neccessary for connectedCallback
+         */
         _register_mode(){
             switch(this.mode){
                 case 'sender':
@@ -231,6 +234,11 @@
             }
         }
 
+        /**
+         * Internal function that helps with removing the event handlers
+         * for the mode attribute and any other work neccessary for 
+         * disconnectedCallback
+         */
         _unregister_mode(){
             switch(this.mode){
                 case 'sender':
