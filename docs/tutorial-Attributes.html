@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: ChatBox</title>
+    <title>JSDoc: Attributes</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,158 +49,69 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Class</p>
-                        <h1>ChatBox</h1>
+                        <p>Tutorial</p>
+                        <h1>Attributes</h1>
                     </header>
                     
-                    
-
-
-
-
-<section>
+                    <section>
 
 <header>
-    
-        <h2><span class="attribs"><span class="type-signature"></span></span>ChatBox<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>HelloWorld class
-Provides template for core-hello element</p></div>
-        
     
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <h3 class="title"><span>Constructor</span></h3>
-                <div class="members">
-                    <div class="member">
-
-    
-    <h4 class="name" id="ChatBox">
-        
-        <span class="code-name">
-            new ChatBox<span class="signature">()</span><span class="type-signature"></span>
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script><p>Constructor for setting up shadow dom and class definitions
-for web component.</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="chatBox.js.html" class="button">View Source</a>
-            <span>
-                <a href="chatBox.js.html">chatBox.js</a>, <a href="chatBox.js.html#line10">line 10</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-                </div>
-            </div>
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+    <h1>Basic Usage</h1>
+<p>Input-rt component displays an input box where users can enter in text</p>
+<!-- ![basic](basic.png) -->
+<img src="basic.png">
+<img src="basic_output.png">
+<h1>Bootstrap</h1>
+<p>The Bootstrap attribute allows the input-rt component to be stylized with bootstrap's library. The Bootstrap attribute must also be implemented with the URL attribute containing the bootstrap link.</p>
+<p><img src="bootstrap.png"> <img src="bootstrap_output.png"></p>
+<h1>URL</h1>
+<p>The URL attribute allows the input-rt to be stylized by any CSS front-end framework. In this example, we are using bootstrap url along with the Bootstrap attribute.</p>
+<p><img src="url.png"> <img src="url_output.png"></p>
+<h1>Password</h1>
+<p>The Password attribute displays text as black dots to encrypt the user input</p>
+<img src="password_code.png">
+<img src="password.png">
+<h1>Disabled</h1>
+<p>The Disabled attribute greys out the input-rt component and does not allow the user to input text. The cursor turns into a red stop sign icon when the user moves it over the input-rt component.</p>
+<img src="disabled.png">
+<img src="disabled_output.png">
+<h1>Size</h1>
+<p>The size attribute allows the user to specify the size of the input-rt component. There is a large, medium, small, and default size.</p>
+<img src="size.png">
+<img src="size_output.png">
+<h1>Width</h1>
+<p>The width attribute allows the user to specify the width (in pixels) of the input-rt component. The minimum width is 250px.</p>
+<img src="width.png">
+<img src="width_output.png">
+<h1>Height</h1>
+<p>The height attribute allows the user to specify the height (in pixels) of the input-rt component.</p>
+<!-- <img src="height.png"> -->
+<p><img src="height.png" alt="basic"></p>
+<img src="height_output.png">
+<h1>Mode</h1>
+<p>Mode has 4 traits: sender, receiver, custom, and default</p>
+<h2>Sender Mode</h2>
+<p>Sender mode allows the input-rt component to input and send messages using an internal sender. In this example we are using MQTT where mqtt-send must be included with its id set to &quot;sender&quot;, slot set to &quot;messenger&quot;, and topic set to the same name as the receiving input-rt component.</p>
+<img src="mode_sender.png">
+<p>Sender mode will display an input-rt component along with an input box on top for users to specify their username. The default username is &quot;anonymous&quot; where it will be displayed once a user enters an input into the input-rt component.</p>
+<img src="mode_send_output.png">
+<h2>Textarea Mode</h2>
+<p>Textarea mode makes the input-rt component read-only to display messages using an internal receiver. In this example, we are using MQTT where mqtt-fetch must be included with its id set to &quot;receiver&quot;, slot set to &quot;messenger&quot;, and topic set to the same name as the sending input-rt component.</p>
+<img src="mode_textarea.png">
+<p>Textarea mode will display an input-rt component along with an input box on top. The input box on top is a forced design required by MQTT, thus the input box does not have any functionality for this mode. The textarea mode will display receiving messages from the internal receiver along with the corresponding username. The input-rt component will have a resizable tab on the bottom right for users to resize their input-rt component.</p>
+<img src="mode_textarea_output.png">
+<h2>Sender &amp; Textarea</h2>
+<p>When we implement two input-rt components with a sender and textarea mode, they must include the same topic name to communicate with each other.</p>
+<img src="mode_send_fetch.png">
+<p>The sender mode input-rt component will display the user's input onto the textarea mode input-rt component with the corresponding username.</p>
+<p><img src="mode_send_input.png"> <img src="mode_send_fetch_output.png"></p>
 </article>
 
 </section>
-
-
-
 
                 </div>
             </div>
