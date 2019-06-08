@@ -152,39 +152,21 @@ class InputBox extends HTMLElement {
     
     connectedCallback() {
 
-        const SIZES = {
-            "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
-            "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
-            "d": "width: 300px; height: 30px; font-size: 18px !important;",
-            "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
-        };
+        const SIZES = settingSizes();
         // Initialize shadowroot
         const shadowRoot = this.attachShadow({mode: 'open'});
 
         shadowRoot.innerHTML += this.innerHTML;
         this.innerHTML = "";
 
-        const l = document.createElement('link');
-        l.setAttribute('rel', 'stylesheet');
-        l.setAttribute('type', 'text/css');
-        shadowRoot.appendChild(l);
+        const l = this.createLink(shadowRoot);
 
         // Append to shadowdom style
         // Eventually turn into text area so that we can scroll
         // Through - if not sprint1 def sprint 2
-        const i = document.createElement('input');
-        i.setAttribute("id","msg");
-        i.setAttribute("name","msg");
-        i.setAttribute("value","");
-        shadowRoot.append(i);
+        const i = this.createInput(shadowRoot);
 
-        if (this.url && this.bootstrap) {
-            l.setAttribute('href', this.url);
-            i.setAttribute('class', this.bootstrap);
-            
-        } else {
-            l.setAttribute('href', 'inputbox-default-style.css');
-        } 
+        this.settingAttributes(l, i); 
 
         if (this.disabled) {
             let disabledStyle = document.createElement('style'); 
@@ -238,7 +220,43 @@ class InputBox extends HTMLElement {
             }
         });
     }
+
+    settingAttributes(l, i) {
+        if (this.url && this.bootstrap) {
+            l.setAttribute('href', this.url);
+            i.setAttribute('class', this.bootstrap);
+        }
+        else {
+            l.setAttribute('href', 'inputbox-default-style.css');
+        }
+    }
+
+    createInput(shadowRoot) {
+        const i = document.createElement('input');
+        i.setAttribute("id", "msg");
+        i.setAttribute("name", "msg");
+        i.setAttribute("value", "");
+        shadowRoot.append(i);
+        return i;
+    }
+
+    createLink(shadowRoot) {
+        const l = document.createElement('link');
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('type', 'text/css');
+        shadowRoot.appendChild(l);
+        return l;
+    }
 }
 
 // Register ChatBox class as chat-box element
 customElements.define('input-box', InputBox);
+
+function settingSizes() {
+    return {
+        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+        "d": "width: 300px; height: 30px; font-size: 18px !important;",
+        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+    };
+}
