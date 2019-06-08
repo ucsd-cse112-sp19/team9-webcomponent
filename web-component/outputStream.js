@@ -77,12 +77,7 @@ class OutputStream extends HTMLElement {
         text.setAttribute('readonly', '');
         shadowRoot.append(text);
 
-        if (this.bootstrap) {
-            text.setAttribute('class', this.bootstrap);
-            l.setAttribute('href', './bootstrap.min.css');
-        } else {
-            l.setAttribute('href', 'outputstream-default-style.css');
-        } 
+        this.settingHrefandClass(text, l); 
 
         const onloaded = function(){
             const receiver = this.shadowRoot.querySelector('#receiver');
@@ -93,6 +88,16 @@ class OutputStream extends HTMLElement {
         }.bind(this);
 
         setTimeout(onloaded);
+    }
+
+    settingHrefandClass(text, l) {
+        if (this.bootstrap) {
+            text.setAttribute('class', this.bootstrap);
+            l.setAttribute('href', './bootstrap.min.css');
+        }
+        else {
+            l.setAttribute('href', 'outputstream-default-style.css');
+        }
     }
 
     /**

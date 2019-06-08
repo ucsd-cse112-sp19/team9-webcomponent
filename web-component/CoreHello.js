@@ -21,7 +21,7 @@ class CoreHello extends HTMLElement {
     set rainbow(val) {
       this.settingStringAttribute(val,'rainbow');
     }
-    }
+
     /**
      * get lang() 
      * Check if langauge exists in HTML.
@@ -39,7 +39,6 @@ class CoreHello extends HTMLElement {
     set lang(val) {
       this.settingStringAttribute(val,'lang');
     }
-    }
     /**
      * get font() 
      * Check if font exists in HTML.
@@ -56,7 +55,6 @@ class CoreHello extends HTMLElement {
      */
     set font(val) {
       this.settingStringAttribute(val,'font');
-    }
     }
     /**
      * get fontsize() 
@@ -85,7 +83,6 @@ class CoreHello extends HTMLElement {
           this.removeAttribute(attribute);
       }
   }
-    }
     /**
      * Constructor for setting up shadow dom and class definitions 
      * for web component.
