@@ -6,7 +6,7 @@
     "lint": "eslint ./web-component && stylelint ./web-component",
     "docs": "jsdoc -c jsdoc.json",
     "testcafe": "testcafe chrome web-component/testcafe",
-    "saucelabs": "testcafe \"saucelabs:chrome\"  web-component/testcafe",
+    "saucelabs": "testcafe \"saucelabs:chrome\"  web-component/testcafe/basic.js",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
