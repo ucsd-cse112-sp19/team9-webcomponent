@@ -5,6 +5,7 @@
         ENTER: 13
     };
 
+    // Default css sizes for the web-component's size attribute
     const SIZES = {
         input: {
             "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
@@ -34,50 +35,9 @@
     `;
 
     class inputRT extends HTMLElement {
+
         static get observedAttributes(){
             return ['disabled'];
-        }
-
-        get mode() {
-            return this.getAttribute('mode');
-        }
-
-        set mode(val) {
-            if (val !== '') {
-                this.setAttribute('mode', val);
-              } else {
-                this.removeAttribute('mode');
-            }
-        }
-
-        /**
-         * Init function that generates the internal value based on 
-         * the mode being set.
-         */
-        _init_mode(){
-            // TODO: need discussion on if this is the right approach 
-            // if we plan on adding more modes then we should 
-            // keep switch else a simple if - else might be better
-            switch(this.mode){
-                case 'custom':
-                    // Don't do anything on custom because user can implement there 
-                    // own thing in the slot as well
-                    break;
-                case 'textarea':
-                    const textarea = document.createElement('textarea');
-                    textarea.setAttribute("slot","text");
-                    // TODO: should we have a receiveer object as well
-                    textarea.setAttribute("readonly","true");
-                    this._textSlot.appendChild(textarea);
-                    break;
-                case 'sender':
-                default:
-                    // Set default to input box.
-                    const input = document.createElement('input');
-                    input.setAttribute("slot","text");
-                    this._textSlot.appendChild(input);
-                    break;
-            }
         }
 
         /**
@@ -88,6 +48,7 @@
         get bootstrap() {
             return this.getAttribute('bootstrap');
         }
+
         /**
          * set bootstrap(val) 
          * Sets bootstrap if value passed in, or removes it if nothing
@@ -101,40 +62,187 @@
                 this.removeAttribute('bootstrap');
             }
         }
-        /**
-         * get url() 
-         * Check if url exists in HTML.
-         * Returns: True or False 
-         */
-        get url() {
-            return this.getAttribute('url');
-        }
-        /**
-         * set url(val) 
-         * Sets url if value passed in, or removes it if nothing
-         * is passed.
-         * Returns: Null
-         */
-        set url(val) {
-            if (val !== '') {
-                this.setAttribute('url', val);
-            } else {
-                this.removeAttribute('url');
-            }
-        }
 
-        _init_bootstrap_URL(){
+        /**
+         * Init function that populates url attribute and bootstrap attribute 
+         * if the url and bootstrap are both set. 
+         */
+        _init_bootstrap_URL() {
             const link = document.createElement('link');
             link.setAttribute('rel', 'stylesheet');
             link.setAttribute('type', 'text/css');
             if (this.url && this.bootstrap) {
                 link.setAttribute('href', this.url);
-                const el = this._choose_element(this.mode); 
+                const el = this._choose_element(this.mode);
                 this._textSlot.querySelector(el).setAttribute('class', this.bootstrap);
             } else {
                 link.setAttribute('href', 'inputbox-rt-default-style.css');
-            } 
+            }
             this._linkSlot.appendChild(link);
+        }
+
+        /**
+         * get disabled() 
+         * Check if disabled exists in HTML.
+         * Returns: True or False 
+         */
+        get disabled() {
+            return this.hasAttribute('disabled');
+        }
+
+        /**
+         * set disabled(val) 
+         * Sets disabled if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set disabled(val) {
+            const isDisabled = Boolean(val);
+            if (isDisabled) {
+                this.setAttribute('disabled', val);
+            } else {
+                this.removeAttribute('disabled');
+            }
+        }
+
+        /**
+         * Init function that sets the web-component to be disabled.
+         */
+        _init_disabled() {
+            if (this.disabled) {
+                const el = this._choose_element(this.mode);
+                const disabledStyle = `${el} {
+                    opacity: 0.5!important;
+                    cursor: not-allowed;
+                    background-color: #ccc;
+                }`;
+                this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
+                this._textSlot.querySelector(el).setAttribute('disabled', '');
+            }
+        }
+
+        /**
+         * get height() 
+         * Check if height exists in HTML.
+         * Returns: True or False 
+         */
+        get height() {
+            return this.getAttribute('height');
+        }
+
+        /**
+         * set height(val) 
+         * Sets height if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set height(val) {
+            const isHeight = String(val);
+            if (isHeight) {
+                this.setAttribute('height', val);
+            } else {
+                this.removeAttribute('height');
+            }
+        }
+
+        /**
+         * Init function that sets the width of the web component.
+         */
+        _init_height() {
+            if (this.height) {
+                const el = this._choose_element(this.mode);
+                const sizeStyle = `${el} {
+                    height: ${this.height} !important; 
+                }`;
+                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+            }
+        }
+
+        /**
+         * get mode()
+         * Gets the mode of the attribute 
+         * Returns: String
+         */
+        get mode() {
+            return this.getAttribute('mode');
+        }
+
+        /**
+         * set mode(val)
+         * Sets mode if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set mode(val) {
+            if (val !== '') {
+                this.setAttribute('mode', val);
+            } else {
+                this.removeAttribute('mode');
+            }
+        }
+
+        /**
+         * Init function that generates the internal value based on 
+         * the mode being set.
+         */
+        _init_mode() {
+            // TODO: need discussion on if this is the right approach 
+            // if we plan on adding more modes then we should 
+            // keep switch else a simple if - else might be better
+            switch (this.mode) {
+                case 'custom':
+                    // Don't do anything on custom because user can implement there 
+                    // own thing in the slot as well
+                    break;
+                case 'textarea':
+                    const textarea = document.createElement('textarea');
+                    textarea.setAttribute("slot", "text");
+                    // TODO: should we have a receiveer object as well
+                    textarea.setAttribute("readonly", "true");
+                    this._textSlot.appendChild(textarea);
+                    break;
+                case 'sender':
+                default:
+                    // Set default to input box.
+                    const input = document.createElement('input');
+                    input.setAttribute("slot", "text");
+                    this._textSlot.appendChild(input);
+                    break;
+            }
+        }
+
+        /**
+         * Internal function that helps with setting the event handlers
+         * for the mode attribute
+         */
+        _register_mode() {
+            switch (this.mode) {
+                case 'sender':
+                    // TODO: think of a way to refactor to handle more cases
+                    // Also perhaps allow user to input
+                    this._textSlot.addEventListener('keypress', this._onEnter);
+                    this._appendSlot.addEventListener('click', this.send);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /**
+         * Internal function that helps with removing the event handlers
+         * for the mode attribute
+         */
+        _unregister_mode() {
+            switch (this.mode) {
+                case 'sender':
+                    // TODO: think of a way to refactor to handle more cases
+                    // Also perhaps allow user to input
+                    this._textSlot.removeEventListener('keypress', this._onEnter);
+                    this._appendSlot.removeEventListener('click', this.send);
+                    break;
+                default:
+                    break;
+            }
         }
 
         /**
@@ -145,6 +253,7 @@
         get password() {
             return this.hasAttribute('password');
         }
+
         /**
          * set password(val) 
          * Sets password if value passed in, or removes it if nothing
@@ -173,72 +282,6 @@
         }
 
         /**
-         * get width() 
-         * Check if width exists in HTML.
-         * Returns: True or False 
-         */
-        get width() {
-            return this.getAttribute('width');
-        }
-        /**
-         * set width(val) 
-         * Sets width if value passed in, or removes it if nothing
-         * is passed.
-         * Returns: Null
-         */
-        set width(val) {
-            const isWidth = String(val);
-            if (isWidth) {
-                this.setAttribute('width', val);
-            } else {
-                this.removeAttribute('width');
-            }
-        }
-
-        _init_width(){
-            if (this.width) {
-                const el = this._choose_element(this.mode);
-                const sizeStyle = `${el} {
-                    width: ${this.width} !important; 
-                }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
-            }
-        }
-
-        /**
-         * get height() 
-         * Check if height exists in HTML.
-         * Returns: True or False 
-         */
-        get height() {
-            return this.getAttribute('height');
-        }
-        /**
-         * set height(val) 
-         * Sets height if value passed in, or removes it if nothing
-         * is passed.
-         * Returns: Null
-         */
-        set height(val) {
-            const isHeight = String(val);
-            if (isHeight) {
-                this.setAttribute('height', val);
-            } else {
-                this.removeAttribute('height');
-            }
-        }
-
-        _init_height() {
-            if (this.height) {
-                const el = this._choose_element(this.mode);
-                const sizeStyle = `${el} {
-                    height: ${this.height} !important; 
-                }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
-            }
-        }
-
-        /**
          * get size() 
          * Check if size exists in HTML.
          * Returns: True or False 
@@ -246,6 +289,7 @@
         get size() {
             return this.getAttribute('size');
         }
+
         /**
          * set size(val) 
          * Sets size if value passed in, or removes it if nothing
@@ -260,7 +304,6 @@
                 this.removeAttribute('size');
             }
         }
-
 
         /**
          * Initializes size if specificed, and chooses default if not. 
@@ -277,96 +320,64 @@
             this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
         }
 
-
         /**
-         * get disabled() 
-         * Check if disabled exists in HTML.
+         * get url() 
+         * Check if url exists in HTML.
          * Returns: True or False 
          */
-        get disabled() {
-            return this.hasAttribute('disabled');
+        get url() {
+            return this.getAttribute('url');
         }
+
         /**
-         * set disabled(val) 
-         * Sets disabled if value passed in, or removes it if nothing
+         * set url(val) 
+         * Sets url if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
          */
-        set disabled(val) {
-            const isDisabled = Boolean(val);
-            if (isDisabled) {
-                this.setAttribute('disabled', val);
+        set url(val) {
+            if (val !== '') {
+                this.setAttribute('url', val);
             } else {
-                this.removeAttribute('disabled');
+                this.removeAttribute('url');
             }
         }
 
-        _init_disabled(){
-            if(this.disabled){
+        /**
+         * get width() 
+         * Check if width exists in HTML.
+         * Returns: True or False 
+         */
+        get width() {
+            return this.getAttribute('width');
+        }
+
+        /**
+         * set width(val) 
+         * Sets width if value passed in, or removes it if nothing
+         * is passed.
+         * Returns: Null
+         */
+        set width(val) {
+            const isWidth = String(val);
+            if (isWidth) {
+                this.setAttribute('width', val);
+            } else {
+                this.removeAttribute('width');
+            }
+        }
+
+        /**
+         * Init function that sets the width of the web component. 
+         */
+        _init_width() {
+            if (this.width) {
                 const el = this._choose_element(this.mode);
-                const disabledStyle = `${el} {
-                    opacity: 0.5!important;
-                    cursor: not-allowed;
-                    background-color: #ccc;
-                }`; 
-                this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
-                this._textSlot.querySelector(el).setAttribute('disabled', '');
-            }      
-        }
-
-        /**
-         * Internal function that helps with setting the event handlers
-         * for the mode attribute
-         */
-        _register_mode(){
-            switch(this.mode){
-                case 'sender':
-                    // TODO: think of a way to refactor to handle more cases
-                    // Also perhaps allow user to input
-                    this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('click', this.send);
-                    break;
-                default:
-                    break;
+                const sizeStyle = `${el} {
+                    width: ${this.width} !important; 
+                }`;
+                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
             }
-        }
-
-        /**
-         * Internal function that helps with removing the event handlers
-         * for the mode attribute
-         */
-        _unregister_mode(){
-            switch(this.mode){
-                case 'sender':
-                    // TODO: think of a way to refactor to handle more cases
-                    // Also perhaps allow user to input
-                    this._textSlot.removeEventListener('keypress',this._onEnter);
-                    this._appendSlot.removeEventListener('click', this.send);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /**
-         * Internal function to determine the correct element in concern. 
-         * @param {*} mode 
-         * @returns {string} an html element in concern
-         */
-        _choose_element(mode) {
-            let retVal = "";
-            switch (mode) {
-                case "custom":
-                    break; 
-                case "textarea":
-                    retVal = "textarea"; 
-                    break; 
-                case 'sender':
-                default:
-                    retVal = "input"; 
-                    break;
-            }
-            return retVal; 
         }
 
         constructor(){
@@ -414,6 +425,28 @@
                 default: 
                     break; 
             } 
+        }
+
+        /**
+         * Internal function to determine the correct element in concern. 
+         * @param {*} mode 
+         * @returns {string} an html element in concern
+         */
+        _choose_element(mode) {
+            let retVal = "";
+            switch (mode) {
+                // TODO: users may specify what type of element they want for custom. 
+                case "custom":
+                    break;
+                case "textarea":
+                    retVal = "textarea";
+                    break;
+                case 'sender':
+                default:
+                    retVal = "input";
+                    break;
+            }
+            return retVal;
         }
 
         /**
