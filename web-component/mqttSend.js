@@ -28,6 +28,7 @@ class MqttSend extends HTMLElement {
         this.userId = "anonymous";
         this.attachShadow({mode: 'open'});
 
+        let Paho
         // Create a client instance
         this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "");
 
