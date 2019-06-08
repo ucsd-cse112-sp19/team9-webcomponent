@@ -7,14 +7,15 @@
     // Create and define a template for WC
     const template = document.createElement('template');
     template.innerHTML = `
-        <style>
-    slot{
-        display: block;
-    }
-</style>
+        <style id="default">
+        slot[name='messenger']{
+            display: block;
+        }
+        </style>
         <slot name="messenger"></slot>
         <slot name="text"></slot>
         <slot name="append"></slot>
+        <slot name="link"></slot>
     `;
 
     class inputRT extends HTMLElement {

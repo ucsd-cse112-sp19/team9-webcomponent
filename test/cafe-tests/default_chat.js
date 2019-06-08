@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
 fixture `Testing Chat`
-    .page `../cafe-html/test_chat.html`
+    .page `../cafe-html/default_chat.html`
   
 // Selectors
 const sender = Selector( () => document.querySelector('input-rt[mode="sender"]').shadowRoot ); 

@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
 fixture `Testing Input`
-    .page `../cafe-html/test_input.html`
+    .page `../cafe-html/default_input.html`
 
 // Selectors
 const shadow = Selector( () => document.querySelector('input-rt').shadowRoot );
