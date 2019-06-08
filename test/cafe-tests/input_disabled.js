@@ -6,7 +6,7 @@ fixture `Testing Input - disabled`
 const input = Selector( () => document.querySelector('input-rt[disabled="true"]').shadowRoot ); 
 const text = input.find('input[slot="text"]'); 
 const button = Selector('button[slot="append"]');
-const checkText = Selector('h2#output');
+const checkText = Selector('#output');
 
 const messages = [
     { message: 'test1' },
