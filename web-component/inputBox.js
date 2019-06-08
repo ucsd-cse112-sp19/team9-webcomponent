@@ -43,11 +43,16 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set width(val) {
-        const isWidth = String(val);
-        if (isWidth) {
-            this.setAttribute('width', val);
-        } else {
-            this.removeAttribute('width');
+        this.settingStringAttribute(val,width);
+    }
+
+    settingStringAttribute(val,attribute) {
+        const stringval = String(val);
+        if (stringval) {
+            this.setAttribute(String(attribute), val);
+        }
+        else {
+            this.removeAttribute(String(attribute));
         }
     }
 
@@ -66,12 +71,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set height(val) {
-        const isHeight = String(val);
-        if (isHeight) {
-            this.setAttribute('height', val);
-        } else {
-            this.removeAttribute('height');
-        }
+        this.settingStringAttribute(val,height);
     }
 
     /**
@@ -89,12 +89,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set size(val) {
-        const isSize = String(val);
-        if (isSize) {
-            this.setAttribute('size', val);
-        } else {
-            this.removeAttribute('size');
-        }
+        this.settingStringAttribute(val,size);
     }
 
     /**
