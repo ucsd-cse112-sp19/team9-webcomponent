@@ -4,7 +4,7 @@ JSDoc is well structured and has a simple configuration.
 The configuration file is jsdoc.json  
 It has 3 main parts: source, plugins and options  
 
-<img src="jsdoc.png">
+<img src="images/jsdoc.png">
 
 Source shows where to find and what to take as inputs.  
 Here we will only look at files in the web_component folder and only take the JavaScript files.  
