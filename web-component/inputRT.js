@@ -8,10 +8,11 @@
     const template = document.createElement('template');
     template.innerHTML = `
         <style>
-        </style>
-        <div>
-            <slot name="messenger"></slot>
-        </div>
+    slot{
+        display: block;
+    }
+</style>
+        <slot name="messenger"></slot>
         <slot name="text"></slot>
         <slot name="append"></slot>
     `;

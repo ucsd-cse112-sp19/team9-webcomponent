@@ -5,13 +5,14 @@
   "scripts": {
     "lint": "eslint ./web-component && stylelint ./web-component",
     "docs": "jsdoc -c jsdoc.json",
-    "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
-    "saucelabs": "testcafe \"saucelabs:chrome\"  test/cafe-tests/test2.js",
+    "testcafe": "testcafe chrome web-component/testcafe",
+    "saucelabs": "testcafe \"saucelabs:chrome,saucelabs:firefox,saucelabs:safari\"  test/cafe-tests",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
     "resume": "npx webpack-dev-server",
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
+    "pretest": "npm run saucelabs",
     "test": "nyc npm run mocha"
   },
   "husky": {
