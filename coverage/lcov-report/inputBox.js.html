@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">98.55% </span>
+        <span class="strong">98.53% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>68/69</span>
+        <span class='fraction'>67/68</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">90% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>23/23</span>
+        <span class='fraction'>22/22</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">98.55% </span>
+        <span class="strong">98.53% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>68/69</span>
+        <span class='fraction'>67/68</span>
       </div>
     </div>
     <p class="quiet">
@@ -307,10 +307,14 @@
 <a name='L259'></a><a href='#L259'>259</a>
 <a name='L260'></a><a href='#L260'>260</a>
 <a name='L261'></a><a href='#L261'>261</a>
-<a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a>
-<a name='L264'></a><a href='#L264'>264</a>
-<a name='L265'></a><a href='#L265'>265</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L262'></a><a href='#L262'>262</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -451,18 +455,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -566,15 +568,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const SIZES ={
+        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+        "d": "width: 300px; height: 30px; font-size: 18px !important;",
+        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+    };
+&nbsp;
+/**
  * inputBox class
  * Provides template for input element
  */
@@ -709,24 +710,22 @@ class InputBox extends HTMLElement {
      */
     constructor () {
         super();
-        
 &nbsp;
     }
     
     connectedCallback() {
 &nbsp;
-        const SIZES = settingSizes();
+&nbsp;
         // Initialize shadowroot
         const shadowRoot = this.attachShadow({mode: 'open'});
 &nbsp;
         shadowRoot.innerHTML += this.innerHTML;
         this.innerHTML = "";
 &nbsp;
-        const l = this.createLink(shadowRoot);
-&nbsp;
         // Append to shadowdom style
         // Eventually turn into text area so that we can scroll
         // Through - if not sprint1 def sprint 2
+        const l = this.createLink(shadowRoot);
         const i = this.createInput(shadowRoot);
 &nbsp;
         // Set the attributes href and class if url and boostrap
@@ -830,21 +829,13 @@ class InputBox extends HTMLElement {
 // Register ChatBox class as chat-box element
 customElements.define('input-box', InputBox);
 &nbsp;
-function settingSizes() {
-    return {
-        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
-        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
-        "d": "width: 300px; height: 30px; font-size: 18px !important;",
-        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
-    };
-}
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jun 07 2019 18:18:17 GMT-0700 (GMT-07:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jun 07 2019 18:49:49 GMT-0700 (GMT-07:00)
 </div>
 </div>
 <script src="prettify.js"></script>

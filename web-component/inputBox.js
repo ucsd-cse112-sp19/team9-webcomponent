@@ -1,3 +1,10 @@
+const SIZES ={
+        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+        "d": "width: 300px; height: 30px; font-size: 18px !important;",
+        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+    };
+
 /**
  * inputBox class
  * Provides template for input element
@@ -20,7 +27,12 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set disabled(val) {
-        this.settingStringAttribute(val,'disabled');
+        const isDisabled = Boolean(val);
+        if (isDisabled) {
+            this.setAttribute('disabled', val);
+        } else {
+            this.removeAttribute('disabled');
+        }
     }
 
     /**
@@ -42,13 +54,8 @@ class InputBox extends HTMLElement {
     }
 
     settingStringAttribute(val,attribute) {
-        switch(attribute){
-            case 'disabled':
-            const val = Boolean(val);
-            default:
-             const val = String(val);
-        }
-        if (val) {
+        const stringval = String(val);
+        if (stringval) {
             this.setAttribute(attribute, val);
         }
         else {
@@ -133,22 +140,22 @@ class InputBox extends HTMLElement {
      */
     constructor () {
         super();
+
     }
     
     connectedCallback() {
 
-        const SIZES = settingSizes();
+
         // Initialize shadowroot
         const shadowRoot = this.attachShadow({mode: 'open'});
 
         shadowRoot.innerHTML += this.innerHTML;
         this.innerHTML = "";
 
-        const l = this.createLink(shadowRoot);
-
         // Append to shadowdom style
         // Eventually turn into text area so that we can scroll
         // Through - if not sprint1 def sprint 2
+        const l = this.createLink(shadowRoot);
         const i = this.createInput(shadowRoot);
 
         // Set the attributes href and class if url and boostrap
@@ -252,11 +259,3 @@ class InputBox extends HTMLElement {
 // Register ChatBox class as chat-box element
 customElements.define('input-box', InputBox);
 
-function settingSizes() {
-    return {
-        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
-        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
-        "d": "width: 300px; height: 30px; font-size: 18px !important;",
-        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
-    };
-}
