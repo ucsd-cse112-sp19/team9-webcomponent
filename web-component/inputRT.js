@@ -33,7 +33,7 @@
      */
     const template = document.createElement('template');
     template.innerHTML = `
-        <style>
+        <style id="default">
         </style>
         <div>
             <slot name="messenger"></slot>
@@ -46,7 +46,7 @@
     class InputRT extends HTMLElement {
 
         static get observedAttributes(){
-            return [];
+            return ['disabled'];
         }
 
         /**
@@ -120,16 +120,19 @@
         _init_disabled() {
             if (this.disabled) {
                 const el = this._choose_element(this.mode);
-                const disabledStyle = `${el} {
+                const style = document.createElement('style');
+                style.setAttribute('id', 'disabledStyle');
+                const disabledStyle = `${el}[disabled] {
                     opacity: 0.5!important;
                     cursor: not-allowed;
                     background-color: #ccc;
                 }`;
-                this.shadowRoot.querySelector('style').innerHTML += disabledStyle;
+                style.innerHTML += disabledStyle;
+                this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
         }
-
+        
         /**
          * get height() 
          * Check if height exists in HTML.
@@ -155,15 +158,17 @@
         }
 
         /**
-         * Init function that sets the width of the web component.
+         * Init function that sets the dimensions of the web component.
          */
-        _init_height() {
-            if (this.height) {
+        _init_dimension(type, dimension) {
+            if (dimension) {
                 const el = this._choose_element(this.mode);
-                const sizeStyle = `${el} {
-                    height: ${this.height} !important; 
-                }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+                if(el){
+                    const sizeStyle = `${el} {
+                        ${type}: ${dimension} !important; 
+                    }`;
+                    this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
+                }
             }
         }
 
@@ -193,6 +198,7 @@
         /**
          * Mode attribute that sets the properties of the input field
          * 
+         * @param {String} mode will set mode properly to the mode passed in
          * @property {String} custom user can implement their own mode in this slot
          * @property {String} textarea create a textarea which will display text
          * @property {String} sender set default to input box
@@ -202,8 +208,8 @@
          * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
          * @todo should we have a receiver object as well
          */
-        _init_mode(){
-            switch(this.mode){
+        _init_mode(mode){
+            switch(mode){
                 case 'custom':
                     // Don't do anything on custom because user can implement there 
                     // own thing in the slot as well
@@ -321,10 +327,13 @@
                 size = this.size; 
             }
             const el = this._choose_element(this.mode);
-            const sizeStyle = `${el} { 
+            if(el){
+                const sizeStyle = `${el} { 
                     ${SIZES[el][size]}
-            }`;
-            this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
+                }`;
+                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
+            }
+
         }
 
         /**
@@ -374,19 +383,6 @@
             }
         }
 
-        /**
-         * Init function that sets the width of the web component. 
-         */
-        _init_width() {
-            if (this.width) {
-                const el = this._choose_element(this.mode);
-                const sizeStyle = `${el} {
-                    width: ${this.width} !important; 
-                }`;
-                this.shadowRoot.querySelector('style').innerHTML += sizeStyle;
-            }
-        }
-
         /** InputRT Web Component
          *
          * Initialize ShadowRoot, create text slot and bind to object
@@ -403,6 +399,27 @@
          */
         constructor(){
             super();
+            this._init();
+        }
+
+        connectedCallback(){
+            if(this.shadowRoot === null){
+                this._init();
+            }
+            // Add Event listeners
+            this._register_mode(true);
+        }
+
+        disconnectedCallback(){
+            // Remove Event listeners
+            this._register_mode(false);
+        }
+
+        attributeChangedCallback(name, oldVal, newVal){
+        
+        }
+
+        _init(){
             // Bind to this object
             this.append = this.append.bind(this);
             this.send = this.send.bind(this);
@@ -418,27 +435,15 @@
             this._linkSlot = this.shadowRoot.querySelector('slot[name=link]');
 
             // Initialize attributes
-            this._init_mode();
+            this._init_mode(this.mode);
             this._init_disabled();
             this._init_bootstrap_URL();
             this._init_password();
-            this._init_width();
-            this._init_height();
+            this._init_dimension("width",this.width);
+            this._init_dimension("height",this.height);
             this._init_size();
         }
 
-        connectedCallback(){
-            // Add Event listeners
-            this._register_mode(true);
-        }
-
-        disconnectedCallback(){
-            // Remove Event listeners
-            this.register_mode(false);
-        }
-
-        attributeChangedCallback(){
-        }
 
         /**
          * Internal function to determine the correct element in concern. 
@@ -446,7 +451,7 @@
          * @returns {string} an html element in concern
          */
         _choose_element(mode) {
-            let retVal = "";
+            let retVal = null;
             switch (mode) {
                 // TODO: users may specify what type of element they want for custom. 
                 case "custom":
@@ -463,6 +468,8 @@
         }
 
         /**
+         * public function for sending messages, leverages an internal WC's 
+         * send functionality. 
          * Public function for sending messages, leverages an internal WC's send functionality
          * 
          * @property {String} msgInput query the input
