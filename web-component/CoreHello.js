@@ -19,7 +19,7 @@ class CoreHello extends HTMLElement {
      * Returns: Null
      */
     set rainbow(val) {
-      this.settingStringAttributes(val,'rainbow');
+      this.settingAttributes(val,'rainbow');
     }
 
     /**
@@ -37,7 +37,7 @@ class CoreHello extends HTMLElement {
      * Returns: Null
      */
     set lang(val) {
-      this.settingStringAttributes(val,'lang');
+      this.settingAttributes(val,'lang');
     }
     /**
      * get font() 
@@ -54,7 +54,7 @@ class CoreHello extends HTMLElement {
      * Returns: Null
      */
     set font(val) {
-      this.settingStringAttributes(val,'font');
+      this.settingAttributes(val,'font');
     }
     /**
      * get fontsize() 
@@ -74,9 +74,8 @@ class CoreHello extends HTMLElement {
       this.settingStringAttributes(val,'fontsize');
     }
       
-    settingStringAttributes(val,attribute) {
-      const newval = String(val);
-      if (newval) {
+    settingAttributes(val,attribute) {
+      if (String(val)!=='') {
           this.setAttribute(attribute, val);
       }
       else {
