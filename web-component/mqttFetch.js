@@ -1,7 +1,3 @@
-/**
- * MsgFetch class
- * API for fetching messages over a network
- */
 class MqttFetch extends HTMLElement {
 
     /**
@@ -14,8 +10,15 @@ class MqttFetch extends HTMLElement {
     }
 
     /**
+     *
      * Constructor for setting up shadow dom and class definitions
-     * for web component.
+     * for web component. The attributes are id, slot, and topic
+     * @example        <input-rt mode="textarea">
+                 <mqtt-fetch id="receiver" slot="messenger" topic="chattest/1">
+                 </mqtt-fetch>
+             </input-rt>
+     * @class MQTT Fetch Web Component, This class provides functionality to fetch messages from a port, given a topic,
+     * It can be attached to inputRT
      */
     constructor () {
         super();

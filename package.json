@@ -17,8 +17,7 @@
     "test": "nyc npm run mocha"
   },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   },
   "nyc": {
     "lines": 50,

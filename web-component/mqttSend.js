@@ -1,7 +1,3 @@
-/**
- * MqttSend class
- * API for sending messages over a network
- */
 class MqttSend extends HTMLElement {
 
     /**
@@ -14,8 +10,15 @@ class MqttSend extends HTMLElement {
     }
 
     /**
+     *
      * Constructor for setting up shadow dom and class definitions
-     * for web component.
+     * for web component. The attributes are id, slot, and topic
+     * @example   <input-rt mode="sender">
+           <mqtt-send id="sender" slot="messenger" topic="chattest/1">
+           </mqtt-send>
+       </input-rt>
+     * @class MQTT Send Web Component, This class provides functionality to send messages to a port, given a topic,
+     * It can be attached to inputRT
      */
     constructor () {
         super();
