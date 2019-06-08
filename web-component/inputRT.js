@@ -190,12 +190,15 @@
         }
 
         /**
-         * Mode attribute that sets the properties of the input field
-         *
+         * Init function that generates the internal value based on the mode being set
+         * 
          * @property {String} custom user can implement their own mode in this slot
          * @property {String} textarea create a textarea which will display text
          * @property {String} sender set default to input box
-         *
+         * 
+         * @example this._init_mode();
+         * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
+         * @todo should we have a receiver object as well
          */
         _init_mode(){
             switch(this.mode){
@@ -220,30 +223,24 @@
             }
         }
         /**
-         * Internal function that helps with setting the event handlers
-         * for the mode attribute and any other work neccessary for connectedCallback
+         * Internal function that helps with setting the event handlers for the mode attribute hello
+         * @param {Bool} register if True will add evenListener, else will remove them
+         * @property {String} sender add eventListener keypress & click 
+         * @example connectedCallback(){this._register_mode();}
+         * @todo think of a way to refactor to handle more cases
+         * @todo perhaps allow user to input
          */
-        _register_mode(){
+        _register_mode(register){
             switch(this.mode){
                 case 'sender':
-                    this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('click', this.send);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /**
-         * Internal function that helps with removing the event handlers
-         * for the mode attribute and any other work neccessary for 
-         * disconnectedCallback
-         */
-        _unregister_mode(){
-            switch(this.mode){
-                case 'sender':
-                    this._textSlot.removeEventListener('keypress',this._onEnter);
-                    this._appendSlot.removeEventListener('click', this.send);
+                    if(register){
+                        this._textSlot.addEventListener('keypress',this._onEnter);
+                        this._appendSlot.addEventListener('click', this.send);
+                    }
+                    else{
+                        this._textSlot.removeEventListener('keypress',this._onEnter);
+                        this._appendSlot.removeEventListener('click', this.send);
+                    }
                     break;
                 default:
                     break;
@@ -426,12 +423,12 @@
 
         connectedCallback(){
             // Add Event listeners
-            this._register_mode();
+            this._register_mode(true);
         }
 
         disconnectedCallback(){
             // Remove Event listeners
-            this._unregister_mode();
+            this.register_mode(false);
         }
 
         attributeChangedCallback(){
@@ -460,8 +457,11 @@
         }
 
         /**
-         * public function for sending messages, leverages an internal WC's 
-         * send functionality. 
+         * Public function for sending messages, leverages an internal WC's send functionality
+         * @property {String} msgInput query the input
+         * @property {Function} send the sender sends the msgInput value
+         * @example case KEYCODE.ENTER: this.send();
+         * @todo need to find a way the input element and poluate that
          */
         send(){
             const msgInput = this._textSlot.querySelector('input');
@@ -472,9 +472,10 @@
         }
 
         /**
-         * public function that works as a callback to populate the internal
-         * text area with JS if desired
-         * @param {*} message thing to print out
+         * Public function that works as a callback to populate the internal text area with JS if desired
+         * @param {String} message text to print out
+         * @example append('Runtime Terror is the best team!')
+         * @todo we will need a way to allow user scrolling to override this
          */
         append(message){
             const textarea = this._textSlot.querySelector('textarea');
@@ -483,8 +484,10 @@
         }
 
         /**
-         * Internal function to determine the correct event to fire send. 
-         * @param {*} event
+         * Internal function that handles an enter press
+         * @param {Event} event the keypress to check against
+         * @example this._textSlot.addEventListener('keypress',this._onEnter)
+         * @todo might be better to just have an if?
          */
         _onEnter(event){
             switch (event.keyCode) {
@@ -495,6 +498,5 @@
             }
         }
     }
-    
     customElements.define('input-rt', InputRT);
 })();
