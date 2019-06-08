@@ -166,41 +166,14 @@ class InputBox extends HTMLElement {
         // Through - if not sprint1 def sprint 2
         const i = this.createInput(shadowRoot);
 
+        // Set the attributes href and class if url and boostrap
         this.settingAttributes(l, i); 
 
-        if (this.disabled) {
-            let disabledStyle = document.createElement('style'); 
-            disabledStyle.innerHTML += `input {
-                opacity: 0.5!important;
-                cursor: not-allowed;
-                background-color: #ccc;
-            }`; 
-            i.setAttribute('disabled', true)
-            shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", disabledStyle)
-        }  
+        // If disabled, will set a default disabled style
+        this.settingDisabledStyle(i, shadowRoot);  
 
-        // size configurations 
-        let sizeStyle = document.createElement('style');
-        if (this.size) {
-            sizeStyle.innerHTML += `input {
-                ${SIZES[this.size]}
-            }`;
-        }  else {
-            sizeStyle.innerHTML += `input {
-                ${SIZES["d"]}
-            }`;
-        } 
-        
-        if (this.width) {
-            sizeStyle.innerHTML += `input {
-                width: ${this.width} !important; 
-            }`;
-        } 
-        if (this.height) {
-            sizeStyle.innerHTML += `input {
-                height: ${this.height} !important; 
-            }`;
-        } 
+        // size configurations according to size parameters
+        let sizeStyle = this.settingSizeStyle(SIZES); 
         shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", sizeStyle)
 
 
@@ -208,17 +181,59 @@ class InputBox extends HTMLElement {
         // listen to some sort of backplane that could trigger this
         // from an internal button 
         // Register a listener to trigger on enter.
+        this.createEventListener(i, shadowRoot);
+    }
+
+    createEventListener(i, shadowRoot) {
         i.addEventListener('keypress', (e) => {
-            if(e.key == 13){
+            if (e.key == 13) {
                 const msgInput = shadowRoot.querySelector('input');
                 //call send function
                 var sender = shadowRoot.querySelector('#sender');
-                if(sender!=null){
+                if (sender != null) {
                     sender.send(msgInput.value);
                 }
                 msgInput.value = '';
             }
         });
+    }
+
+    settingSizeStyle(SIZES) {
+        let sizeStyle = document.createElement('style');
+        if (this.size) {
+            sizeStyle.innerHTML += `input {
+                ${SIZES[this.size]}
+            }`;
+        }
+        else {
+            sizeStyle.innerHTML += `input {
+                ${SIZES["d"]}
+            }`;
+        }
+        if (this.width) {
+            sizeStyle.innerHTML += `input {
+                width: ${this.width} !important; 
+            }`;
+        }
+        if (this.height) {
+            sizeStyle.innerHTML += `input {
+                height: ${this.height} !important; 
+            }`;
+        }
+        return sizeStyle;
+    }
+
+    settingDisabledStyle(i, shadowRoot) {
+        if (this.disabled) {
+            let disabledStyle = document.createElement('style');
+            disabledStyle.innerHTML += `input {
+                opacity: 0.5!important;
+                cursor: not-allowed;
+                background-color: #ccc;
+            }`;
+            i.setAttribute('disabled', true);
+            shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", disabledStyle);
+        }
     }
 
     settingAttributes(l, i) {
