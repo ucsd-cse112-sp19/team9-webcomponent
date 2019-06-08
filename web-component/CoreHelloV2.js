@@ -11,6 +11,7 @@ class CoreHello extends HTMLElement {
   get rainbow() {
     return this.hasAttribute('rainbow');
   }
+  
   /**
    * set rainbow(val) 
    * Sets rainbow if value passed in, or removes it if nothing
@@ -18,12 +19,9 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set rainbow(val) {
-    if (val !== '') {
-      this.setAttribute('rainbow','');
-    } else {
-      this.removeAttribute('rainbow');
-    }
+    this.settingAttributes(val,'rainbow');
   }
+
   /**
    * get lang() 
    * Check if langauge exists in HTML.
@@ -39,11 +37,7 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set lang(val) {
-    if (val !== '') {
-      this.setAttribute('lang', val);
-    } else {
-      this.removeAttribute('lang');
-    }
+    this.settingAttributes(val,'lang');
   }
   /**
    * get font() 
@@ -60,11 +54,7 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set font(val) {
-    if (val !== '') {
-      this.setAttribute('font', val);
-    } else {
-      this.removeAttribute('font');
-    }
+    this.settingAttributes(val,'font');
   }
   /**
    * get fontsize() 
@@ -81,25 +71,25 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set fontsize(val) {
-    if (val !== '') {
-      this.setAttribute('fontsize', val);
-    } else {
-      this.removeAttribute('fontsize');
-    }
+    this.settingStringAttributes(val,'fontsize');
   }
+    
+  settingAttributes(val,attribute) {
+    if (String(val)!=='') {
+        this.setAttribute(attribute, val);
+    }
+    else {
+        this.removeAttribute(attribute);
+    }
+}
   /**
    * Constructor for setting up shadow dom and class definitions 
    * for web component.
    */
   constructor () {
     super();
-    
     // Dictionary for Hello World in different languages
-    let languages = { "en": "Hello World",
-                      "ar": "مرحبا بالعالم",
-                      "es": "Hola Mundo",
-                      "fr": "Bonjour le monde",
-                      "zh": "你好" };
+    let languages = setlanguages();
 
     // Initialize shadow root
     const shadowRoot = this.attachShadow({mode: 'open'});
@@ -111,21 +101,7 @@ class CoreHello extends HTMLElement {
     }
 
     // Determine and filter the right language for Hello world, defaults to English
-    let hello = "Hello World";
-    if(this.lang) {
-      hello = languages[this.lang];
-    }
-
-    // Determine font
-    let font = ""
-    if(this.font) {
-      font = "font-family:" + this.font + ";";
-    }
-    // Determine font size
-    let size = ""
-    if(this.fontsize) {
-      size =  "font-size:" + this.fontsize + "px;";
-    }
+    let { size, font, hello } = this.Setting3Attributes(languages);
     // Append to shadowdom style
     shadowRoot.innerHTML += "<style>  p{" + size  + font +  "} </style>";
 
@@ -158,20 +134,51 @@ class CoreHello extends HTMLElement {
     // For fun, let user change size of text through slider
 
     // Create slider element
-    let slider = document.createElement('input');
-    slider.min = 12;
-    slider.max = 72;
-    slider.type='range';
-    slider.value = this.fontsize;
-    shadowRoot.appendChild(slider);
-
-    // Add event listener that changes font size
-    slider.addEventListener('change', ()=>{
-      this.fontsize = slider.value;
-      shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
-    });
+    this.createSlider(shadowRoot, font);
   }
+
+createSlider(shadowRoot, font) {
+  let slider = document.createElement('input');
+  slider.min = 12;
+  slider.max = 72;
+  slider.type = 'range';
+  slider.value = this.fontsize;
+  shadowRoot.appendChild(slider);
+  // Add event listener that changes font size
+  slider.addEventListener('change', () => {
+    this.fontsize = slider.value;
+    shadowRoot.querySelector('style').innerHTML = 'p{ font-size: ' + slider.value + 'px; ' + font + '}';
+  });
+}
+
+Setting3Attributes(languages) {
+  let hello = "Hello World";
+  if (this.lang) {
+    hello = languages[this.lang];
+  }
+  // Determine font
+  let font = "";
+  if (this.font) {
+    font = "font-family:" + this.font + ";";
+  }
+  // Determine font size
+  let size = "";
+  if (this.fontsize) {
+    size = "font-size:" + this.fontsize + "px;";
+  }
+  return { size, font, hello };
+}
 }
 
 // Register HelloWorld class as core-hello element
 customElements.define('core-hello', CoreHello);
+
+function setlanguages() {
+return {
+"en": "Hello World",
+  "ar": "مرحبا بالعالم",
+  "es": "Hola Mundo",
+  "fr": "Bonjour le monde",
+  "zh": "你好"
+};
+}

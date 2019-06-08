@@ -115,13 +115,13 @@
          *
          * @class InputRT
          *
-         * @example <input-rt mode="sender"></input-rt>
+         * @example <input-rt mode="sender" > </input-rt>
          * @example <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                bootstrap="border-primary border"></input-rt>
-         * @example <input-rt size="s"></input-rt>
-         * @example <input-rt height="200px" width="600px"></input-rt>
-         * @example <input-rt password></input-rt>
-         * @example <input-rt disable></input-rt>
+            bootstrap="border-primary border" > </input-rt>
+         * @example <input-rt size="s" > </input-rt>
+         * @example <input-rt height="200px" width="600px" > </input-rt>
+         * @example <input-rt password > </input-rt>
+         * @example <input-rt disable > </input-rt>
          */
         constructor(){
             super();

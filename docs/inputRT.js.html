@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -73,6 +73,7 @@
 
     /**
      * @typedef {HTMLDocument} template
+     * @
      * Creates and defines a template for web component
      */
     const template = document.createElement('template');
@@ -91,11 +92,9 @@
         static get observedAttributes(){
             return [];
         }
-
         get mode() {
             return this.getAttribute('mode');
         }
-
         set mode(val) {
             if (val !== '') {
                 this.setAttribute('mode', val);
@@ -103,17 +102,14 @@
                 this.removeAttribute('mode');
             }
         }
-
         /**
-         * Init function that generates the internal value based on the mode being set
+         * Mode attribute that sets the properties of the input field
          * 
          * @property {String} custom user can implement their own mode in this slot
          * @property {String} textarea create a textarea which will display text
          * @property {String} sender set default to input box
          * 
          * @example this._init_mode();
-         * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
-         * @todo should we have a receiver object as well
          */
         _init_mode(){
             switch(this.mode){
@@ -123,13 +119,13 @@
                 case 'textarea':
                     const textarea = document.createElement('textarea');
                     textarea.setAttribute("slot","text");
-                    // TODO: should we have a receiveer object as well
+                    // TODO: should we have a receiver object as well
                     textarea.setAttribute("readonly","true");
                     this._textSlot.appendChild(textarea);
                     break;
                 case 'sender':
                 default:
-                    // Set default to input box.
+                    // Set default to input box
                     const input = document.createElement('input');
                     input.setAttribute("slot","text");
                     this._textSlot.appendChild(input);
@@ -140,6 +136,7 @@
         /**
          * Internal function that helps with setting the event handlers for the mode attribute hello
          * 
+         * @param {Bool} register if True will add evenListener, else will remove them
          * @property {String} sender add eventListener keypress &amp; click 
          * 
          * @example connectedCallback(){this._register_mode();}
@@ -147,27 +144,23 @@
          * @todo think of a way to refactor to handle more cases
          * @todo perhaps allow user to input
          */
-        _register_mode(){
+        _register_mode(register){
             switch(this.mode){
                 case 'sender':
-                    this._textSlot.addEventListener('keypress',this._onEnter);
-                    this._appendSlot.addEventListener('click', this.send);
+                    if(register){
+                        this._textSlot.addEventListener('keypress',this._onEnter);
+                        this._appendSlot.addEventListener('click', this.send);
+                    }
+                    else{
+                        this._textSlot.removeEventListener('keypress',this._onEnter);
+                        this._appendSlot.removeEventListener('click', this.send);
+                    }
                     break;
                 default:
                     break;
             }
         }
 
-        /**
-         * Internal function that helps with removing the event handlers for the mode attribute
-         * 
-         * @property {String} sender remove eventListener keypress &amp; click 
-         * 
-         * @example disconnectedCallback(){this._unregister_mode();}
-         * 
-         * @todo think of a way to refactor to handle more cases
-         * @todo perhaps allow user to input
-         */
         _unregister_mode(){
             switch(this.mode){
                 case 'sender':
@@ -178,17 +171,21 @@
                     break;
             }
         }
-            
+
         /**
          * InputRT Web Component
-         * 
+         *
          * Initialize ShadowRoot, create text slot and bind to object
-         * 
+         *
          * @class InputRT
-         *          
-         * @example &lt;input-rt mode="sender">
-         * 
-         * @see mqttFetch and mqttSend for more information
+         *
+         * @example &lt;input-rt mode="sender" > &lt;/input-rt>
+         * @example &lt;input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            bootstrap="border-primary border" > &lt;/input-rt>
+         * @example &lt;input-rt size="s" > &lt;/input-rt>
+         * @example &lt;input-rt height="200px" width="600px" > &lt;/input-rt>
+         * @example &lt;input-rt password > &lt;/input-rt>
+         * @example &lt;input-rt disable > &lt;/input-rt>
          */
         constructor(){
             super();
@@ -196,33 +193,28 @@
             this.append = this.append.bind(this);
             this.send = this.send.bind(this);
             this._onEnter = this._onEnter.bind(this);
-
             // Initialize shadowRoot
             this.attachShadow({mode: 'open'});
             this.shadowRoot.appendChild(template.content.cloneNode(true));
-            
+
             // Grab slots for easier use
             this._messengerSlot = this.shadowRoot.querySelector('slot[name=messenger]');
             this._textSlot = this.shadowRoot.querySelector('slot[name=text]');
             this._appendSlot = this.shadowRoot.querySelector('slot[name=append]');
-
             // Initialize attributes
             this._init_mode();
         }
-
         connectedCallback(){
             // Add Event listeners
-            this._register_mode();
+            this._register_mode(True);
         }
-
         disconnectedCallback(){
             // Remove Event listeners
-            this._unregister_mode();
+            this._register_mode(False);
         }
-
         attributeChangedCallback(){
-
         }
+
 
         /**
          * Public function for sending messages, leverages an internal WC's send functionality
@@ -230,39 +222,31 @@
          * @property {Function} send the sender sends the msgInput value
          * 
          * @example case KEYCODE.ENTER: this.send();
-         * 
-         * @todo need to find a way the input element and poluate that
          */
         send(){
             const msgInput = this._textSlot.querySelector('input');
             //call send function
             const sender = this.querySelector('#sender');
+            //todo: need to find a way the input element and poluate that
             sender.send(msgInput.value);
             msgInput.value = '';
         }
+
 
         /**
          * Public function that works as a callback to populate the internal text area with JS if desired
          * @param {String} message text to print out
          * 
          * @example append('Runtime Terror is the best team!')
-         * 
-         * @todo we will need a way to allow user scrolling to override this
          */
         append(message){
+            //todo: we will need a way to allow user scrolling to override this
             const textarea = this._textSlot.querySelector('textarea');
             textarea.innerHTML += message + "\n";
             textarea.scrollTop = textarea.scrollHeight;
         }
         
-        /**
-         * Internal function that handles an enter press
-         * @param {Event} event the keypress to check against
-         * 
-         * @example this._textSlot.addEventListener('keypress',this._onEnter)
-         * 
-         * @todo might be better to just have an if?
-         */
+        //Internal function that handles an enter press
         _onEnter(event){   
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
@@ -271,9 +255,10 @@
                     break;
             }
         }
+
+
     }
-    customElements.define('input-rt', inputRT);
-    </code></pre>
+    customElements.define('input-rt', InputRT);</code></pre>
         </article>
     </section>
 
@@ -287,7 +272,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 11:42:04 GMT-0700 (GMT-07:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 23:44:33 GMT-0700 (GMT-07:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

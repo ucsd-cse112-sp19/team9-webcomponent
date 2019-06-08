@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -62,7 +62,14 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>const SIZES ={
+        "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
+        "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
+        "d": "width: 300px; height: 30px; font-size: 18px !important;",
+        "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
+    };
+
+/**
  * inputBox class
  * Provides template for input element
  */
@@ -107,11 +114,16 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set width(val) {
-        const isWidth = String(val);
-        if (isWidth) {
-            this.setAttribute('width', val);
-        } else {
-            this.removeAttribute('width');
+        this.settingStringAttribute(val,'width');
+    }
+
+    settingStringAttribute(val,attribute) {
+        const stringval = String(val);
+        if (stringval) {
+            this.setAttribute(attribute, val);
+        }
+        else {
+            this.removeAttribute(attribute);
         }
     }
 
@@ -130,12 +142,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set height(val) {
-        const isHeight = String(val);
-        if (isHeight) {
-            this.setAttribute('height', val);
-        } else {
-            this.removeAttribute('height');
-        }
+        this.settingStringAttribute(val,'height');
     }
 
     /**
@@ -153,12 +160,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set size(val) {
-        const isSize = String(val);
-        if (isSize) {
-            this.setAttribute('size', val);
-        } else {
-            this.removeAttribute('size');
-        }
+        this.settingStringAttribute(val,'size');
     }
 
     /**
@@ -176,11 +178,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set bootstrap(val) {
-        if (val !== '') {
-            this.setAttribute('bootstrap', val);
-        } else {
-            this.removeAttribute('bootstrap');
-        }
+        this.settingStringAttribute(val,'bootstrap');
     }
 
     /**
@@ -198,11 +196,7 @@ class InputBox extends HTMLElement {
      * Returns: Null
      */
     set url(val) {
-        if (val !== '') {
-            this.setAttribute('url', val);
-        } else {
-            this.removeAttribute('url');
-        }
+        this.settingStringAttribute(val,'url');
     }
     /**
      * Constructor for setting up shadow dom and class definitions 
@@ -210,79 +204,36 @@ class InputBox extends HTMLElement {
      */
     constructor () {
         super();
-        
 
     }
     
     connectedCallback() {
 
-        const SIZES = {
-            "l": "width: 500px; height: 50px; font-size: 25px !important; padding: 10px 10px;",
-            "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
-            "d": "width: 300px; height: 30px; font-size: 18px !important;",
-            "s": "width: 250px; height: 30px; font-size: 15px !important; padding: 5px 5px;"
-        };
+
         // Initialize shadowroot
         const shadowRoot = this.attachShadow({mode: 'open'});
 
         shadowRoot.innerHTML += this.innerHTML;
         this.innerHTML = "";
 
-        const l = document.createElement('link');
-        l.setAttribute('rel', 'stylesheet');
-        l.setAttribute('type', 'text/css');
-        shadowRoot.appendChild(l);
-
         // Append to shadowdom style
         // Eventually turn into text area so that we can scroll
         // Through - if not sprint1 def sprint 2
+        const l = this.createLink(shadowRoot);
         const i = document.createElement('input');
-        i.setAttribute("id","msg");
-        i.setAttribute("name","msg");
-        i.setAttribute("value","");
+        i.setAttribute("id", "msg");
+        i.setAttribute("name", "msg");
+        i.setAttribute("value", "");
         shadowRoot.append(i);
 
-        if (this.url &amp;&amp; this.bootstrap) {
-            l.setAttribute('href', this.url);
-            i.setAttribute('class', this.bootstrap);
-            
-        } else {
-            l.setAttribute('href', 'inputbox-default-style.css');
-        } 
+        // Set the attributes href and class if url and boostrap
+        this.settingAttributes(l, i); 
 
-        if (this.disabled) {
-            let disabledStyle = document.createElement('style'); 
-            disabledStyle.innerHTML += `input {
-                opacity: 0.5!important;
-                cursor: not-allowed;
-                background-color: #ccc;
-            }`; 
-            i.setAttribute('disabled', true)
-            shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", disabledStyle)
-        }  
+        // If disabled, will set a default disabled style
+        this.settingDisabledStyle(i, shadowRoot);  
 
-        // size configurations 
-        let sizeStyle = document.createElement('style');
-        if (this.size) {
-            sizeStyle.innerHTML += `input {
-                ${SIZES[this.size]}
-            }`;
-        }  else {
-            sizeStyle.innerHTML += `input {
-                ${SIZES["d"]}
-            }`;
-        } 
-        
-        if (this.width) {
-            sizeStyle.innerHTML += `input {
-                width: ${this.width} !important; 
-            }`;
-        } 
-        if (this.height) {
-            sizeStyle.innerHTML += `input {
-                height: ${this.height} !important; 
-            }`;
-        } 
+        // size configurations according to size parameters
+        let sizeStyle = this.settingSizeStyle(SIZES); 
         shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", sizeStyle)
 
 
@@ -290,22 +241,84 @@ class InputBox extends HTMLElement {
         // listen to some sort of backplane that could trigger this
         // from an internal button 
         // Register a listener to trigger on enter.
+        this.createEventListener(i, shadowRoot);
+    }
+
+    createEventListener(i, shadowRoot) {
         i.addEventListener('keypress', (e) => {
-            if(e.key == 13){
+            if (e.key == 13) {
                 const msgInput = shadowRoot.querySelector('input');
                 //call send function
                 var sender = shadowRoot.querySelector('#sender');
-                if(sender!=null){
+                if (sender != null) {
                     sender.send(msgInput.value);
                 }
                 msgInput.value = '';
             }
         });
     }
+
+    settingSizeStyle(SIZES) {
+        let sizeStyle = document.createElement('style');
+        if (this.size) {
+            sizeStyle.innerHTML += `input {
+                ${SIZES[this.size]}
+            }`;
+        }
+        else {
+            sizeStyle.innerHTML += `input {
+                ${SIZES["d"]}
+            }`;
+        }
+        if (this.width) {
+            sizeStyle.innerHTML += `input {
+                width: ${this.width} !important; 
+            }`;
+        }
+        if (this.height) {
+            sizeStyle.innerHTML += `input {
+                height: ${this.height} !important; 
+            }`;
+        }
+        return sizeStyle;
+    }
+
+    settingDisabledStyle(i, shadowRoot) {
+        if (this.disabled) {
+            let disabledStyle = document.createElement('style');
+            disabledStyle.innerHTML += `input {
+                opacity: 0.5!important;
+                cursor: not-allowed;
+                background-color: #ccc;
+            }`;
+            i.setAttribute('disabled', true);
+            shadowRoot.querySelector('link').insertAdjacentElement("beforebegin", disabledStyle);
+        }
+    }
+
+    settingAttributes(l, i) {
+        if (this.url &amp;&amp; this.bootstrap) {
+            l.setAttribute('href', this.url);
+            i.setAttribute('class', this.bootstrap);
+        }
+        else {
+            l.setAttribute('href', 'inputbox-default-style.css');
+        }
+    }
+
+    createLink(shadowRoot) {
+        const l = document.createElement('link');
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('type', 'text/css');
+        shadowRoot.appendChild(l);
+        return l;
+    }
 }
 
 // Register ChatBox class as chat-box element
-customElements.define('input-box', InputBox);</code></pre>
+customElements.define('input-box', InputBox);
+
+</code></pre>
         </article>
     </section>
 
@@ -319,7 +332,7 @@ customElements.define('input-box', InputBox);</code></pre>
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 11:42:04 GMT-0700 (GMT-07:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 23:44:33 GMT-0700 (GMT-07:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
