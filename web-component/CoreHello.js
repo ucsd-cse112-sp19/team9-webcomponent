@@ -94,11 +94,7 @@ class CoreHello extends HTMLElement {
     constructor () {
       super();
       // Dictionary for Hello World in different languages
-      let languages = { "en": "Hello World",
-                        "ar": "مرحبا بالعالم",
-                        "es": "Hola Mundo",
-                        "fr": "Bonjour le monde",
-                        "zh": "你好" };
+      let languages = setlanguages();
 
       // Initialize shadow root
       const shadowRoot = this.attachShadow({mode: 'open'});
@@ -110,21 +106,7 @@ class CoreHello extends HTMLElement {
       }
 
       // Determine and filter the right language for Hello world, defaults to English
-      let hello = "Hello World";
-      if(this.lang) {
-        hello = languages[this.lang];
-      }
-
-      // Determine font
-      let font = ""
-      if(this.font) {
-        font = "font-family:" + this.font + ";";
-      }
-      // Determine font size
-      let size = ""
-      if(this.fontsize) {
-        size =  "font-size:" + this.fontsize + "px;";
-      }
+      let { size, font, hello } = this.Setting3Attributes(languages);
       // Append to shadowdom style
       shadowRoot.innerHTML += "<style>  p{" + size  + font +  "} </style>";
 
@@ -170,7 +152,36 @@ class CoreHello extends HTMLElement {
         shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
       });
     }
+
+  Setting3Attributes(languages) {
+    let hello = "Hello World";
+    if (this.lang) {
+      hello = languages[this.lang];
+    }
+    // Determine font
+    let font = "";
+    if (this.font) {
+      font = "font-family:" + this.font + ";";
+    }
+    // Determine font size
+    let size = "";
+    if (this.fontsize) {
+      size = "font-size:" + this.fontsize + "px;";
+    }
+    return { size, font, hello };
+  }
 }
 
 // Register HelloWorld class as core-hello element
 customElements.define('core-hello', CoreHello);
+
+function setlanguages() {
+  return {
+  "en": "Hello World",
+    "ar": "مرحبا بالعالم",
+    "es": "Hola Mundo",
+    "fr": "Bonjour le monde",
+    "zh": "你好"
+  };
+}
+
