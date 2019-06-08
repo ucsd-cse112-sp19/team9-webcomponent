@@ -158,13 +158,13 @@
         }
 
         /**
-         * Init function that sets the width of the web component.
+         * Init function that sets the dimensions of the web component.
          */
-        _init_height() {
-            if (this.height) {
+        _init_dimension(dimension) {
+            if (dimension) {
                 const el = this._choose_element(this.mode);
                 const sizeStyle = `${el} {
-                    height: ${this.height} !important; 
+                    height: ${dimension} !important; 
                 }`;
                 this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
             }
@@ -373,19 +373,6 @@
             }
         }
 
-        /**
-         * Init function that sets the width of the web component. 
-         */
-        _init_width() {
-            if (this.width) {
-                const el = this._choose_element(this.mode);
-                const sizeStyle = `${el} {
-                    width: ${this.width} !important; 
-                }`;
-                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
-            }
-        }
-
         /** InputRT Web Component
          *
          * Initialize ShadowRoot, create text slot and bind to object
@@ -420,8 +407,8 @@
             this._init_disabled();
             this._init_bootstrap_URL();
             this._init_password();
-            this._init_width();
-            this._init_height();
+            this._init_dimension(this.width);
+            this._init_dimension(this.height);
             this._init_size();
         }
 
