@@ -3,6 +3,7 @@ import { Selector } from 'testcafe';
 fixture `Testing Input - disabled`
     .page `../cafe-html/input_disabled.html`
 
+// Selectors
 const input = Selector( () => document.querySelector('input-rt[disabled="true"]').shadowRoot ); 
 const text = input.find('input[slot="text"]'); 
 const button = Selector('button[slot="append"]');
@@ -13,6 +14,14 @@ const messages = [
     { message: 'test 2' },
     { message: ' ' }
 ];
+
+// Test that the first input-rt on the page is disabled with a value of true
+test('Single Test: make sure input box is disabled', async t => {
+    await t
+        .expect(Selector('input-rt').hasAttribute("disabled")).eql(true)
+        .expect(Selector('input-rt').getAttribute("disabled")).eql("true");
+});
+
 
 // Types in input box, checks input box value
 test('Test Suite: make sure input box is empty after typing', async t => {
