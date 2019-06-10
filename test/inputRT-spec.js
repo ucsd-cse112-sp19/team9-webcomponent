@@ -6,6 +6,7 @@ const inputRT = require('../web-component/inputRT');
 
 describe('input-rt element', () => {
     let cs;
+    let defaultStyle = "\nslot[name='messenger'] {\ndisplay: block;\n}\n";
 
     before(() => {
 
@@ -76,7 +77,7 @@ describe('input-rt element', () => {
         });
     
         it('should find textarea element in shadowDom when set in textarea mode', () => {
-            cs.setAttribute('mode','textarea')
+            cs.setAttribute('mode','textarea');
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let textarea = slot.querySelector('textarea');
@@ -84,7 +85,7 @@ describe('input-rt element', () => {
         });
 
         it('nothing should be set if custom attribute is set', () => {
-            cs.setAttribute('mode','custom')
+            cs.setAttribute('mode','custom');
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             
@@ -273,85 +274,85 @@ describe('input-rt element', () => {
         });
 
         it('should delete the bootstrap',() => {
-            cs.bootstrap='';
+            cs.bootstrap = '';
             assert.equal(cs.getAttribute('boostrap'), null);     
         });
 
         it('should set the bootstrap',() => {
-            cs.bootstrap='border border-secondary';
+            cs.bootstrap = 'border border-secondary';
             assert.equal(cs.bootstrap,'border border-secondary');     
         });
 
         it('should set the size',() => {
-            cs.size=1;
+            cs.size = 1;
             assert.equal(cs.getAttribute('size'), 1);
         });  
 
         it('should delete the size',() => {
-            cs.size='';
+            cs.size = '';
             assert.equal(cs.getAttribute('size'), null);
         }); 
 
         it('should set the height',() => {
-            cs.height=1;
+            cs.height = 1;
             assert.equal(cs.getAttribute('height'), 1);
         });  
 
         it('should delete the height',() => {
-            cs.height='';
+            cs.height = '';
             assert.equal(cs.getAttribute('height'), null);
         }); 
 
         it('should set the width',() => {
-            cs.width=1;
+            cs.width = 1;
             assert.equal(cs.getAttribute('width'), 1);
         });  
 
         it('should delete the width',() => {
-            cs.width='';
+            cs.width = '';
             assert.equal(cs.getAttribute('width'), null);
         }); 
 
         it('should set the disabled',() => {
-            cs.disabled=true;
+            cs.disabled = true;
             assert.equal(cs.getAttribute('disabled'), 'true');
         });  
 
         it('should delete the disabled ',() => {
-            cs.disabled=false;
+            cs.disabled = false;
             assert.equal(cs.getAttribute('disabled'), null);
         }); 
 
         it('should set the url',() => {
-            cs.url='fake url';
+            cs.url = 'fake url';
             assert.equal(cs.getAttribute('url'), 'fake url');
         });  
 
         it('should delete the url',() => {
-            cs.url='';
+            cs.url = '';
             assert.equal(cs.getAttribute('url'), null);
         }); 
 
         it('should set password attribute',() => {
-            cs.password=true;
+            cs.password = true;
             assert.equal(cs.getAttribute('password'), 'true');
         }); 
 
         it('should set password attribute then unset',() => {
-            cs.password=true;
+            cs.password = true;
             assert.equal(cs.getAttribute('password'), 'true');
-            cs.password=false;
+            cs.password = false;
             assert.equal(cs.getAttribute('password'), null);
         }); 
     });
 
     it('should set the text area if we have bootstrap',() => {
-        cs.bootstrap='border border-secondary';
-        cs.url='fake u'
+        cs.bootstrap = 'border border-secondary';
+        cs.url = 'fake u';
         cs.connectedCallback();
         const input = cs.shadowRoot.querySelector('input');
         const link = cs.shadowRoot.querySelector('link');
-        assert.equal(input.getAttribute('class'),cs.bootstrap)
+        assert.equal(input.getAttribute('class'),cs.bootstrap);
         assert.equal(link.getAttribute('href'),cs.url);
     });
 
@@ -362,51 +363,52 @@ describe('input-rt element', () => {
     });
 
     it('should add a style if disabled',() => {
-        cs.disabled=true
+        cs.disabled = true;
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML,'input[disabled] {\n                    opacity: 0.5!important;\n                    cursor: not-allowed;\n                    background-color: #ccc;\n                }')
+        assert.equal(style.innerHTML, defaultStyle+'input[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n');
     });
 
     it('should configure width and height while size is set',() => {
-        cs.size='s';
-        cs.width=200;
-        cs.height=300;
+        cs.size = 's';
+        cs.width = 200;
+        cs.height = 300;
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML,'\n        input {\n                        width: 200 !important; \n                    }input {\n                        height: 300 !important; \n                    }input { \n                    width: 300px; height: 30px; font-size: 12px !important;\n                }')
+        assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 200 !important;\n}\ninput {\nheight: 300 !important;\n}\ninput {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
+      
     });
 
     it('should configure width and height',() => {
-        cs.width=200;
-        cs.height=300;
+        cs.width = 200;
+        cs.height = 300;
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML,'\n        input {\n                        width: 200 !important; \n                    }input {\n                        height: 300 !important; \n                    }input { \n                    width: 300px; height: 30px; font-size: 12px !important;\n                }')
+        assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 200 !important;\n}\ninput {\nheight: 300 !important;\n}\ninput {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
     });
 
     it('should not configure width and height in custom mode',() => {
-        cs.mode = "custom"
-        cs.width=200;
-        cs.height=300;
+        cs.mode = "custom";
+        cs.width = 200;
+        cs.height = 300;
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML,'\n        ')
+        assert.equal(style.innerHTML, defaultStyle);
     });
 
     it('should configure size',() => {
-        cs.size='s';
+        cs.size = 's';
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML,'\n        input { \n                    width: 250px; height: 30px; font-size: 12px !important; padding: 5px 5px;\n                }')
+        assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 250px; height: 30px; font-size: 12px !important; padding: 5px 5px;\n}\n');
     });
 
     it('should not configure size in custom mode',() => {
-        cs.mode = "custom"
-        cs.size='s';
+        cs.mode = "custom";
+        cs.size = 's';
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML,'\n        ')
+        assert.equal(style.innerHTML, defaultStyle);
     });
 
     it('should configure password',() => {
@@ -419,7 +421,7 @@ describe('input-rt element', () => {
     });
 
     it('should not configure password in textarea mode',() => {
-        cs.mode = "textarea"
+        cs.mode = "textarea";
         cs.password = true;
         cs.connectedCallback();
 
@@ -429,9 +431,9 @@ describe('input-rt element', () => {
     });
 
     it('should add a default style if no size given and not disabled',() => {
-        cs.disabled=false
+        cs.disabled = false;
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML,'\n        input { \n                    width: 300px; height: 30px; font-size: 12px !important;\n                }')
+        assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
     });    
  });

@@ -32,11 +32,7 @@
      */
     const template = document.createElement('template');
     template.innerHTML = `
-        <style id="default">
-            slot[name='messenger']{
-                display: block;
-            }
-        </style>
+        <style id="default">slot[name='messenger'] { display: block; } \n</style>
         <slot name="messenger"></slot>
         <slot name="text"></slot>
         <slot name="append"></slot>
@@ -122,11 +118,7 @@
                 const el = this._choose_element(this.mode);
                 const style = document.createElement('style');
                 style.setAttribute('id', 'disabledStyle');
-                const disabledStyle = `${el}[disabled] {
-                    opacity: 0.5!important;
-                    cursor: not-allowed;
-                    background-color: #ccc;
-                }`;
+                const disabledStyle = `${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
                 style.innerHTML += disabledStyle;
                 this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
@@ -164,9 +156,7 @@
             if (dimension) {
                 const el = this._choose_element(this.mode);
                 if(el){
-                    const sizeStyle = `${el} {
-                        ${type}: ${dimension} !important; 
-                    }`;
+                    const sizeStyle = `${el} {\n${type}: ${dimension} !important;\n}\n`;
                     this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
                 }
             }
@@ -324,9 +314,7 @@
             }
             const el = this._choose_element(this.mode);
             if(el){
-                const sizeStyle = `${el} { 
-                    ${SIZES[el][size]}
-                }`;
+                const sizeStyle = `${el} {\n${SIZES[el][size]}\n}\n`;
                 this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
             }
 
