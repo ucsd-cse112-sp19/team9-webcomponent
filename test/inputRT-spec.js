@@ -366,7 +366,7 @@ describe('input-rt element', () => {
         cs.disabled = true;
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
-        assert.equal(style.innerHTML, defaultStyle+'input[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n');
+        assert.equal(style.innerHTML, '\ninput[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n');
     });
 
     it('should configure width and height while size is set',() => {

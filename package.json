@@ -5,15 +5,15 @@
   "scripts": {
     "lint": "eslint ./web-component && stylelint ./web-component",
     "docs": "jsdoc -c jsdoc.json",
-    "testcafe": "testcafe chrome test/cafe-tests",
+    "testcafe": "testcafe chrome test/cafe-tests test/cafe-tests-mqtt",
     "browsers": "testcafe -b saucelabs",
-    "saucelabs": "testcafe \"saucelabs:Chrome,saucelabs:Firefox,saucelabs:Safari\"  test/cafe-tests/default_input.js test/cafe-tests/input_enabled.js",
+    "saucelabs": "testcafe \"saucelabs:Chrome,saucelabs:Firefox,saucelabs:Safari\"  test/cafe-tests",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
     "resume": "npx webpack-dev-server",
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
-    "test": "nyc npm run mocha"
+    "test": "nyc npm run mocha & npm run saucelabs"
   },
   "husky": {
     "hooks": {}
