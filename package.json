@@ -13,7 +13,6 @@
     "start": "npx webpack-dev-server --open",
     "resume": "npx webpack-dev-server",
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
-    "pretest": "npm run saucelabs",
     "test": "nyc npm run mocha"
   },
   "husky": {

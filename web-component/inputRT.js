@@ -32,7 +32,7 @@
      */
     const template = document.createElement('template');
     template.innerHTML = `
-        <style id="default">slot[name='messenger'] { display: block; } \n</style>
+        <style id="default">\nslot[name='messenger'] {\ndisplay: block;\n}\n</style>
         <slot name="messenger"></slot>
         <slot name="text"></slot>
         <slot name="append"></slot>
