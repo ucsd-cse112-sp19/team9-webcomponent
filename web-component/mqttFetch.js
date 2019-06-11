@@ -22,7 +22,7 @@ class MqttFetch extends HTMLElement {
      */
     constructor () {
         super();
-
+        const Paho = {}
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         this.userId = "anonymous";
         this.msgId = -1;

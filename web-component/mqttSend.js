@@ -23,12 +23,11 @@ class MqttSend extends HTMLElement {
     constructor () {
         super();
 
-        //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+        // Eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         // Such as using that html template that generates requirements to be used by wrappers (like an interface).
         this.userId = "anonymous";
         this.attachShadow({mode: 'open'});
 
-        let Paho
         // Create a client instance
         this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "");
 

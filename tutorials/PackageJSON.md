@@ -3,7 +3,7 @@
 The package.json file is the heart of Node.js system. It is the manifest file of any Node.js project and contains the metadata of the project.  
 It can be divided into 2 parts.
 
-<img src="images/package1.PNG">
+<img src="images/package1.png">
 
 The main script is in this json file. This is where we can make references to other parts of the project.  
 Look at the script part, 
@@ -30,14 +30,14 @@ The test phase is unit tests using istanbul. It runs mocha and will show the res
 Here I just ran the following command
 >npm run test
 
-<img src="images/commandtest.PNG">
+<img src="images/commandtest.png">
 
 Don't worry, Travis is automatically doing this. DevOps you should be able to switch and run anything you want by changing the script here!  
 
 The second part deals with dependencies. Just know that if you install something new and it is not in the dependencies, it won't work!  
 This is why we are running npm install in the .travis.yml file.
 
-<img src="images/package2.PNG">
+<img src="images/package2.png">
 
 Last thing, package-lock.json is automatically generated for any operations where npm modifies either the node_modules tree, or package.json.  
 It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees.  
