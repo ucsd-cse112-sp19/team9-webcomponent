@@ -25,3 +25,8 @@ Style lint is used for CSS. In the pipeline, we only run it on the files in the 
 the basic structure is already implemented and uses the recommended style.
 
 <img src="images/stylelint.PNG">
+
+## Husky
+
+We are using husky in our pipeline. It runs the linting phase before any commit to make sure we don't push any bad code!  
+>"pre-commit":"npm run lint && npm run docs"
