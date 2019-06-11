@@ -16,7 +16,7 @@ Let's take a look at the eslint.js file.
 
 We are running the recommended option of ESLint. In this file you can modify the rules. Please see the ESLint documentation.
 The recommended option uses Airbnb style.
-You can disable a rule at any time by commenting /* eslint-disable <=insert you rule here=> */ on top of your line.
+You can disable a rule at any time by commenting /* eslint-disable <=insert you rule here=> */ on top of your line.  
 You can turn off a rule in the eslint.js file. Just add "<=insert the rule name=>":"off" 
 
 ## StyleLint
