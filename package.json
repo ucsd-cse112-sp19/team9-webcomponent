@@ -5,23 +5,29 @@
   "scripts": {
     "lint": "eslint ./web-component && stylelint ./web-component",
     "docs": "jsdoc -c jsdoc.json",
-    "testcafe": "testcafe chrome,firefox,safari test/cafe-tests",
-    "saucelabs": "testcafe \"saucelabs:chrome\"  test/cafe-tests/test2.js",
+    "testcafe": "testcafe chrome test/cafe-tests test/cafe-tests-mqtt",
+    "browsers": "testcafe -b saucelabs",
+    "saucelabs": "testcafe \"saucelabs:Chrome,saucelabs:Firefox,saucelabs:Safari\"  test/cafe-tests",
+    "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
     "resume": "npx webpack-dev-server",
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
-    "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
-    "test": "nyc npm run mocha"
+    "pretest": "npm run lint",
+    "test": "nyc npm run mocha",
+    "posttest": "npm run saucelabs"
   },
   "husky": {
-    "hooks": {}
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run docs"
+    }
   },
   "nyc": {
-    "lines": 70,
-    "statements": 70,
-    "functions": 80,
-    "branches": 70,
+    "lines": 90,
+    "statements": 90,
+    "functions": 90,
+    "branches": 90,
     "check-coverage": true,
     "extension": [
       ".js"

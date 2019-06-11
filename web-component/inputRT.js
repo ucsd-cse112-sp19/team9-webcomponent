@@ -33,11 +33,8 @@
      */
     const template = document.createElement('template');
     template.innerHTML = `
-        <style id="default">
-        </style>
-        <div>
-            <slot name="messenger"></slot>
-        </div>
+        <style id="default">\nslot[name='messenger'] {\ndisplay: block;\n}\n</style>
+        <slot name="messenger"></slot>
         <slot name="text"></slot>
         <slot name="append"></slot>
         <slot name="link"></slot>
@@ -122,11 +119,7 @@
                 const el = this._choose_element(this.mode);
                 const style = document.createElement('style');
                 style.setAttribute('id', 'disabledStyle');
-                const disabledStyle = `${el}[disabled] {
-                    opacity: 0.5!important;
-                    cursor: not-allowed;
-                    background-color: #ccc;
-                }`;
+                const disabledStyle = `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
                 style.innerHTML += disabledStyle;
                 this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
@@ -164,9 +157,7 @@
             if (dimension) {
                 const el = this._choose_element(this.mode);
                 if(el){
-                    const sizeStyle = `${el} {
-                        ${type}: ${dimension} !important; 
-                    }`;
+                    const sizeStyle = `${el} {\n${type}: ${dimension} !important;\n}\n`;
                     this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
                 }
             }
@@ -210,9 +201,9 @@
          */
         _init_mode(mode){
             switch(mode){
+                /* eslint-disable no-case-declarations */
                 case 'custom':
-                    // Don't do anything on custom because user can implement there 
-                    // own thing in the slot as well
+                    // Don't do anything on custom because user can implement their own thing in the slot as well
                     break;
                 case 'textarea':
                     const textarea = document.createElement('textarea');
@@ -328,9 +319,7 @@
             }
             const el = this._choose_element(this.mode);
             if(el){
-                const sizeStyle = `${el} { 
-                    ${SIZES[el][size]}
-                }`;
+                const sizeStyle = `${el} {\n${SIZES[el][size]}\n}\n`;
                 this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
             }
 
@@ -414,7 +403,7 @@
             // Remove Event listeners
             this._register_mode(false);
         }
-
+        /* eslint-disable no-unused-vars */
         attributeChangedCallback(name, oldVal, newVal){
         
         }
@@ -446,9 +435,9 @@
 
 
         /**
-         * Internal function to determine the correct element in concern. 
-         * @param {*} mode 
-         * @returns {string} an html element in concern
+         * Internal function to determine the correct element in concern.
+         * @param {String} mode 
+         * @returns {String} an html element in concern
          */
         _choose_element(mode) {
             let retVal = null;
@@ -468,10 +457,7 @@
         }
 
         /**
-         * public function for sending messages, leverages an internal WC's 
-         * send functionality. 
          * Public function for sending messages, leverages an internal WC's send functionality
-         * 
          * @property {String} msgInput query the input
          * @property {Function} send the sender sends the msgInput value
          * 
@@ -506,6 +492,7 @@
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
+                    break;
                 default:
                     break;
             }

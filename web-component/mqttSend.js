@@ -29,14 +29,17 @@ class MqttSend extends HTMLElement {
         this.attachShadow({mode: 'open'});
 
         // Create a client instance
+        /* eslint-disable no-undef */
         this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "");
 
         this.client.onConnectionLost = function(responseObject){
+            /* eslint-disable no-console */
             console.log("Connection Lost" + responseObject.errorMessage);
         };
 
         // Connect the client
         this.client.connect({onSuccess:function(){
+            /* eslint-disable no-console */
             console.log("send connected");
         }});
 
@@ -64,6 +67,7 @@ class MqttSend extends HTMLElement {
      */
     send(body){
         const message = this.userId + ": " + body;
+        /* eslint-disable no-undef */
         const mqtt_msg = new Paho.MQTT.Message(message);
         mqtt_msg.destinationName = this.topic;
         this.client.send(mqtt_msg);
