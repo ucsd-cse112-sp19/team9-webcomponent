@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -97,11 +97,8 @@
      */
     const template = document.createElement('template');
     template.innerHTML = `
-        &lt;style id="default">
-        &lt;/style>
-        &lt;div>
-            &lt;slot name="messenger">&lt;/slot>
-        &lt;/div>
+        &lt;style id="default">\nslot[name='messenger'] {\ndisplay: block;\n}\n&lt;/style>
+        &lt;slot name="messenger">&lt;/slot>
         &lt;slot name="text">&lt;/slot>
         &lt;slot name="append">&lt;/slot>
         &lt;slot name="link">&lt;/slot>
@@ -186,11 +183,7 @@
                 const el = this._choose_element(this.mode);
                 const style = document.createElement('style');
                 style.setAttribute('id', 'disabledStyle');
-                const disabledStyle = `${el}[disabled] {
-                    opacity: 0.5!important;
-                    cursor: not-allowed;
-                    background-color: #ccc;
-                }`;
+                const disabledStyle = `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
                 style.innerHTML += disabledStyle;
                 this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
@@ -228,9 +221,7 @@
             if (dimension) {
                 const el = this._choose_element(this.mode);
                 if(el){
-                    const sizeStyle = `${el} {
-                        ${type}: ${dimension} !important; 
-                    }`;
+                    const sizeStyle = `${el} {\n${type}: ${dimension} !important;\n}\n`;
                     this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
                 }
             }
@@ -274,9 +265,9 @@
          */
         _init_mode(mode){
             switch(mode){
+                /* eslint-disable no-case-declarations */
                 case 'custom':
-                    // Don't do anything on custom because user can implement there 
-                    // own thing in the slot as well
+                    // Don't do anything on custom because user can implement their own thing in the slot as well
                     break;
                 case 'textarea':
                     const textarea = document.createElement('textarea');
@@ -392,9 +383,7 @@
             }
             const el = this._choose_element(this.mode);
             if(el){
-                const sizeStyle = `${el} { 
-                    ${SIZES[el][size]}
-                }`;
+                const sizeStyle = `${el} {\n${SIZES[el][size]}\n}\n`;
                 this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
             }
 
@@ -478,7 +467,7 @@
             // Remove Event listeners
             this._register_mode(false);
         }
-
+        /* eslint-disable no-unused-vars */
         attributeChangedCallback(name, oldVal, newVal){
         
         }
@@ -510,9 +499,9 @@
 
 
         /**
-         * Internal function to determine the correct element in concern. 
-         * @param {*} mode 
-         * @returns {string} an html element in concern
+         * Internal function to determine the correct element in concern.
+         * @param {String} mode 
+         * @returns {String} an html element in concern
          */
         _choose_element(mode) {
             let retVal = null;
@@ -532,10 +521,7 @@
         }
 
         /**
-         * public function for sending messages, leverages an internal WC's 
-         * send functionality. 
          * Public function for sending messages, leverages an internal WC's send functionality
-         * 
          * @property {String} msgInput query the input
          * @property {Function} send the sender sends the msgInput value
          * 
@@ -570,6 +556,7 @@
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
+                    break;
                 default:
                     break;
             }
@@ -590,7 +577,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 11 2019 10:25:22 GMT-0700 (GMT-07:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 11 2019 11:35:23 GMT-0700 (GMT-07:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
