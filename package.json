@@ -19,8 +19,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run docs"
+      "pre-commit": "npm run lint"
     }
   },
   "nyc": {
