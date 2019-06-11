@@ -1,4 +1,20 @@
-class MqttSend extends HTMLElement {
+(function(){
+
+  /**
+   * @typedef {String} MQTT_TYPE
+   *  Dictionary for comparing mqtt types
+   */
+  const MQTT_TYPE = {
+    sender: "sender",
+    receiver: "receiver",
+  };
+
+  class MqttClient extends HTMLElement {
+
+
+    get id() {
+      return this.getAttribute('id');
+    }
 
     /**
      * get topic()
@@ -13,19 +29,20 @@ class MqttSend extends HTMLElement {
      *
      * Constructor for setting up shadow dom and class definitions
      * for web component. The attributes are id, slot, and topic
-     * @example   <input-rt mode="sender">
-           <mqtt-send id="sender" slot="messenger" topic="chattest/1">
-           </mqtt-send>
-       </input-rt>
-     * @class MQTT Send Web Component, This class provides functionality to send messages to a port, given a topic,
+     * @example        <input-rt mode="textarea">
+                 <mqtt-client id="receiver" slot="messenger" topic="chattest/1">
+                 </mqtt-client>
+             </input-rt>
+     * @class MQTT Client Web Component, This class provides functionality to send and fetch messages to and from a port, given a topic,
      * It can be attached to inputRT
      */
     constructor () {
         super();
 
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
-        // Such as using that html template that generates requirements to be used by wrappers (like an interface).
         this.userId = "anonymous";
+
+        // Initialize shadow root
         this.attachShadow({mode: 'open'});
 
         // Create a client instance
@@ -36,9 +53,12 @@ class MqttSend extends HTMLElement {
         };
 
         // Connect the client
-        this.client.connect({onSuccess:function(){
-            console.log("send connected");
-        }});
+        const onConnect = function(){
+            console.log("Connected");
+            this.client.subscribe(this.topic);
+        }.bind(this);
+
+        this.client.connect({onSuccess:onConnect});
 
         // Append to shadowdom style
         // Eventually turn into text area so that we can scroll
@@ -56,6 +76,18 @@ class MqttSend extends HTMLElement {
         input.addEventListener('change', ()=>{
             this.userId = input.value;
         });
+
+        if(this.id == MQTT_TYPE.receiver){
+          this.observe(this.parentElement.append);
+        }
+    }
+
+    observe(callback){
+        if(this.id == MQTT_TYPE.receiver){
+          this.client.onMessageArrived = function(message){
+              callback(message.payloadString);
+          };
+        }
     }
 
     /**
@@ -63,12 +95,17 @@ class MqttSend extends HTMLElement {
      * Message schema: "UserId: body"
      */
     send(body){
-        const message = this.userId + ": " + body;
-        const mqtt_msg = new Paho.MQTT.Message(message);
-        mqtt_msg.destinationName = this.topic;
-        this.client.send(mqtt_msg);
+        if(this.id == MQTT_TYPE.sender){
+          const message = this.userId + ": " + body;
+          const mqtt_msg = new Paho.MQTT.Message(message);
+          mqtt_msg.destinationName = this.topic;
+          this.client.send(mqtt_msg);
+        }
     }
-}
 
-// Register MqttSend class as mqtt-send element
-customElements.define('mqtt-send', MqttSend);
+  }
+
+  // Register mqttClient class as mqtt-client element
+  customElements.define('mqtt-client', MqttClient);
+
+})();
