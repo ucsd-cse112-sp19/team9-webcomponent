@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Input - Disabled</title>
+  <base href="../../web-component/">
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+</head>
+<body>
+    <input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        bootstrap="rounded border-primary" disabled="true" >
+        <button slot="append" onclick="sendTest()">Send Message</button>
+    </input-rt>
+
+    <h2>Output of input box:</h2>
+    <h2 id="output"></h2>
+
+    <script src="inputRT.js"></script>
+
+    <script>
+        function sendTest(){
+            const output = document.querySelector('#output');
+            output.innerHTML = document.querySelector('input-rt').shadowRoot.querySelector('input[slot="text"]').value;
+        }
+    </script>
+
+</body>
+</html>

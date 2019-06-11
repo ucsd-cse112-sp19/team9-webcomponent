@@ -3,4 +3,6 @@ package-lock.json
 reports/
 .vscode/
 .nyc_output/
+.DS_Store
+chromedriver.log
 coverage/
