@@ -17,7 +17,7 @@
             "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
             "d": "width: 300px; height: 30px; font-size: 12px !important;",
             "s": "width: 250px; height: 30px; font-size: 12px !important; padding: 5px 5px;"
-        }, 
+        },
         textarea: {
             "l": "width: 500px; height: 800px; font-size: 25px !important; padding: 10px 10px;",
             "m": "width: 400px; height: 600px; font-size: 20px !important; padding: 8px 8px;",
@@ -46,16 +46,16 @@
         }
 
         /**
-         * get bootstrap() 
+         * get bootstrap()
          * Check if bootstrap exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get bootstrap() {
             return this.getAttribute('bootstrap');
         }
 
         /**
-         * set bootstrap(val) 
+         * set bootstrap(val)
          * Sets bootstrap if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
@@ -69,8 +69,8 @@
         }
 
         /**
-         * Init function that populates url attribute and bootstrap attribute 
-         * if the url and bootstrap are both set. 
+         * Init function that populates url attribute and bootstrap attribute
+         * if the url and bootstrap are both set.
          */
         _init_bootstrap_URL() {
             const link = document.createElement('link');
@@ -87,16 +87,16 @@
         }
 
         /**
-         * get disabled() 
+         * get disabled()
          * Check if disabled exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get disabled() {
             return this.hasAttribute('disabled');
         }
 
         /**
-         * set disabled(val) 
+         * set disabled(val)
          * Sets disabled if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
@@ -124,18 +124,18 @@
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
         }
-        
+
         /**
-         * get height() 
+         * get height()
          * Check if height exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get height() {
             return this.getAttribute('height');
         }
 
         /**
-         * set height(val) 
+         * set height(val)
          * Sets height if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
@@ -157,14 +157,14 @@
                 const el = this._choose_element(this.mode);
                 if(el){
                     const sizeStyle = `${el} {\n${type}: ${dimension} !important;\n}\n`;
-                    this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
+                    this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
                 }
             }
         }
 
         /**
          * get mode()
-         * Gets the mode of the attribute 
+         * Gets the mode of the attribute
          * Returns: String
          */
         get mode() {
@@ -187,12 +187,12 @@
 
         /**
          * Init function that generates the internal value based on the mode being set
-         * 
+         *
          * @param {String} mode will set mode properly to the mode passed in
          * @property {String} custom user can implement their own mode in this slot
          * @property {String} textarea create a textarea which will display text
          * @property {String} sender set default to input box
-         * 
+         *
          * @example this._init_mode();
          * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
          * @todo should we have a receiver object as well
@@ -200,7 +200,7 @@
         _init_mode(mode){
             switch(mode){
                 case 'custom':
-                    // Don't do anything on custom because user can implement there 
+                    // Don't do anything on custom because user can implement there
                     // own thing in the slot as well
                     break;
                 case 'textarea':
@@ -222,7 +222,7 @@
         /**
          * Internal function that helps with setting the event handlers for the mode attribute hello
          * @param {Bool} register if True will add evenListener, else will remove them
-         * @property {String} sender add eventListener keypress & click 
+         * @property {String} sender add eventListener keypress & click
          * @example connectedCallback(){this._register_mode();}
          * @todo think of a way to refactor to handle more cases
          * @todo perhaps allow user to input
@@ -245,16 +245,16 @@
         }
 
         /**
-         * get password() 
+         * get password()
          * Check if password exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get password() {
             return this.hasAttribute('password');
         }
 
         /**
-         * set password(val) 
+         * set password(val)
          * Sets password if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
@@ -273,24 +273,24 @@
          */
         _init_password(){
             if (this.password) {
-                const el = this._choose_element(this.mode);  
+                const el = this._choose_element(this.mode);
                 if(el && el === "input") {
                     this._textSlot.querySelector('input').setAttribute('type', "password");
                 }
-            } 
+            }
         }
 
         /**
-         * get size() 
+         * get size()
          * Check if size exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get size() {
             return this.getAttribute('size');
         }
 
         /**
-         * set size(val) 
+         * set size(val)
          * Sets size if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
@@ -305,12 +305,12 @@
         }
 
         /**
-         * Initializes size if specificed, and chooses default if not. 
+         * Initializes size if specificed, and chooses default if not.
          */
         _init_size() {
-            let size = "d"; 
+            let size = "d";
             if (this.size && ! this.width && ! this.height) {
-                size = this.size; 
+                size = this.size;
             }
             const el = this._choose_element(this.mode);
             if(el){
@@ -321,16 +321,16 @@
         }
 
         /**
-         * get url() 
+         * get url()
          * Check if url exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get url() {
             return this.getAttribute('url');
         }
 
         /**
-         * set url(val) 
+         * set url(val)
          * Sets url if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
@@ -344,16 +344,16 @@
         }
 
         /**
-         * get width() 
+         * get width()
          * Check if width exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get width() {
             return this.getAttribute('width');
         }
 
         /**
-         * set width(val) 
+         * set width(val)
          * Sets width if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
@@ -383,6 +383,13 @@
         constructor(){
             super();
             this._init();
+
+            if(document.getElementById('polyfill') == null){
+              var script = document.createElement('script');
+              script.src = 'polyfill-loader.js';
+              script.id = 'polyfill'
+              document.head.appendChild(script);
+            }
         }
 
         connectedCallback(){
@@ -399,7 +406,7 @@
         }
 
         attributeChangedCallback(name, oldVal, newVal){
-        
+
         }
 
         _init(){
@@ -429,14 +436,14 @@
 
 
         /**
-         * Internal function to determine the correct element in concern. 
-         * @param {*} mode 
+         * Internal function to determine the correct element in concern.
+         * @param {*} mode
          * @returns {string} an html element in concern
          */
         _choose_element(mode) {
             let retVal = null;
             switch (mode) {
-                // TODO: users may specify what type of element they want for custom. 
+                // TODO: users may specify what type of element they want for custom.
                 case "custom":
                     break;
                 case "textarea":
@@ -451,8 +458,8 @@
         }
 
         /**
-         * public function for sending messages, leverages an internal WC's 
-         * send functionality. 
+         * public function for sending messages, leverages an internal WC's
+         * send functionality.
          * Public function for sending messages, leverages an internal WC's send functionality
          * @property {String} msgInput query the input
          * @property {Function} send the sender sends the msgInput value
