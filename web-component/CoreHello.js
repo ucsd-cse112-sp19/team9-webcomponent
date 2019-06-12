@@ -123,26 +123,30 @@ class CoreHello extends HTMLElement {
       elem.addEventListener('click',()=>{
           // Change content of p from above with new language
           p.innerHTML = "<span>" + languages[elem.innerHTML] + " " + this.innerHTML + "</span>";
-          // Set attribute
-          this.lang = elem.innerHTML;
+          this.lang = elem.innerHTML; // Set attribute
       });
     });
 
     // For fun, let user change size of text through slider
 
     // Create slider element
-    let slider = document.createElement('input');
-    slider.min = 12;
-    slider.max = 72;
-    slider.type='range';
-    slider.value = this.fontsize;
-    shadowRoot.appendChild(slider);
+    let slider = this.createSlider(shadowRoot);
 
     // Add event listener that changes font size
     slider.addEventListener('change', ()=>{
       this.fontsize = slider.value;
       shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
     });
+  }
+
+  createSlider(shadowRoot) {
+    let slider = document.createElement('input');
+    slider.min = 12;
+    slider.max = 72;
+    slider.type = 'range';
+    slider.value = this.fontsize;
+    shadowRoot.appendChild(slider);
+    return slider;
   }
 
   settingSizeFontHello(languages) {
