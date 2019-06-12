@@ -382,7 +382,17 @@
         }
         /* eslint-disable no-unused-vars */
         attributeChangedCallback(name, oldVal, newVal){
-        
+            switch (name) {
+                case 'disabled':
+                    if(newVal) {
+                        if(!oldVal){
+                            this._init_disabled();
+                        }
+                    } else {
+                        this._remove_attribute_style('disabled'); 
+                    }
+                    break;
+            } 
         }
 
         _init(){
@@ -410,6 +420,19 @@
             this._init_size();
         }
 
+        /**
+         * Internal function to remove the styles that are related to each attribute
+         * @param {*} attribute attribute to remove styles for
+         */
+        _remove_attribute_style(attribute) {
+            const el = this._choose_element(this.mode);
+            this._textSlot.querySelector(el).removeAttribute(attribute);
+
+            const elem = this.shadowRoot.querySelector(`style#${attribute}Style`); 
+            if (elem != null) {
+                elem.remove(); 
+            }
+        }
 
         /**
          * Internal function to determine the correct element in concern.
