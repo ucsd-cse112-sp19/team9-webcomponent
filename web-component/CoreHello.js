@@ -94,8 +94,7 @@ class CoreHello extends HTMLElement {
     
     // Check if rainbow is set and if it is append the css file to shadow dom
     if(this.rainbow) {
-      let style = "<link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\"></link>";
-      shadowRoot.innerHTML += style;
+      this.setStyle(shadowRoot);
     }
 
     let { size, font, hello } = this.settingSizeFontHello(languages);
@@ -113,9 +112,7 @@ class CoreHello extends HTMLElement {
 
     // For each language code, add a button to shadowROM
     Object.keys(languages).forEach( (e)=> {
-      const b = document.createElement('button');
-      b.innerHTML = e;
-      shadowRoot.append(b);
+      this.createLangButtons(e, shadowRoot);
     });
 
     // Attach click event to all buttons so that hello world text will change
@@ -126,12 +123,9 @@ class CoreHello extends HTMLElement {
           this.lang = elem.innerHTML; // Set attribute
       });
     });
-
-    // For fun, let user change size of text through slider
-
-    // Create slider element
+   
     let slider = this.createSlider(shadowRoot);
-
+    // For fun, let user change size of text through slider 
     // Add event listener that changes font size
     slider.addEventListener('change', ()=>{
       this.fontsize = slider.value;
@@ -139,7 +133,19 @@ class CoreHello extends HTMLElement {
     });
   }
 
+  createLangButtons(e, shadowRoot) {
+    const b = document.createElement('button');
+    b.innerHTML = e;
+    shadowRoot.append(b);
+  }
+
+  setStyle(shadowRoot) {
+    let style = "<link rel=\"stylesheet\" type=\"text/css\" href=\"Rainbow.css\"></link>";
+    shadowRoot.innerHTML += style;
+  }
+
   createSlider(shadowRoot) {
+    // Create slider element
     let slider = document.createElement('input');
     slider.min = 12;
     slider.max = 72;
