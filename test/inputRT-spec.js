@@ -390,8 +390,14 @@ describe('input-rt element', () => {
 
     it('should not remove non-existent style attribute',() => {
         cs.connectedCallback();
-        cs._remove_attribute_style('null'); 
-        const style = cs.shadowRoot.querySelector('style#disabledStyle');
+        cs.disabled = true; 
+        let style = cs.shadowRoot.querySelector('style#disabledStyle');
+        assert.isNotNull(style); 
+        cs._remove_attribute_style('randomAttrName'); 
+        style = cs.shadowRoot.querySelector('style#disabledStyle');
+        assert.isNotNull(style);
+        cs.attributeChangedCallback('disabled', true, false); 
+        style = cs.shadowRoot.querySelector('style#disabledStyle');
         assert.isNull(style);
     });
 
