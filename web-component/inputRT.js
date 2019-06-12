@@ -1,4 +1,5 @@
 
+(function(){
     /** 
      * @typedef {Integer} KEYCODE
      *  Dictionary for comparing key presses
@@ -168,7 +169,7 @@
                 case 'disabled':
                     bval=Boolean(val)
                 break;
-                case 'password':
+                case '':
                     bval=Boolean(val)
                 break;
                 default:
@@ -477,3 +478,4 @@
         }
     }
     customElements.define('input-rt', InputRT);
+})();
