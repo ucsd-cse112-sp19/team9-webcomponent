@@ -314,6 +314,7 @@ describe('input-rt element', () => {
         }); 
 
         it('should set the disabled',() => {
+            cs.connectedCallback();
             cs.disabled = true;
             assert.equal(cs.getAttribute('disabled'), 'true');
         });  
@@ -363,10 +364,41 @@ describe('input-rt element', () => {
     });
 
     it('should add a style if disabled',() => {
-        cs.disabled = true;
         cs.connectedCallback();
-        const style = cs.shadowRoot.querySelector('style');
+        cs.disabled = true;
+        const style = cs.shadowRoot.querySelector('style#disabledStyle');
         assert.equal(style.innerHTML, '\ninput[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n');
+    });
+
+    it('should add a style if disabled then remove the style if disabled is removed',() => {
+        cs.connectedCallback();
+        cs.disabled = true;
+        let style = cs.shadowRoot.querySelector('style#disabledStyle');
+        assert.equal(style.innerHTML, '\ninput[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n');
+        cs.attributeChangedCallback('disabled',true,false); 
+        style = cs.shadowRoot.querySelector('style#disabledStyle');
+        assert.isNull(style);
+    });
+
+    it('should add disabledStyle once only',() => {
+        cs.connectedCallback();
+        cs.disabled = true; 
+        cs.attributeChangedCallback('disabled', true, true);
+        const style = cs.shadowRoot.querySelectorAll('style#disabledStyle');
+        assert.equal(style.length, 1);
+    });
+
+    it('should not remove non-existent style attribute',() => {
+        cs.connectedCallback();
+        cs.disabled = true; 
+        let style = cs.shadowRoot.querySelector('style#disabledStyle');
+        assert.isNotNull(style); 
+        cs._remove_attribute_style('randomAttrName'); 
+        style = cs.shadowRoot.querySelector('style#disabledStyle');
+        assert.isNotNull(style);
+        cs.attributeChangedCallback('disabled', true, false); 
+        style = cs.shadowRoot.querySelector('style#disabledStyle');
+        assert.isNull(style);
     });
 
     it('should configure width and height while size is set',() => {
