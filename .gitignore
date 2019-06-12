@@ -5,4 +5,3 @@ reports/
 .nyc_output/
 .DS_Store
 chromedriver.log
-coverage/
