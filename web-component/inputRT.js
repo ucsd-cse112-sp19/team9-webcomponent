@@ -46,6 +46,25 @@
             return ['disabled'];
         }
 
+        _setAttributes(val,attribute) {
+            let bval = false;
+            switch(attribute){
+                case 'disabled':
+                case 'password':
+                    bval= Boolean(val);
+                break;
+                default:
+                    bval= (String(val) !== '');
+                break;
+            }
+            if (bval) {
+                this.setAttribute(attribute, val);
+            }
+            else {
+                this.removeAttribute(attribute);
+            }
+        }
+
         /**
          * get bootstrap() 
          * Check if bootstrap exists in HTML.
@@ -61,7 +80,7 @@
          * Returns: Null
          */
         set bootstrap(val) {
-            this.setStringAttributes(val,'bootstrap')
+            this._setAttributes(val,'bootstrap')
         }
 
         /**
@@ -95,7 +114,7 @@
          * Returns: Null
          */
         set disabled(val) {
-            this.setStringAttributes(val,'disabled')
+            this._setAttributes(val,'disabled')
         }
 
         /**
@@ -128,7 +147,7 @@
          * Returns: Null
          */
         set height(val) {
-            this.setStringAttributes(val,'height')
+            this._setAttributes(val,'height')
         }
 
         /**
@@ -159,29 +178,10 @@
          * Returns: Null
          */
         set mode(val) {
-            this.setStringAttributes(val,'mode')
+            this._setAttributes(val,'mode')
         }
 
-        setStringAttributes(val,attribute) {
-            let bval
-            switch(attribute){
-                case 'disabled':
-                    bval=Boolean(val)
-                break;
-                case 'password':
-                    bval=Boolean(val)
-                break;
-                default:
-                    bval=(String(val)!=='')
-                break;
-            }
-            if (bval) {
-                this.setAttribute(attribute, val);
-            }
-            else {
-                this.removeAttribute(attribute);
-            }
-        }
+
 
         /**
          * Mode attribute that sets the properties of the input field
@@ -263,7 +263,7 @@
          * Returns: Null
          */
         set password(val) {
-            this.setStringAttributes(val,'password')
+            this._setAttributes(val,'password')
         }
 
         /**
@@ -293,7 +293,7 @@
          * Returns: Null
          */
         set size(val) {
-            this.setStringAttributes(val,'size')
+            this._setAttributes(val,'size')
         }
 
         /**
@@ -327,7 +327,7 @@
          * Returns: Null
          */
         set url(val) {
-            this.setStringAttributes(val,'url')
+            this._setAttributes(val,'url')
         }
 
         /**
@@ -346,7 +346,7 @@
          * Returns: Null
          */
         set width(val) {
-            this.setStringAttributes(val,'width')
+            this._setAttributes(val,'width')
         }
 
         /** InputRT Web Component
