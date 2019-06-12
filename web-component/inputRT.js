@@ -73,8 +73,7 @@
             link.setAttribute('type', 'text/css');
             if (this.url && this.bootstrap) {
                 link.setAttribute('href', this.url);
-                const el = this._choose_element(this.mode);
-                this._textSlot.querySelector(el).setAttribute('class', this.bootstrap);
+                this._textSlot.querySelector(this._choose_element(this.mode)).setAttribute('class', this.bootstrap);
             } else {
                 link.setAttribute('href', 'inputbox-rt-default-style.css');
             }
@@ -107,8 +106,8 @@
                 const el = this._choose_element(this.mode);
                 const style = document.createElement('style');
                 style.setAttribute('id', 'disabledStyle');
-                const disabledStyle = `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
-                style.innerHTML += disabledStyle;
+                // set the disabledStyle
+                style.innerHTML += `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
                 this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
@@ -139,8 +138,8 @@
             if (dimension) {
                 const el = this._choose_element(this.mode);
                 if(el){
-                    const sizeStyle = `${el} {\n${type}: ${dimension} !important;\n}\n`;
-                    this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
+                    // set the sizeStyle
+                    this.shadowRoot.querySelector('style#default').innerHTML += `${el} {\n${type}: ${dimension} !important;\n}\n`; 
                 }
             }
         }
@@ -307,8 +306,8 @@
             }
             const el = this._choose_element(this.mode);
             if(el){
-                const sizeStyle = `${el} {\n${SIZES[el][size]}\n}\n`;
-                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
+                // set the sizeStyle
+                this.shadowRoot.querySelector('style#default').innerHTML += `${el} {\n${SIZES[el][size]}\n}\n`;
             }
 
         }
