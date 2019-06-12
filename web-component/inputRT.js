@@ -28,7 +28,6 @@
 
     /**
      * @typedef {HTMLDocument} template
-     * @
      * Creates and defines a template for web component
      */
     const template = document.createElement('template');
@@ -57,21 +56,15 @@
 
         /**
          * set bootstrap(val) 
-         * Sets bootstrap if value passed in, or removes it if nothing
-         * is passed.
+         * Sets bootstrap if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set bootstrap(val) {
-            if (val !== '') {
-                this.setAttribute('bootstrap', val);
-            } else {
-                this.removeAttribute('bootstrap');
-            }
+            this.setStringAttributes(val,'bootstrap')
         }
 
         /**
-         * Init function that populates url attribute and bootstrap attribute 
-         * if the url and bootstrap are both set. 
+         * Init function that populates url attribute and bootstrap attribute if the url and bootstrap are both set. 
          */
         _init_bootstrap_URL() {
             const link = document.createElement('link');
@@ -98,17 +91,11 @@
 
         /**
          * set disabled(val) 
-         * Sets disabled if value passed in, or removes it if nothing
-         * is passed.
+         * Sets disabled if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set disabled(val) {
-            const isDisabled = Boolean(val);
-            if (isDisabled) {
-                this.setAttribute('disabled', val);
-            } else {
-                this.removeAttribute('disabled');
-            }
+            this.setStringAttributes(val,'disabled')
         }
 
         /**
@@ -137,17 +124,11 @@
 
         /**
          * set height(val) 
-         * Sets height if value passed in, or removes it if nothing
-         * is passed.
+         * Sets height if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set height(val) {
-            const isHeight = String(val);
-            if (isHeight) {
-                this.setAttribute('height', val);
-            } else {
-                this.removeAttribute('height');
-            }
+            this.setStringAttributes(val,'height')
         }
 
         /**
@@ -174,15 +155,28 @@
 
         /**
          * set mode(val)
-         * Sets mode if value passed in, or removes it if nothing
-         * is passed.
+         * Sets mode if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set mode(val) {
-            if (val !== '') {
-                this.setAttribute('mode', val);
-            } else {
-                this.removeAttribute('mode');
+            this.setStringAttributes(val,'mode')
+        }
+
+        setStringAttributes(val,attribute) {
+            let bval
+            switch(attribute){
+                case 'disabled':
+                    bval=Boolean(val)
+                break;
+                default:
+                    bval=(String(val)!=='')
+                break;
+            }
+            if (bval) {
+                this.setAttribute(attribute, val);
+            }
+            else {
+                this.removeAttribute(attribute);
             }
         }
 
