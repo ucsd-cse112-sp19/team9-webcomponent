@@ -14,8 +14,7 @@
     "resume": "npx webpack-dev-server",
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
     "pretest": "npm run lint",
-    "test": "nyc npm run mocha",
-    "posttest": "npm run saucelabs"
+    "test": "nyc npm run mocha"
   },
   "husky": {
     "hooks": {
