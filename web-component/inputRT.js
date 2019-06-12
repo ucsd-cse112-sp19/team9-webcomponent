@@ -304,10 +304,9 @@
             if (this.size && ! this.width && ! this.height) {
                 size = this.size; 
             }
-            const el = this._choose_element(this.mode);
-            if(el){
+            if(this._choose_element(this.mode)){
                 // set the sizeStyle
-                this.shadowRoot.querySelector('style#default').innerHTML += `${el} {\n${SIZES[el][size]}\n}\n`;
+                this.shadowRoot.querySelector('style#default').innerHTML += `${this._choose_element(this.mode)} {\n${SIZES[this._choose_element(this.mode)][size]}\n}\n`;
             }
 
         }
