@@ -168,6 +168,9 @@
                 case 'disabled':
                     bval=Boolean(val)
                 break;
+                case 'password':
+                    bval=Boolean(val)
+                break;
                 default:
                     bval=(String(val)!=='')
                 break;
@@ -260,12 +263,7 @@
          * Returns: Null
          */
         set password(val) {
-            const isPassword = Boolean(val);
-            if (isPassword) {
-                this.setAttribute('password', val);
-            } else {
-                this.removeAttribute('password');
-            }
+            this.setStringAttributes(val,'password')
         }
 
         /**
@@ -295,12 +293,7 @@
          * Returns: Null
          */
         set size(val) {
-            const isSize = String(val);
-            if (isSize) {
-                this.setAttribute('size', val);
-            } else {
-                this.removeAttribute('size');
-            }
+            this.setStringAttributes(val,'size')
         }
 
         /**
@@ -335,11 +328,7 @@
          * Returns: Null
          */
         set url(val) {
-            if (val !== '') {
-                this.setAttribute('url', val);
-            } else {
-                this.removeAttribute('url');
-            }
+            this.setStringAttributes(val,'url')
         }
 
         /**
@@ -358,12 +347,7 @@
          * Returns: Null
          */
         set width(val) {
-            const isWidth = String(val);
-            if (isWidth) {
-                this.setAttribute('width', val);
-            } else {
-                this.removeAttribute('width');
-            }
+            this.setStringAttributes(val,'width')
         }
 
         /** InputRT Web Component
