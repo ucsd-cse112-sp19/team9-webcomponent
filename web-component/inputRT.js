@@ -1,5 +1,6 @@
+
 (function(){
-    /**
+    /** 
      * @typedef {Integer} KEYCODE
      *  Dictionary for comparing key presses
      */
@@ -32,11 +33,8 @@
      */
     const template = document.createElement('template');
     template.innerHTML = `
-        <style id="default">
-        </style>
-        <div>
-            <slot name="messenger"></slot>
-        </div>
+        <style id="default">\nslot[name='messenger'] {\ndisplay: block;\n}\n</style>
+        <slot name="messenger"></slot>
         <slot name="text"></slot>
         <slot name="append"></slot>
         <slot name="link"></slot>
@@ -46,6 +44,25 @@
 
         static get observedAttributes(){
             return ['disabled'];
+        }
+
+        _setAttributes(val,attribute) {
+            let bval = false;
+            switch(attribute){
+                case 'disabled':
+                case 'password':
+                    bval= Boolean(val);
+                break;
+                default:
+                    bval= (String(val) !== '');
+                break;
+            }
+            if (bval) {
+                this.setAttribute(attribute, val);
+            }
+            else {
+                this.removeAttribute(attribute);
+            }
         }
 
         /**
@@ -59,21 +76,15 @@
 
         /**
          * set bootstrap(val) 
-         * Sets bootstrap if value passed in, or removes it if nothing
-         * is passed.
+         * Sets bootstrap if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set bootstrap(val) {
-            if (val !== '') {
-                this.setAttribute('bootstrap', val);
-            } else {
-                this.removeAttribute('bootstrap');
-            }
+            this._setAttributes(val,'bootstrap')
         }
 
         /**
-         * Init function that populates url attribute and bootstrap attribute 
-         * if the url and bootstrap are both set. 
+         * Init function that populates url attribute and bootstrap attribute if the url and bootstrap are both set. 
          */
         _init_bootstrap_URL() {
             const link = document.createElement('link');
@@ -81,8 +92,7 @@
             link.setAttribute('type', 'text/css');
             if (this.url && this.bootstrap) {
                 link.setAttribute('href', this.url);
-                const el = this._choose_element(this.mode);
-                this._textSlot.querySelector(el).setAttribute('class', this.bootstrap);
+                this._textSlot.querySelector(this._choose_element(this.mode)).setAttribute('class', this.bootstrap);
             } else {
                 link.setAttribute('href', 'inputbox-rt-default-style.css');
             }
@@ -100,17 +110,11 @@
 
         /**
          * set disabled(val) 
-         * Sets disabled if value passed in, or removes it if nothing
-         * is passed.
+         * Sets disabled if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set disabled(val) {
-            const isDisabled = Boolean(val);
-            if (isDisabled) {
-                this.setAttribute('disabled', val);
-            } else {
-                this.removeAttribute('disabled');
-            }
+            this._setAttributes(val,'disabled')
         }
 
         /**
@@ -121,12 +125,8 @@
                 const el = this._choose_element(this.mode);
                 const style = document.createElement('style');
                 style.setAttribute('id', 'disabledStyle');
-                const disabledStyle = `${el}[disabled] {
-                    opacity: 0.5!important;
-                    cursor: not-allowed;
-                    background-color: #ccc;
-                }`;
-                style.innerHTML += disabledStyle;
+                // set the disabledStyle
+                style.innerHTML += `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
                 this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
                 this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
@@ -143,17 +143,11 @@
 
         /**
          * set height(val) 
-         * Sets height if value passed in, or removes it if nothing
-         * is passed.
+         * Sets height if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set height(val) {
-            const isHeight = String(val);
-            if (isHeight) {
-                this.setAttribute('height', val);
-            } else {
-                this.removeAttribute('height');
-            }
+            this._setAttributes(val,'height')
         }
 
         /**
@@ -163,10 +157,8 @@
             if (dimension) {
                 const el = this._choose_element(this.mode);
                 if(el){
-                    const sizeStyle = `${el} {
-                        ${type}: ${dimension} !important; 
-                    }`;
-                    this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
+                    // set the sizeStyle
+                    this.shadowRoot.querySelector('style#default').innerHTML += `${el} {\n${type}: ${dimension} !important;\n}\n`; 
                 }
             }
         }
@@ -182,20 +174,17 @@
 
         /**
          * set mode(val)
-         * Sets mode if value passed in, or removes it if nothing
-         * is passed.
+         * Sets mode if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set mode(val) {
-            if (val !== '') {
-                this.setAttribute('mode', val);
-            } else {
-                this.removeAttribute('mode');
-            }
+            this._setAttributes(val,'mode')
         }
 
+
+
         /**
-         * Init function that generates the internal value based on the mode being set
+         * Mode attribute that sets the properties of the input field
          * 
          * @param {String} mode will set mode properly to the mode passed in
          * @property {String} custom user can implement their own mode in this slot
@@ -203,36 +192,42 @@
          * @property {String} sender set default to input box
          * 
          * @example this._init_mode();
+
          * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
          * @todo should we have a receiver object as well
          */
         _init_mode(mode){
             switch(mode){
+                /* eslint-disable no-case-declarations */
                 case 'custom':
-                    // Don't do anything on custom because user can implement there 
-                    // own thing in the slot as well
+                    // Don't do anything on custom because user can implement their own thing in the slot as well
                     break;
                 case 'textarea':
                     const textarea = document.createElement('textarea');
-                    textarea.setAttribute("slot", "text");
-                    // TODO: should we have a receiveer object as well
-                    textarea.setAttribute("readonly", "true");
+                    textarea.setAttribute("slot","text");
+                    // TODO: should we have a receiver object as well
+                    textarea.setAttribute("readonly","true");
                     this._textSlot.appendChild(textarea);
                     break;
                 case 'sender':
                 default:
-                    // Set default to input box.
+                    // Set default to input box
                     const input = document.createElement('input');
                     input.setAttribute("slot", "text");
                     this._textSlot.appendChild(input);
                     break;
             }
         }
+
         /**
          * Internal function that helps with setting the event handlers for the mode attribute hello
+         * 
          * @param {Bool} register if True will add evenListener, else will remove them
+         * 
          * @property {String} sender add eventListener keypress & click 
+         * 
          * @example connectedCallback(){this._register_mode();}
+         * 
          * @todo think of a way to refactor to handle more cases
          * @todo perhaps allow user to input
          */
@@ -264,17 +259,11 @@
 
         /**
          * set password(val) 
-         * Sets password if value passed in, or removes it if nothing
-         * is passed.
+         * Sets password if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set password(val) {
-            const isPassword = Boolean(val);
-            if (isPassword) {
-                this.setAttribute('password', val);
-            } else {
-                this.removeAttribute('password');
-            }
+            this._setAttributes(val,'password')
         }
 
         /**
@@ -300,17 +289,11 @@
 
         /**
          * set size(val) 
-         * Sets size if value passed in, or removes it if nothing
-         * is passed.
+         * Sets size if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set size(val) {
-            const isSize = String(val);
-            if (isSize) {
-                this.setAttribute('size', val);
-            } else {
-                this.removeAttribute('size');
-            }
+            this._setAttributes(val,'size')
         }
 
         /**
@@ -321,12 +304,9 @@
             if (this.size && ! this.width && ! this.height) {
                 size = this.size; 
             }
-            const el = this._choose_element(this.mode);
-            if(el){
-                const sizeStyle = `${el} { 
-                    ${SIZES[el][size]}
-                }`;
-                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
+            if(this._choose_element(this.mode)){
+                // set the sizeStyle
+                this.shadowRoot.querySelector('style#default').innerHTML += `${this._choose_element(this.mode)} {\n${SIZES[this._choose_element(this.mode)][size]}\n}\n`;
             }
 
         }
@@ -347,11 +327,7 @@
          * Returns: Null
          */
         set url(val) {
-            if (val !== '') {
-                this.setAttribute('url', val);
-            } else {
-                this.removeAttribute('url');
-            }
+            this._setAttributes(val,'url')
         }
 
         /**
@@ -370,12 +346,7 @@
          * Returns: Null
          */
         set width(val) {
-            const isWidth = String(val);
-            if (isWidth) {
-                this.setAttribute('width', val);
-            } else {
-                this.removeAttribute('width');
-            }
+            this._setAttributes(val,'width')
         }
 
         /** InputRT Web Component
@@ -384,12 +355,13 @@
          *
          * @class InputRT
          *
-         * @example <input-rt mode="sender"></input-rt>
-         * @example <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border-primary border"></input-rt>
-         * @example <input-rt size="s"></input-rt>
-         * @example <input-rt height="200px" width="600px"></input-rt>
-         * @example <input-rt password></input-rt>
-         * @example <input-rt disable></input-rt>
+         * @example <input-rt mode="sender" > </input-rt>
+         * @example <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            bootstrap="border-primary border" > </input-rt>
+         * @example <input-rt size="s" > </input-rt>
+         * @example <input-rt height="200px" width="600px" > </input-rt>
+         * @example <input-rt password > </input-rt>
+         * @example <input-rt disable > </input-rt>
          */
         constructor(){
             super();
@@ -408,7 +380,7 @@
             // Remove Event listeners
             this._register_mode(false);
         }
-
+        /* eslint-disable no-unused-vars */
         attributeChangedCallback(name, oldVal, newVal){
         
         }
@@ -440,9 +412,9 @@
 
 
         /**
-         * Internal function to determine the correct element in concern. 
-         * @param {*} mode 
-         * @returns {string} an html element in concern
+         * Internal function to determine the correct element in concern.
+         * @param {String} mode 
+         * @returns {String} an html element in concern
          */
         _choose_element(mode) {
             let retVal = null;
@@ -462,18 +434,19 @@
         }
 
         /**
-         * public function for sending messages, leverages an internal WC's 
-         * send functionality. 
          * Public function for sending messages, leverages an internal WC's send functionality
          * @property {String} msgInput query the input
          * @property {Function} send the sender sends the msgInput value
+         * 
          * @example case KEYCODE.ENTER: this.send();
+         * 
          * @todo need to find a way the input element and poluate that
          */
         send(){
             const msgInput = this._textSlot.querySelector('input');
             //call send function
             const sender = this.querySelector('#sender');
+            //todo: need to find a way the input element and poluate that
             sender.send(msgInput.value);
             msgInput.value = '';
         }
@@ -481,25 +454,22 @@
         /**
          * Public function that works as a callback to populate the internal text area with JS if desired
          * @param {String} message text to print out
+         * 
          * @example append('Runtime Terror is the best team!')
-         * @todo we will need a way to allow user scrolling to override this
          */
         append(message){
+            //todo: we will need a way to allow user scrolling to override this
             const textarea = this._textSlot.querySelector('textarea');
             textarea.innerHTML += message + "\n";
             textarea.scrollTop = textarea.scrollHeight;
         }
-
-        /**
-         * Internal function that handles an enter press
-         * @param {Event} event the keypress to check against
-         * @example this._textSlot.addEventListener('keypress',this._onEnter)
-         * @todo might be better to just have an if?
-         */
-        _onEnter(event){
+        
+        //Internal function that handles an enter press
+        _onEnter(event){   
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
+                    break;
                 default:
                     break;
             }

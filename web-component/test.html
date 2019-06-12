@@ -6,58 +6,20 @@
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 </head>
 <body>
-   
-    <input-rt mode="sender" id="first" size="l">
-        <mqtt-send id="sender" slot="messenger" topic="chattest/1">
-        </mqtt-send>
-    </input-rt>
-    <input-rt mode="textarea" height="50px">
-      
-    <input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-        bootstrap="rounded">
-    </input-rt>
-    
-<!-- 
-    <input-rt mode="sender" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-danger">
-        <mqtt-send id="sender" slot="messenger" topic="chattest/1">
-        </mqtt-send>
-    </input-rt>
-    <input-rt mode="textarea" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-danger" size="s">
-        <mqtt-fetch id="receiver" slot="messenger" topic="chattest/1">
-        </mqtt-fetch>
-    </input-rt>
-     -->
 
- 
-    <button id="btn_dis">Click Me to disable</button>
-    <button id="btn_ena">Click Me to enable</button>
+    <input-rt mode="sender">
+        <mqtt-client id="sender" slot="messenger" topic="chattest/1">
+        </mqtt-client>
+        <button slot="append">Send</button>
+    </input-rt>
+    <input-rt mode="textarea">
+        <mqtt-client id="receiver" slot="messenger" topic="chattest/1">
+        </mqtt-client>
+    </input-rt>
 
-    <style id="myStyle"></style>
 
     <script src="inputRT.js"></script>
-    <script src="mqttSend.js"></script>
-    <script src="mqttFetch.js"></script>
-
-    <script>
-        let btn_dis = document.querySelector('button#btn_dis'); 
-        btn_dis.addEventListener("click", function() {
-            console.log("button clicked")
-            const el = document.querySelector('input-rt#first')
-            el.disabled = true;
-            console.log(el)
-        })
-
-        let btn_ena = document.querySelector('button#btn_ena'); 
-        btn_ena.addEventListener("click", function() {
-            console.log("button clicked")
-            const el = document.querySelector('input-rt#first')
-            el.disabled = false;
-            console.log(el)
-        })
-        
-    </script> 
-
-
+    <script src="mqttClient.js"></script>
 
 </body>
 </html>

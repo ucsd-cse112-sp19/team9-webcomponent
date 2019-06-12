@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: Webpack</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                    
+                        <h1 class="navbar-item">Documentation</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Tutorial</p>
+                        <h1>Webpack</h1>
+                    </header>
+                    
+                    <section>
+
+<header>
+    
+</header>
+
+<article>
+    <h1>Webpack</h1>
+<p>Webpack is a utility for bundling javascript code. This allows use to organize
+our code into multiple files and use <code>require()</code> and <code>import</code> in javascript
+meant to run in the browser.</p>
+<p>Webpack works by resolving dependincies and concatenating javascript files into
+a single <code>bundle.js</code>.</p>
+<p>Run webpack by typing <code>npm run build</code>. <code>bundle.js</code> will appear in <code>./dist/</code>.</p>
+<h1>Webpack Dev Server</h1>
+<p><code>webpack-dev-server</code> is a package for running a javascript development server.</p>
+<p>Start the server by typing <code>npm start</code>. Any changes you make will cause the
+server to rebuild your bundle and reload your browser tab.</p>
+<h2>Hot reload</h2>
+<p>When you make changes to a file in the dependency tree of your bundle
+entrypoints, webpack <em>should</em> automatically rebuild the bundle and reload the
+page it is serving. If the automatic rebuild isn't triggering, it may be due to
+your OS limiting the number of files that can be &quot;watched&quot;. Restarting VSCode
+helps sometimes, or you can <a href="https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers">increase the number of files to watch</a>.</p>
+<h2>Bundling</h2>
+<p>The dev server will serve a generated html page. It is currently configured to
+use <code>./web_component/HelloAxios.html</code> as a template to generate the page.
+The files specified in <code>module.exports.entry.components</code> are the target files
+to bundle, and will have <code>&lt;script&gt;</code> tags automatically inserted into the
+generated page.</p>
+<p>Any components you are developing should be specified as entrypoints for
+webpack.</p>
+<p>The first file in the list is used to set up <code>axios</code> for testing. There are two
+files in <code>./util/</code> for setup. <code>./util/enableTestingHooks.js</code> will activate
+testing mode, which will intercept requests and serve phony responses. This
+allows us to test frontend API use without a backend server, which significantly</p>
+<h2>Request Proxying</h2>
+<p>The dev server is configured to proxy requests to another server if they can't
+be served from the base directory. The proxy targets are defined in
+<code>webpack.config.js</code>:<code>module.exports.devServer.proxy</code>.</p>
+<p>This setup allows us to avoid <strong>CORS</strong> issues with our backend server.</p>
+</article>
+
+</section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 11 2019 12:35:11 GMT-0700 (GMT-07:00)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
+        </p>
+    </div>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
