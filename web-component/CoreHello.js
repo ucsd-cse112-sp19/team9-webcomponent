@@ -18,11 +18,7 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set rainbow(val) {
-    if (val !== '') {
-      this.setAttribute('rainbow','');
-    } else {
-      this.removeAttribute('rainbow');
-    }
+    this.setAttributes(val,'rainbow')
   }
   /**
    * get lang() 
@@ -39,11 +35,7 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set lang(val) {
-    if (val !== '') {
-      this.setAttribute('lang', val);
-    } else {
-      this.removeAttribute('lang');
-    }
+    this.setAttributes(val,'lang')
   }
   /**
    * get font() 
@@ -60,11 +52,7 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set font(val) {
-    if (val !== '') {
-      this.setAttribute('font', val);
-    } else {
-      this.removeAttribute('font');
-    }
+    this.setAttributes(val,'font')
   }
   /**
    * get fontsize() 
@@ -81,10 +69,14 @@ class CoreHello extends HTMLElement {
    * Returns: Null
    */
   set fontsize(val) {
-    if (val !== '') {
-      this.setAttribute('fontsize', val);
-    } else {
-      this.removeAttribute('fontsize');
+    this.setAttributes(val,'fontsize')
+  }
+  setAttributes(val,attribute) {
+    if (String(val)!=='') {
+        this.setAttribute(attribute, val);
+    }
+    else {
+        this.removeAttribute(attribute);
     }
   }
   /**
@@ -95,11 +87,7 @@ class CoreHello extends HTMLElement {
     super();
     
     // Dictionary for Hello World in different languages
-    let languages = { "en": "Hello World",
-                      "ar": "مرحبا بالعالم",
-                      "es": "Hola Mundo",
-                      "fr": "Bonjour le monde",
-                      "zh": "你好" };
+    let languages = this.setLanguages();
 
     // Initialize shadow root
     const shadowRoot = this.attachShadow({mode: 'open'});
@@ -170,6 +158,16 @@ class CoreHello extends HTMLElement {
       this.fontsize = slider.value;
       shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
     });
+  }
+
+  setLanguages() {
+    return {
+      "en": "Hello World",
+      "ar": "مرحبا بالعالم",
+      "es": "Hola Mundo",
+      "fr": "Bonjour le monde",
+      "zh": "你好"
+    };
   }
 }
 
