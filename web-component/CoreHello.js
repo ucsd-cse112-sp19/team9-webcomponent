@@ -98,22 +98,7 @@ class CoreHello extends HTMLElement {
       shadowRoot.innerHTML += style;
     }
 
-    // Determine and filter the right language for Hello world, defaults to English
-    let hello = "Hello World";
-    if(this.lang) {
-      hello = languages[this.lang];
-    }
-
-    // Determine font
-    let font = ""
-    if(this.font) {
-      font = "font-family:" + this.font + ";";
-    }
-    // Determine font size
-    let size = ""
-    if(this.fontsize) {
-      size =  "font-size:" + this.fontsize + "px;";
-    }
+    let { size, font, hello } = this.settingSizeFontHello(languages);
     // Append to shadowdom style
     shadowRoot.innerHTML += "<style>  p{" + size  + font +  "} </style>";
 
@@ -158,6 +143,25 @@ class CoreHello extends HTMLElement {
       this.fontsize = slider.value;
       shadowRoot.querySelector('style').innerHTML= 'p{ font-size: ' + slider.value + 'px; ' + font +  '}';
     });
+  }
+
+  settingSizeFontHello(languages) {
+    // Determine and filter the right language for Hello world, defaults to English
+    let hello = "Hello World";
+    if (this.lang) {
+      hello = languages[this.lang];
+    }
+    // Determine font
+    let font = "";
+    if (this.font) {
+      font = "font-family:" + this.font + ";";
+    }
+    // Determine font size
+    let size = "";
+    if (this.fontsize) {
+      size = "font-size:" + this.fontsize + "px;";
+    }
+    return { size, font, hello };
   }
 
   setLanguages() {
