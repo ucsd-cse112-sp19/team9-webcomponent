@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-JSDoc Guide Coders.html">JSDoc Guide Coders</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-webpack.html">webpack</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -62,76 +62,48 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * HelloWorld class
- * Provides template for core-hello element
- */
-class MqttSend extends HTMLElement {
+            <pre class="prettyprint source linenums"><code>class MqttSend extends HTMLElement {
+
     /**
-     * get url() 
-     * Check if url exists in HTML.
-     * Returns: True or False 
-     */
-    get url() {
-      return this.getAttribute('url');
-    }
-    /**
-     * set url(val) 
-     * Sets url if value passed in, or removes it if nothing
-     * is passed.
-     * Returns: Null
-     */
-    set url(val) {
-      if (val !== '') {
-        this.setAttribute('url', val);
-      } else {
-        this.removeAttribute('url');
-      }
-    }
-    /**
-     * get topic() 
+     * get topic()
      * Check if topic exists in HTML.
-     * Returns: True or False 
+     * Returns: True or False
      */
     get topic() {
         return this.getAttribute('topic');
     }
+
     /**
-     * Constructor for setting up shadow dom and class definitions 
-     * for web component.
+     *
+     * Constructor for setting up shadow dom and class definitions
+     * for web component. The attributes are id, slot, and topic
+     * @example   &lt;input-rt mode="sender">
+           &lt;mqtt-send id="sender" slot="messenger" topic="chattest/1">
+           &lt;/mqtt-send>
+       &lt;/input-rt>
+     * @class MQTT Send Web Component, This class provides functionality to send messages to a port, given a topic,
+     * It can be attached to inputRT
      */
     constructor () {
         super();
-    
-        //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
+
+        // Eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         // Such as using that html template that generates requirements to be used by wrappers (like an interface).
         this.userId = "anonymous";
         this.attachShadow({mode: 'open'});
 
-        // TODO: This should be optimized or another method should be implemented.
-        // This is a helper function that generates a random client id.
-        function makeid(length) {
-            let result           = '';
-            const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            const charactersLength = characters.length;
-            for ( let i = 0; i &lt; length; i++ ) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
-        }
         // Create a client instance
-        // NOTE: It appears as tho connecting on the sender side has some issues
-        // refreshing multiple times works for me until in devtools you don't see
-        // Connection LostAMQJS0008I Socket closed. This is likely do to using a public mqtt
-        // server... We can spin up our own some time soon
-        // TODO: FIX ABOVE -- kinda fixed but perhaps a better fix can be implemented
-        this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), makeid(8));
+        /* eslint-disable no-undef */
+        this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "");
 
         this.client.onConnectionLost = function(responseObject){
+            /* eslint-disable no-console */
             console.log("Connection Lost" + responseObject.errorMessage);
         };
-        // connect the client
+
+        // Connect the client
         this.client.connect({onSuccess:function(){
+            /* eslint-disable no-console */
             console.log("send connected");
         }});
 
@@ -145,7 +117,7 @@ class MqttSend extends HTMLElement {
         this.shadowRoot.append(i);
     }
 
-    connectedCallback(){      
+    connectedCallback(){
         // Listen for userId Change
         const input = this.shadowRoot.querySelector('input');
         input.addEventListener('change', ()=>{
@@ -153,8 +125,13 @@ class MqttSend extends HTMLElement {
         });
     }
 
+    /**
+     * Sends a message through the paho mqtt client on the topic specified
+     * Message schema: "UserId: body"
+     */
     send(body){
         const message = this.userId + ": " + body;
+        /* eslint-disable no-undef */
         const mqtt_msg = new Paho.MQTT.Message(message);
         mqtt_msg.destinationName = this.topic;
         this.client.send(mqtt_msg);
@@ -162,7 +139,8 @@ class MqttSend extends HTMLElement {
 }
 
 // Register MqttSend class as mqtt-send element
-customElements.define('mqtt-send', MqttSend);</code></pre>
+customElements.define('mqtt-send', MqttSend);
+</code></pre>
         </article>
     </section>
 
@@ -176,7 +154,7 @@ customElements.define('mqtt-send', MqttSend);</code></pre>
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 22:29:12 GMT-0700 (Pacific Daylight Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 11 2019 12:35:11 GMT-0700 (GMT-07:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

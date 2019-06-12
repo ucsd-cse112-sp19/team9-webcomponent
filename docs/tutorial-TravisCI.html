@@ -42,7 +42,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-JSDoc Guide Coders.html">JSDoc Guide Coders</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-webpack.html">webpack</a></li></ul><h3>Classes</h3><ul><li><a href="ChatBox.html">ChatBox</a></li><li><a href="ChatStream.html">ChatStream</a></li><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputBox.html">InputBox</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li><li><a href="MsgFetch.html">MsgFetch</a></li><li><a href="MsgSend.html">MsgSend</a></li><li><a href="OutputStream.html">OutputStream</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -63,29 +63,31 @@
     <h1>YAML File</h1>
 <p>In order to run travis using GitHub, we need to add a YAML file called .travis.yml<br>
 This file will tell Travis CI what to do.</p>
-<img src="travis.png">
+<img src="images/travis.PNG">
 <p>We are using Version 10 NodeJS.</p>
 <p>The install part runs:<br>
 &quot;npm install&quot; which will install and update the package.json and package-lock.json files<br>
 &quot;npm install codeclimate-test-reporter istanbul -g&quot; used for the codeclimate reporting</p>
-<p>We have only one functional addon at the moment:<br>
+<img src="images/travisrun.PNG">
+<p>It is running lint then mocha and then saucelabs.</p>
+<p>We have one functional addon:<br>
 Our code climate repository token which is used to send the test report and update the result in CodeClimate</p>
 <p>If there is no issue, Travis will run the coverage section. It is refering to a line in the package.json file and will update the report to CodeClimate.</p>
-<p>Depending if we are using SauceLab, we might use another addon in order to have a link with the SauceLab account.</p>
+<p>Since we are using SauceLab, we added another addon on the travis website to have a link with the SauceLab account.</p>
 <h1>Travis-ci.com</h1>
 <p>Now in case the badge shows Build=Failing, you need to check what is wrong on https://travis-ci.com/. Sign in with GitHub, you should see this.</p>
-<img src="travisweb.png">
+<img src="images/travisweb.PNG">
 <p>Now let's look at what Travis executed. You first need to know that if every single test passes, by default it will exit with 0.<br>
 Depending on your error, you can have a different output and check what is wrong.</p>
 <p>Travis installs what we asked in the install section of the yaml file. It then runs the test phase.<br>
 As I mentionned in the Package.json tutorial, this phase has different parts. Travis will start with the prestest then eventually the main tests.<br>
-Here our pretest is just checking css stylelint and creating docs. It then runs the mocha tests which are very simple here.<br>
+Here our pretest is just checking css stylelint and eslint on our webcomponents. It then runs the unit tests and finally runs browser testing.<br>
 We have no error, we can run the command.</p>
 <blockquote>
 <p>after_success: npm run coverage</p>
 </blockquote>
-<img src="travisrun.png">
-<p>We didn't have any issue, the build exited with 0 so Travis will tell us the build is passing.</p>
+<img src="images/travisrun2.PNG">
+<p>We didn't have any issue, our modified components pass the linting, unit tests and browser tests. The build exited with 0 so Travis will tell us the build is passing.</p>
 <p>Last thing, whenever you update your branch, Travis will run a build. So make sure you check that out and create your own badge!</p>
 </article>
 
@@ -98,7 +100,7 @@ We have no error, we can run the command.</p>
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Fri Jun 07 2019 22:29:12 GMT-0700 (Pacific Daylight Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 11 2019 12:35:11 GMT-0700 (GMT-07:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

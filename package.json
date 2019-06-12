@@ -13,16 +13,20 @@
     "start": "npx webpack-dev-server --open",
     "resume": "npx webpack-dev-server",
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
-    "test": "nyc npm run mocha & npm run saucelabs"
+    "pretest": "npm run lint",
+    "test": "nyc npm run mocha",
+    "posttest": "npm run saucelabs"
   },
   "husky": {
-    "hooks": {}
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "nyc": {
-    "lines": 50,
-    "statements": 50,
-    "functions": 50,
-    "branches": 20,
+    "lines": 95,
+    "statements": 95,
+    "functions": 95,
+    "branches": 95,
     "check-coverage": true,
     "extension": [
       ".js"
@@ -66,6 +70,7 @@
     "husky": "^2.2.0",
     "jsdom": "^15.1.1",
     "mocha": "^6.1.4",
+    "mqtt": "^3.0.0",
     "nyc": "^14.1.1",
     "puppeteer": "^1.16.0",
     "selenium-server": "^3.141.59",

@@ -38,7 +38,6 @@
      */
     constructor () {
         super();
-
         //eventually may want to try this approach: https://ayushgp.github.io/html-web-components-using-vanilla-js-part-3/
         this.userId = "anonymous";
 
@@ -46,14 +45,17 @@
         this.attachShadow({mode: 'open'});
 
         // Create a client instance
+        /* eslint-disable no-undef */
         this.client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "");
 
         this.client.onConnectionLost = function(responseObject){
+            /* eslint-disable no-console */
             console.log("Connection Lost" + responseObject.errorMessage);
         };
 
         // Connect the client
         const onConnect = function(){
+            /* eslint-disable no-console */
             console.log("Connected");
             this.client.subscribe(this.topic);
         }.bind(this);
