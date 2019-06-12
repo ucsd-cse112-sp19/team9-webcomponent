@@ -169,7 +169,7 @@
                 case 'disabled':
                     bval=Boolean(val)
                 break;
-                case '':
+                case 'password':
                     bval=Boolean(val)
                 break;
                 default:
