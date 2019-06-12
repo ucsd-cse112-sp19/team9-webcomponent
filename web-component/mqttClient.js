@@ -1,3 +1,5 @@
+import Paho from 'paho-mqtt';
+
 (function(){
     /**
      * @typedef {String} MQTT_TYPE
