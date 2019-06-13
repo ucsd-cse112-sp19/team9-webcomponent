@@ -94,6 +94,10 @@
             }
         }
 
+        /**
+         * Observes if a message through the paho mqtt client on the topic was send
+         * Callback schema: function(String)
+         */
         observe(callback){
             if(this.id == MQTT_TYPE.receiver){
                 this.client.onMessageArrived = function(message){
