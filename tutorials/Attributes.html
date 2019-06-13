@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: Attributes</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+      <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+
+    
+</head>
+
+<body>
+<header>
+    
+</header>
+
+<article>
+    <h1>Basic Usage</h1>
+
+<p>Input-rt component displays an input box where users can enter in text</p>
+<input-rt></input-rt>
+<details>
+
+        <summary>See Code.</summary>
+        <pre class="prettyprint source lang-html"><code>&lt;input-rt>&lt;/input-rt>
+            </code></pre>
+        <!-- <p><code>&lt;input-rt&gt;&lt;/input-rt&gt;</code></p> -->
+ 
+</details>
+
+<h1>Bootstrap</h1>
+<p>The Bootstrap attribute allows the input-rt component to be stylized with bootstrap's library. The Bootstrap attribute must also be implemented with the URL attribute containing the bootstrap link.</p>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-primary text-primary"> 
+</input-rt>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-secondary text-secondary"> 
+</input-rt>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-success text-success"> 
+</input-rt>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-danger text-danger"> 
+</input-rt>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-info text-info"> 
+</input-rt>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-light text-light bg-secondary"> 
+</input-rt>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-dark text-dark"> 
+</input-rt>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="border border-white text-white bg-secondary"> 
+</input-rt>
+
+<details>
+    <summary>See Code.</summary>
+    <pre class="prettyprint source lang-html"><code>&lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-primary text-primary&quot;> 
+    &lt;/input-rt>
+    &lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-secondary text-secondary&quot;> 
+    &lt;/input-rt>
+    &lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-success text-success&quot;> 
+    &lt;/input-rt>
+    &lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-danger text-danger&quot;> 
+    &lt;/input-rt>
+    &lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-info text-info&quot;> 
+    &lt;/input-rt>
+    &lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-light text-light bg-secondary&quot;> 
+    &lt;/input-rt>
+    &lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-dark text-dark&quot;> 
+    &lt;/input-rt>
+    &lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+    bootstrap=&quot;border border-white text-white bg-secondary&quot;> 
+    &lt;/input-rt>
+    </code></pre>
+</details>
+
+
+<h1>URL</h1>
+<p>The URL attribute allows the input-rt to be stylized by any CSS front-end framework. In this example, we are using bootstrap url along with the Bootstrap attribute rounded.</p>
+<input-rt url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+bootstrap="rounded"></input-rt>
+<details>
+
+        <summary>See Code.</summary>
+        <pre class="prettyprint source lang-html"><code>&lt;input-rt url=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;
+        bootstrap=&quot;rounded&quot;>&lt;/input-rt>
+        </code></pre>
+</details>
+
+<!-- <p><img src="images/url.png"> <img src="images/url_output.png"></p> -->
+<h1>Password</h1>
+<p>The Password attribute displays text as black dots to encrypt the user input</p>
+<input-rt password> </input-rt>
+<details>
+    <summary>See Code.</summary>
+    <pre class="prettyprint source lang-html"><code>&lt;input-rt password>&lt;/input-rt>
+        </code></pre>
+</details>
+
+<h1>Disabled</h1>
+<p>The Disabled attribute greys out the input-rt component and does not allow the user to input text. The cursor turns into a red stop sign icon when the user moves it over the input-rt component.</p>
+<input-rt disabled></input-rt>
+<details>
+        <summary>See Code.</summary>
+        <pre class="prettyprint source lang-html"><code>&lt;input-rt disabled>&lt;/input-rt>
+            </code></pre>
+    </details>
+    
+
+<h1>Size</h1>
+<p>The size attribute allows the user to specify the size of the input-rt component. There is a large, medium, small, and default size.</p>
+<p>Default</p>
+<input-rt size="d"></input-rt>
+<p>Large</p>
+<input-rt size="l"></input-rt>
+<p>Medium</p>
+<input-rt size="m"></input-rt>
+<p>Small</p>
+<input-rt size="s"></input-rt>
+<details>
+    <summary>See Code.</summary>
+    <pre class="prettyprint source lang-html"><code>
+    &lt;input-rt size=&quot;d&quot;>&lt;/input-rt>
+    &lt;input-rt size=&quot;l&quot;>&lt;/input-rt>
+    &lt;input-rt size=&quot;m&quot;>&lt;/input-rt>
+    &lt;input-rt size=&quot;s&quot;>&lt;/input-rt>
+    </code></pre>
+</details>
+
+<h1>Width</h1>
+<p>The width attribute allows the user to specify the width (in pixels) of the input-rt component. The minimum width is 250px.</p>
+<input-rt width="500px"></input-rt>
+<details>
+        <summary>See Code.</summary>
+        <pre class="prettyprint source lang-html"><code>
+            &lt;input-rt width="500px">&lt;/input-rt>
+            </code></pre>
+    </details>
+<h1>Height</h1>
+<p>The height attribute allows the user to specify the height (in pixels) of the input-rt component.</p>
+<input-rt height="200px"></input-rt>
+<details>
+        <summary>See Code.</summary>
+        <pre class="prettyprint source lang-html"><code>
+            &lt;input-rt height="200px">&lt;/input-rt>
+            </code></pre>
+    </details>
+
+<h1>Mode</h1>
+<p>Mode has 4 traits: sender, receiver, custom, and default</p>
+<h2>Sender Mode</h2>
+<p>Sender mode allows the input-rt component to input and send messages using an internal sender. In this example we are using MQTT where mqtt-client must be included with its id set to &quot;sender&quot;, slot set to &quot;messenger&quot;, and topic set to the same name as the receiving input-rt component.</p>
+<input-rt mode="sender">
+        <mqtt-client id="sender" slot="messenger" topic="chattest/1">
+        </mqtt-client>
+    </input-rt>
+<details>
+    <summary>See Code.</summary>
+    <pre class="prettyprint source lang-html"><code>&lt;input-rt mode=&quot;sender&quot;>
+     &lt;mqtt-client id=&quot;sender&quot; slot=&quot;messenger&quot; topic=&quot;chattest/1&quot;>&lt;/mqtt-client>
+     &lt;/input-rt>
+     </code></pre>
+</details>
+
+<p></p>
+<p>
+Sender mode will display an input-rt component along with an input box on top for users to specify their username. The default username is &quot;anonymous&quot; where it will be displayed once a user enters an input into the input-rt component.</p>
+
+<h2>Textarea Mode</h2>
+<p>Textarea mode makes the input-rt component read-only to display messages using an internal receiver. In this example, we are using MQTT where mqtt-client must be included with its id set to &quot;receiver&quot;, slot set to &quot;messenger&quot;, and topic set to the same name as the sending input-rt component.</p>
+
+<input-rt mode="textarea">
+        <mqtt-client id="receiver" slot="messenger" topic="chattest/1">
+        </mqtt-client>
+    </input-rt> 
+
+<details>
+        <summary>See Code.</summary>
+        <pre class="prettyprint source lang-html"><code>&lt;input-rt mode=&quot;textarea&quot;>
+         &lt;mqtt-client id=&quot;receiver&quot; slot=&quot;messenger&quot; topic=&quot;chattest/1&quot;>&lt;/mqtt-client>
+         &lt;/input-rt>
+         </code></pre>
+    </details>
+<p></p>
+<p>Textarea mode will display an input-rt component along with an input box on top. The input box on top is a forced design required by MQTT, thus the input box does not have any functionality for this mode. The textarea mode will display receiving messages from the internal receiver along with the corresponding username. The input-rt component will have a resizable tab on the bottom right for users to resize their input-rt component.</p>
+
+
+<h2>Sender &amp; Textarea</h2>
+<p>When we implement two input-rt components with a sender and textarea mode, they must include the same topic name to communicate with each other.</p>
+<p>The sender mode input-rt component will display the user's input onto the textarea mode input-rt component with the corresponding username.</p>
+
+<input-rt mode="sender">
+        <mqtt-client id="sender" slot="messenger" topic="chattest/2">
+        </mqtt-client>
+        <button slot="append">Send</button>
+    </input-rt>
+    <input-rt mode="textarea">
+        <mqtt-client id="receiver" slot="messenger" topic="chattest/2">
+        </mqtt-client>
+    </input-rt>  
+    
+<details>
+<summary>See Code.</summary>
+<pre class="prettyprint source lang-html"><code>&lt;input-rt mode=&quot;sender&quot;>
+        &lt;mqtt-client id=&quot;sender&quot; slot=&quot;messenger&quot; topic=&quot;chattest/2&quot;>
+        &lt;/mqtt-client>
+        &lt;button slot=&quot;append&quot;>Send&lt;/button>
+    &lt;/input-rt>
+    &lt;input-rt mode=&quot;textarea&quot;>
+        &lt;mqtt-client id=&quot;receiver&quot; slot=&quot;messenger&quot; topic=&quot;chattest/2&quot;>
+        &lt;/mqtt-client>
+    &lt;/input-rt>  
+</code></pre>
+
+</details>
+</article>
+
+</section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Wed Jun 12 2019 14:01:31 GMT-0700 (Pacific Daylight Time)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
+        </p>
+    </div>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+<script src="../web-component/inputRT.js"></script>
+<script src="../web-component/mqttClient.js"></script>
+
+
+</body>
+</html>
