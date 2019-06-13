@@ -42,7 +42,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes-Tutorial.html">Attributes-Tutorial</a></li><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-webpack.html">webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttClient.html">MqttClient</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -78,7 +78,7 @@
 
     <section>
         <article><h1>Runtime Terror</h1>
-<p><a href="https://travis-ci.com/ucsd-cse112/team9-webcomponent"><img src="https://travis-ci.com/ucsd-cse112/team9-webcomponent.svg?token=SYYH9pqzsbfveDCnEAbx&amp;branch=valentin" alt="Build Status"></a>
+<p><a href="https://travis-ci.com/ucsd-cse112/team9-webcomponent"><img src="https://travis-ci.com/ucsd-cse112/team9-webcomponent.svg?branch=dev" alt="Build Status"></a>
 <a href="https://codeclimate.com/repos/5cc220fa4a01b954d700d805/maintainability"><img src="https://api.codeclimate.com/v1/badges/01d9ca099423c56d223d/maintainability" alt="Maintainability"></a>
 <a href="https://codeclimate.com/repos/5cc220fa4a01b954d700d805/test_coverage"><img src="https://api.codeclimate.com/v1/badges/01d9ca099423c56d223d/test_coverage" alt="Test Coverage"></a>
 <a href="http://opensource.org/licenses/MIT"><img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT license"></a></p>
@@ -90,7 +90,34 @@ Check out <code>./docs/index.html</code> for code documentation and <code>Struct
 <p>See <code>./tutorials/webpack.md</code></p>
 <h2>Web Component</h2>
 <p>HelloWorld<br>
-:bomb: InputRT :bomb: MQTTFetch :bomb: MQTTSend :bomb:</p>
+:bomb: InputRT :bomb: MQTTClient :bomb:</p>
+<h2>Getting Started</h2>
+<p>To begin developing with our web component you will need to perform the following steps:</p>
+<ol>
+<li>Make sure you have github set up on your local machine.
+1a. https://help.github.com/en/articles/set-up-git</li>
+<li>Once you have github, you can clone our repository at:
+https://github.com/ucsd-cse112/team9-webcomponent.git</li>
+<li>Install our dependencies with npm install
+3a. A guide to install npm can be found here:
+https://docs.npmjs.com/downloading-and-installing-node-js-and-npm</li>
+<li>You can find our code at under team9-webcomponent/web-component
+Details about our webcomponents can be found under team9-webcomponent/docs
+There are three main sub packages
+4a. CoreHello.js Rainbow.css
+4b. inputRT.js inputbox-rt-default-style.css
+4c. mqttClient.js</li>
+<li>After you develop and make changes you can observe them in team9-webcomponent/example/test.html (make sure you include the script at the bottom). If you are using mqttClient.js make sure you have <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script> included in your html header
+5a. If you want to use a more fleshed out example checkout team9-webcomponent/example/model.html</li>
+<li>Once you feel confident and want to test it you can run npm test which will trigger our unit test, integration test, and browser test
+frameworks.</li>
+<li>After testing you can now add and commit which will trigger a style linter. Once you push it will show up on github which will reevaluate the tests through travis and if it passes you can being a pull request to merge onto our development branch.</li>
+</ol>
+<h2>Troubleshooting</h2>
+<p>If your mqttClient is not connecting make sure you have <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script> at the top of your html file and you are connected to a network that allows you to open ports i.e. connect to UCSD-PROTECTED, not UCSD-GUEST.</p>
+<p>If npm test is failing after the Unit tests, it is likely that you don't have saucelabs credentials you can find those here:</p>
+<p>You included your the web component javascript file but for some reason it throughs console errors. Try adding the js files to the bottom of your html file. It is a symptom of this problem:
+https://stackoverflow.com/questions/48498581/textcontent-empty-in-connectedcallback-of-a-custom-htmlelement</p>
 <h2>Acknowledgements</h2>
 <p>This project uses the following open source software:</p>
 <ul>
@@ -110,7 +137,7 @@ Check out <code>./docs/index.html</code> for code documentation and <code>Struct
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 11 2019 12:35:11 GMT-0700 (GMT-07:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Thu Jun 13 2019 16:19:58 GMT-0700 (Pacific Daylight Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

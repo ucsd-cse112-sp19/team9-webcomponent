@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-Webpack.html">Webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttFetch.html">MqttFetch</a></li><li><a href="MqttSend.html">MqttSend</a></li></ul><h3><a href="global.html">Global</a></h3></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Attributes-Tutorial.html">Attributes-Tutorial</a></li><li><a href="tutorial-Attributes.html">Attributes</a></li><li><a href="tutorial-CodeClimate.html">CodeClimate</a></li><li><a href="tutorial-Documentation.html">Documentation</a></li><li><a href="tutorial-Linter.html">Linter</a></li><li><a href="tutorial-PackageJSON.html">PackageJSON</a></li><li><a href="tutorial-TravisCI.html">TravisCI</a></li><li><a href="tutorial-webpack.html">webpack</a></li></ul><h3>Classes</h3><ul><li><a href="CoreHello.html">CoreHello</a></li><li><a href="InputRT.html">InputRT</a></li><li><a href="MqttClient.html">MqttClient</a></li></ul><h3><a href="global.html">Global</a></h3></div>
                     </nav>
                 </div>
             </div>
@@ -63,7 +63,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>
-    /** 
+(function(){
+    /**
      * @typedef {Integer} KEYCODE
      *  Dictionary for comparing key presses
      */
@@ -81,7 +82,7 @@
             "m": "width: 400px; height: 40px; font-size: 20px !important; padding: 8px 8px;",
             "d": "width: 300px; height: 30px; font-size: 12px !important;",
             "s": "width: 250px; height: 30px; font-size: 12px !important; padding: 5px 5px;"
-        }, 
+        },
         textarea: {
             "l": "width: 500px; height: 800px; font-size: 25px !important; padding: 10px 10px;",
             "m": "width: 400px; height: 600px; font-size: 20px !important; padding: 8px 8px;",
@@ -92,7 +93,6 @@
 
     /**
      * @typedef {HTMLDocument} template
-     * @
      * Creates and defines a template for web component
      */
     const template = document.createElement('template');
@@ -110,32 +110,45 @@
             return ['disabled'];
         }
 
+        _setAttributes(val,attribute) {
+            let bval = false;
+            switch(attribute){
+                case 'disabled':
+                case 'password':
+                    bval= Boolean(val);
+                break;
+                default:
+                    bval= (String(val) !== '');
+                break;
+            }
+            if (bval) {
+                this.setAttribute(attribute, val);
+            }
+            else {
+                this.removeAttribute(attribute);
+            }
+        }
+
         /**
-         * get bootstrap() 
+         * get bootstrap()
          * Check if bootstrap exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get bootstrap() {
             return this.getAttribute('bootstrap');
         }
 
         /**
-         * set bootstrap(val) 
-         * Sets bootstrap if value passed in, or removes it if nothing
-         * is passed.
+         * set bootstrap(val)
+         * Sets bootstrap if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set bootstrap(val) {
-            if (val !== '') {
-                this.setAttribute('bootstrap', val);
-            } else {
-                this.removeAttribute('bootstrap');
-            }
+            this._setAttributes(val,'bootstrap')
         }
 
         /**
-         * Init function that populates url attribute and bootstrap attribute 
-         * if the url and bootstrap are both set. 
+         * Init function that populates url attribute and bootstrap attribute if the url and bootstrap are both set.
          */
         _init_bootstrap_URL() {
             const link = document.createElement('link');
@@ -143,8 +156,7 @@
             link.setAttribute('type', 'text/css');
             if (this.url &amp;&amp; this.bootstrap) {
                 link.setAttribute('href', this.url);
-                const el = this._choose_element(this.mode);
-                this._textSlot.querySelector(el).setAttribute('class', this.bootstrap);
+                this._textSlot.querySelector(this._choose_element(this.mode)).setAttribute('class', this.bootstrap);
             } else {
                 link.setAttribute('href', 'inputbox-rt-default-style.css');
             }
@@ -152,27 +164,21 @@
         }
 
         /**
-         * get disabled() 
+         * get disabled()
          * Check if disabled exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get disabled() {
             return this.hasAttribute('disabled');
         }
 
         /**
-         * set disabled(val) 
-         * Sets disabled if value passed in, or removes it if nothing
-         * is passed.
+         * set disabled(val)
+         * Sets disabled if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set disabled(val) {
-            const isDisabled = Boolean(val);
-            if (isDisabled) {
-                this.setAttribute('disabled', val);
-            } else {
-                this.removeAttribute('disabled');
-            }
+            this._setAttributes(val,'disabled')
         }
 
         /**
@@ -181,37 +187,32 @@
         _init_disabled() {
             if (this.disabled) {
                 const el = this._choose_element(this.mode);
+                this._textSlot.querySelector(el).setAttribute('disabled', '');
+
                 const style = document.createElement('style');
                 style.setAttribute('id', 'disabledStyle');
-                const disabledStyle = `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
-                style.innerHTML += disabledStyle;
+                // set the disabledStyle
+                style.innerHTML += `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
                 this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
-                this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
         }
-        
+
         /**
-         * get height() 
+         * get height()
          * Check if height exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get height() {
             return this.getAttribute('height');
         }
 
         /**
-         * set height(val) 
-         * Sets height if value passed in, or removes it if nothing
-         * is passed.
+         * set height(val)
+         * Sets height if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set height(val) {
-            const isHeight = String(val);
-            if (isHeight) {
-                this.setAttribute('height', val);
-            } else {
-                this.removeAttribute('height');
-            }
+            this._setAttributes(val,'height')
         }
 
         /**
@@ -221,15 +222,15 @@
             if (dimension) {
                 const el = this._choose_element(this.mode);
                 if(el){
-                    const sizeStyle = `${el} {\n${type}: ${dimension} !important;\n}\n`;
-                    this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle; 
+                    // set the sizeStyle
+                    this.shadowRoot.querySelector('style#default').innerHTML += `${el} {\n${type}: ${dimension} !important;\n}\n`;
                 }
             }
         }
 
         /**
          * get mode()
-         * Gets the mode of the attribute 
+         * Gets the mode of the attribute
          * Returns: String
          */
         get mode() {
@@ -238,26 +239,21 @@
 
         /**
          * set mode(val)
-         * Sets mode if value passed in, or removes it if nothing
-         * is passed.
+         * Sets mode if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set mode(val) {
-            if (val !== '') {
-                this.setAttribute('mode', val);
-            } else {
-                this.removeAttribute('mode');
-            }
+            this._setAttributes(val,'mode')
         }
 
         /**
          * Mode attribute that sets the properties of the input field
-         * 
+         *
          * @param {String} mode will set mode properly to the mode passed in
          * @property {String} custom user can implement their own mode in this slot
          * @property {String} textarea create a textarea which will display text
          * @property {String} sender set default to input box
-         * 
+         *
          * @example this._init_mode();
 
          * @todo need discussion on if this is the right approach, if we plan on adding more modes then we should, keep switch else a simple if - else might be better
@@ -288,13 +284,13 @@
 
         /**
          * Internal function that helps with setting the event handlers for the mode attribute hello
-         * 
+         *
          * @param {Bool} register if True will add evenListener, else will remove them
-         * 
-         * @property {String} sender add eventListener keypress &amp; click 
-         * 
+         *
+         * @property {String} sender add eventListener keypress &amp; click
+         *
          * @example connectedCallback(){this._register_mode();}
-         * 
+         *
          * @todo think of a way to refactor to handle more cases
          * @todo perhaps allow user to input
          */
@@ -316,26 +312,21 @@
         }
 
         /**
-         * get password() 
+         * get password()
          * Check if password exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get password() {
             return this.hasAttribute('password');
         }
 
         /**
-         * set password(val) 
+         * set password(val)
          * Sets password if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set password(val) {
-            const isPassword = Boolean(val);
-            if (isPassword) {
-                this.setAttribute('password', val);
-            } else {
-                this.removeAttribute('password');
-            }
+            this._setAttributes(val,'password')
         }
 
         /**
@@ -343,97 +334,108 @@
          */
         _init_password(){
             if (this.password) {
-                const el = this._choose_element(this.mode);  
+                const el = this._choose_element(this.mode);
                 if(el &amp;&amp; el === "input") {
                     this._textSlot.querySelector('input').setAttribute('type', "password");
                 }
-            } 
+            }
         }
 
         /**
-         * get size() 
+         * get placeholder()
+         * Returns: placeholder text, empty string if there is none
+         */
+        get placeholder() {
+            return this.getAttribute('placeholder');
+        }
+
+        /**
+         * set placeholder(val)
+         * Sets placeholder if value passed in, or removes it if nothing is passed.
+         * Returns: Null
+         */
+        set placeholder(val) {
+            this._setAttributes(val,'placeholder')
+        }
+
+        _init_placeholder(){
+            if(this.placeholder){
+                const el = this._choose_element(this.mode);
+                if(el &amp;&amp; el === "input") {
+                    this._textSlot.querySelector('input').setAttribute("placeholder",this.placeholder);
+                }
+            }
+        }
+
+        /**
+         * get size()
          * Check if size exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get size() {
             return this.getAttribute('size');
         }
 
         /**
-         * set size(val) 
+         * set size(val)
          * Sets size if value passed in, or removes it if nothing is passed.
          * Returns: Null
          */
         set size(val) {
-            const isSize = String(val);
-            if (isSize) {
-                this.setAttribute('size', val);
-            } else {
-                this.removeAttribute('size');
-            }
+            this._setAttributes(val,'size')
         }
 
         /**
-         * Initializes size if specificed, and chooses default if not. 
+         * Initializes size if specificed, and chooses default if not.
          */
         _init_size() {
-            let size = "d"; 
+            let size = "d";
             if (this.size &amp;&amp; ! this.width &amp;&amp; ! this.height) {
-                size = this.size; 
+                size = this.size;
             }
-            const el = this._choose_element(this.mode);
-            if(el){
-                const sizeStyle = `${el} {\n${SIZES[el][size]}\n}\n`;
-                this.shadowRoot.querySelector('style#default').innerHTML += sizeStyle;
+            if(this._choose_element(this.mode)){
+                // set the sizeStyle
+                this.shadowRoot.querySelector('style#default').innerHTML += `${this._choose_element(this.mode)} {\n${SIZES[this._choose_element(this.mode)][size]}\n}\n`;
             }
 
         }
 
         /**
-         * get url() 
+         * get url()
          * Check if url exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get url() {
             return this.getAttribute('url');
         }
 
         /**
-         * set url(val) 
+         * set url(val)
          * Sets url if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
          */
         set url(val) {
-            if (val !== '') {
-                this.setAttribute('url', val);
-            } else {
-                this.removeAttribute('url');
-            }
+            this._setAttributes(val,'url')
         }
 
         /**
-         * get width() 
+         * get width()
          * Check if width exists in HTML.
-         * Returns: True or False 
+         * Returns: True or False
          */
         get width() {
             return this.getAttribute('width');
         }
 
         /**
-         * set width(val) 
+         * set width(val)
          * Sets width if value passed in, or removes it if nothing
          * is passed.
          * Returns: Null
          */
         set width(val) {
-            const isWidth = String(val);
-            if (isWidth) {
-                this.setAttribute('width', val);
-            } else {
-                this.removeAttribute('width');
-            }
+            this._setAttributes(val,'width')
         }
 
         /** InputRT Web Component
@@ -456,9 +458,6 @@
         }
 
         connectedCallback(){
-            if(this.shadowRoot === null){
-                this._init();
-            }
             // Add Event listeners
             this._register_mode(true);
         }
@@ -467,9 +466,19 @@
             // Remove Event listeners
             this._register_mode(false);
         }
-        /* eslint-disable no-unused-vars */
-        attributeChangedCallback(name, oldVal, newVal){
         
+        attributeChangedCallback(name, oldVal, newVal){
+            switch (name) {
+                case 'disabled':
+                    if(newVal) {
+                        if(!oldVal){
+                            this._init_disabled();
+                        }
+                    } else {
+                        this._remove_attribute_style('disabled');
+                    }
+                    break;
+            }
         }
 
         _init(){
@@ -495,18 +504,32 @@
             this._init_dimension("width",this.width);
             this._init_dimension("height",this.height);
             this._init_size();
+            this._init_placeholder();
         }
 
+        /**
+         * Internal function to remove the styles that are related to each attribute
+         * @param {*} attribute attribute to remove styles for
+         */
+        _remove_attribute_style(attribute) {
+            const el = this._choose_element(this.mode);
+            this._textSlot.querySelector(el).removeAttribute(attribute);
+
+            const elem = this.shadowRoot.querySelector(`style#${attribute}Style`);
+            if (elem != null) {
+                elem.remove();
+            }
+        }
 
         /**
          * Internal function to determine the correct element in concern.
-         * @param {String} mode 
+         * @param {String} mode
          * @returns {String} an html element in concern
          */
         _choose_element(mode) {
             let retVal = null;
             switch (mode) {
-                // TODO: users may specify what type of element they want for custom. 
+                // TODO: users may specify what type of element they want for custom.
                 case "custom":
                     break;
                 case "textarea":
@@ -524,24 +547,27 @@
          * Public function for sending messages, leverages an internal WC's send functionality
          * @property {String} msgInput query the input
          * @property {Function} send the sender sends the msgInput value
-         * 
+         *
          * @example case KEYCODE.ENTER: this.send();
-         * 
+         *
          * @todo need to find a way the input element and poluate that
          */
         send(){
-            const msgInput = this._textSlot.querySelector('input');
-            //call send function
-            const sender = this.querySelector('#sender');
-            //todo: need to find a way the input element and poluate that
-            sender.send(msgInput.value);
-            msgInput.value = '';
+            //if input is disabled, don't send 
+            if(!this.disabled){
+                const msgInput = this._textSlot.querySelector('input');
+                //call send function
+                const sender = this.querySelector('#sender');
+                //todo: need to find a way the input element and poluate that
+                sender.send(msgInput.value);
+                msgInput.value = '';
+            }
         }
 
         /**
          * Public function that works as a callback to populate the internal text area with JS if desired
          * @param {String} message text to print out
-         * 
+         *
          * @example append('Runtime Terror is the best team!')
          */
         append(message){
@@ -550,9 +576,9 @@
             textarea.innerHTML += message + "\n";
             textarea.scrollTop = textarea.scrollHeight;
         }
-        
+
         //Internal function that handles an enter press
-        _onEnter(event){   
+        _onEnter(event){
             switch (event.keyCode) {
                 case KEYCODE.ENTER:
                     this.send();
@@ -563,6 +589,7 @@
         }
     }
     customElements.define('input-rt', InputRT);
+})();
 </code></pre>
         </article>
     </section>
@@ -577,7 +604,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Tue Jun 11 2019 12:35:11 GMT-0700 (GMT-07:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Thu Jun 13 2019 16:19:58 GMT-0700 (Pacific Daylight Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

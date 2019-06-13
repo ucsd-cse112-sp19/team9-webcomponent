@@ -182,8 +182,6 @@
             this._setAttributes(val,'mode')
         }
 
-
-
         /**
          * Mode attribute that sets the properties of the input field
          *
@@ -404,7 +402,7 @@
             // Remove Event listeners
             this._register_mode(false);
         }
-        /* eslint-disable no-unused-vars */
+        
         attributeChangedCallback(name, oldVal, newVal){
             switch (name) {
                 case 'disabled':
