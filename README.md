@@ -38,13 +38,14 @@ To begin developing with our web component you will need to perform the followin
 5. After you develop and make changes you can observe them in team9-webcomponent/example/test.html (make sure you include the script at the bottom). If you are using mqttClient.js make sure you have <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script> included in your html header
     5a. If you want to use a more fleshed out example checkout team9-webcomponent/example/model.html
 6. Once you feel confident and want to test it you can run npm test which will trigger our unit test, integration test, and browser test
-frameworks. 
+frameworks.
 7. After testing you can now add and commit which will trigger a style linter. Once you push it will show up on github which will reevaluate the tests through travis and if it passes you can being a pull request to merge onto our development branch.
 
 ## Troubleshooting
 If your mqttClient is not connecting make sure you have <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script> at the top of your html file and you are connected to a network that allows you to open ports i.e. connect to UCSD-PROTECTED, not UCSD-GUEST.
 
-If npm test is failing after the Unit tests, it is likely that you don't have saucelabs credentials you can find those here: 
+If npm test is failing after the Unit tests, it is likely that you don't have your saucelabs credentials set. You can find those here:
+https://wiki.saucelabs.com/display/DOCS/Best+Practice%3A+Use+Environment+Variables+for+Authentication+Credentials
 
 You included your the web component javascript file but for some reason it throughs console errors. Try adding the js files to the bottom of your html file. It is a symptom of this problem: 
 https://stackoverflow.com/questions/48498581/textcontent-empty-in-connectedcallback-of-a-custom-htmlelement
