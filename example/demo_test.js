@@ -6,9 +6,7 @@ fixture `Testing Demo Page`
 // Selectors
 const sender = Selector( () => document.querySelector('input-rt#first[mode="sender"]').shadowRoot ); 
 const s_message = sender.find('input[slot="text"]');
-// const meat = Selector( () => document.querySelector('meat-button[slot="append"]').shadowRoot );
-// const send_btn = meat.find('button');
-const send_btn = Selector('button[type="hidden"]');
+const send_btn = Selector('button[slot="append"]');
 
 const receiver = Selector( () => document.querySelector('input-rt[mode="textarea"]').shadowRoot );
 const r_stream = receiver.find('textarea[slot="text"]');

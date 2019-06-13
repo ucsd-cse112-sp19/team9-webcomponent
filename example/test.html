@@ -31,36 +31,27 @@
   </style>
 </head>
 <body class="w3-theme-l5" style="padding:10px">
-<!-- 
-    <input-rt mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
-    <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>
-    <button slot="append" id="bootstrap" bootstrap="btn btn-primary">Send</button>
-  </input-rt>
-  <input-rt mode="textarea" height="100px" width="278px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
-    <mqtt-client userid="George" id="receiver" topic="chattest/1"></mqtt-client>
-  </input-rt> -->
 
+  <meat-card class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
 
-   <meat-card class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+          <div slot="header" style="padding:0">
+              <p style="padding-left:28px"><b>Chat with your friends!</b></p>
+          </div>
 
-            <div slot="header" style="padding:0">
-                <p style="padding-left:28px"><b>Chat with your friends!</b></p>
-            </div>
+          <div slot="body">
+            <p>
+              <input-rt mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
+                <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>
+                <!-- <button slot="append">Send</button> -->
+                <meat-button slot="append" id="bootstrap" bootstrap="btn btn-primary">Send</meat-button>
+              </input-rt>
+              <input-rt mode="textarea" height="100px" width="278px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
+                <mqtt-client userid="George" id="receiver" topic="chattest/1"></mqtt-client>
+              </input-rt>
+            </p>
+          </div>
 
-            <div slot="body">
-              <p>
-                <input-rt mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
-                  <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>
-                  <!-- <button slot="append">Send</button> -->
-                  <meat-button slot="append" id="bootstrap" bootstrap="btn btn-primary">Send</meat-button>
-                </input-rt>
-                <input-rt mode="textarea" height="100px" width="278px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
-                  <mqtt-client userid="George" id="receiver" topic="chattest/1"></mqtt-client>
-                </input-rt>
-              </p>
-            </div>
-
-        </meat-card>
+      </meat-card>
 
 <script>
   

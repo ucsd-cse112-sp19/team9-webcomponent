@@ -92,9 +92,6 @@
               <!-- Sender -->
               <input-rt mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
                 <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>           
-                
-                <!-- Add a button so it's more intuitive -->
-                <!-- Accidentally left an extra button here -->
                 <meat-button slot="append" bootstrap="btn btn-primary">Send</meat-button>
 
               </input-rt>
@@ -292,12 +289,12 @@
 
 <script>
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     if (document.querySelector('input-rt>button') == null){
-//       const transparent = '<button slot="append" style="background-color: transparent; width: 80px; height: 20px; border:none"></button>';
-//       document.querySelector('input-rt').insertAdjacentHTML( 'beforeend', transparent );
-//     }
-// }); 
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.querySelector('input-rt>button') == null){
+      const transparent = '<button slot="append" style="background-color: transparent; width: 80px; height: 20px; border:none"></button>';
+      document.querySelector('input-rt').insertAdjacentHTML( 'beforeend', transparent );
+    }
+}); 
 
 // Accordion
 function myFunction(id) {
