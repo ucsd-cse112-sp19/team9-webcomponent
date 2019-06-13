@@ -123,12 +123,13 @@
         _init_disabled() {
             if (this.disabled) {
                 const el = this._choose_element(this.mode);
+                this._textSlot.querySelector(el).setAttribute('disabled', '');
+
                 const style = document.createElement('style');
                 style.setAttribute('id', 'disabledStyle');
                 // set the disabledStyle
                 style.innerHTML += `\n${el}[disabled] {\nopacity: 0.5 !important; cursor: not-allowed; background-color: #ccc;\n}\n`;
                 this.shadowRoot.querySelector('style#default').insertAdjacentElement("beforebegin", style)
-                this._textSlot.querySelector(el).setAttribute('disabled', '');
             }
         }
 
@@ -494,7 +495,7 @@
          */
         send(){
             //if input is disabled, don't send 
-            if (this.disabled == true) {
+            if(this.disabled){
                 return;
             }
             const msgInput = this._textSlot.querySelector('input');

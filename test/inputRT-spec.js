@@ -160,6 +160,28 @@ describe('input-rt element', () => {
             assert.equal(input.value, '');
         });
 
+        it('should not use send when disabled', () => {
+            cs.setAttribute('mode','sender');
+            
+            cs.connectedCallback();
+            const msg = "test-message";
+            const slot = cs.shadowRoot.querySelector("slot[name=text]");
+            const input = slot.querySelector('input');
+            input.value = msg;
+
+            assert.equal(input.value, msg);
+            cs.disabled = true;
+            globalTest = "";
+            let testEl = document.createElement('test-sender');
+            testEl.setAttribute('slot','messenger');
+            testEl.setAttribute('id', 'sender');
+            cs.appendChild(testEl);            
+            cs.send();
+
+            assert.equal(globalTest, "");
+            assert.equal(input.value, msg);
+        });
+
         it('should fire if a button is appended', () => {
             cs.setAttribute('mode','sender');
             cs.connectedCallback();
