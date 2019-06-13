@@ -30,6 +30,7 @@ describe('input-rt element', () => {
 
     describe('Instance variables should exist', () =>{
         it('4 slots should exist', () => {
+            cs._init();
             cs.connectedCallback();
             const slots = cs.shadowRoot.querySelectorAll("slot");
             let count = 0;
@@ -42,25 +43,18 @@ describe('input-rt element', () => {
 
         it('Binds should be bond properly', () => {
             const isBound = func => !func.hasOwnProperty('prototype');
+            cs._init();
             cs.connectedCallback();
 
             assert.equal(isBound(cs.send), true);
             assert.equal(isBound(cs.append),true);
             assert.equal(isBound(cs._onEnter),true);
         });
-
-        it('Should not do anything if shadow root is set', () => {
-            cs.attachShadow({mode:'open'});
-            // if not caught will trigger error because you can't
-            // attach two shadow roots. TODO: brainstorm a better
-            // way to do this because kind of hacky
-            cs.connectedCallback();
-            assert.isNotNull(cs.shadowRoot);
-        });
     });
 
     describe('Testing mode attribute', () =>{
         it('should find input element in shadowDom when set in default mode', () => {
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let input = slot.querySelector('input');
@@ -70,6 +64,7 @@ describe('input-rt element', () => {
 
         it('should find input element in shadowDom when set in sender mode', () => {
             cs.setAttribute('mode','sender');
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let input = slot.querySelector('input');
@@ -78,6 +73,7 @@ describe('input-rt element', () => {
 
         it('should find textarea element in shadowDom when set in textarea mode', () => {
             cs.setAttribute('mode','textarea');
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let textarea = slot.querySelector('textarea');
@@ -86,6 +82,7 @@ describe('input-rt element', () => {
 
         it('nothing should be set if custom attribute is set', () => {
             cs.setAttribute('mode','custom');
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
 
@@ -97,6 +94,7 @@ describe('input-rt element', () => {
             assert.equal(cs.mode, 'garbage');
             cs.mode = '';
             assert.equal(cs.mode, null);
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let input = slot.querySelector('input');
@@ -105,6 +103,7 @@ describe('input-rt element', () => {
 
         it('should find input element in shadowDom when set in sender mode by using this', () => {
             cs.mode = 'sender';
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let input = slot.querySelector('input');
@@ -113,6 +112,7 @@ describe('input-rt element', () => {
 
         it('should find textarea element in shadowDom when set in textarea mode by using this', () => {
             cs.mode = 'textarea';
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let textarea = slot.querySelector('textarea');
@@ -121,6 +121,7 @@ describe('input-rt element', () => {
 
         it('nothing should be set if custom attribute is set by using this', () => {
             cs.mode = 'custom';
+            cs._init();
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             assert.equal(slot.innerHTML, '');
@@ -141,6 +142,7 @@ describe('input-rt element', () => {
 
         it('should properly use send', () => {
             cs.setAttribute('mode','sender');
+            cs._init();
             cs.connectedCallback();
             const msg = "test-message";
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -162,7 +164,7 @@ describe('input-rt element', () => {
 
         it('should not use send when disabled', () => {
             cs.setAttribute('mode','sender');
-            
+            cs._init();
             cs.connectedCallback();
             const msg = "test-message";
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -184,6 +186,7 @@ describe('input-rt element', () => {
 
         it('should fire if a button is appended', () => {
             cs.setAttribute('mode','sender');
+            cs._init();
             cs.connectedCallback();
             const msg = "test-message";
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -217,6 +220,7 @@ describe('input-rt element', () => {
 
         it('should properly call append', () => {
             cs.setAttribute('mode','textarea');
+            cs._init();
             cs.connectedCallback();
 
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -231,6 +235,7 @@ describe('input-rt element', () => {
 
         it('should properly call _onEnter', () => {
             cs.setAttribute('mode','sender');
+            cs._init();
             cs.connectedCallback();
             const msg = "test-message";
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -260,6 +265,7 @@ describe('input-rt element', () => {
 
         it('should not fire send on nonEnters', ()=>{
             cs.setAttribute('mode','sender');
+            cs._init();
             cs.connectedCallback();
             const msg = "test-message";
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -336,6 +342,7 @@ describe('input-rt element', () => {
         });
 
         it('should set the disabled',() => {
+            cs._init();
             cs.connectedCallback();
             cs.disabled = true;
             assert.equal(cs.getAttribute('disabled'), 'true');
@@ -377,6 +384,7 @@ describe('input-rt element', () => {
     it('should set the input if we have bootstrap',() => {
         cs.bootstrap = 'border border-secondary';
         cs.url = 'fake u';
+        cs._init();
         cs.connectedCallback();
         const input = cs.shadowRoot.querySelector('input');
         const link = cs.shadowRoot.querySelector('link');
@@ -387,6 +395,7 @@ describe('input-rt element', () => {
     it('should set placeholder attribute in input mode',() => {
         const msg = 'this is a placeholder';
         cs.placeholder = msg;
+        cs._init();
         cs.connectedCallback();
         const slot = cs.shadowRoot.querySelector("slot[name=text]");
         let input = slot.querySelector('input');
@@ -398,6 +407,7 @@ describe('input-rt element', () => {
         const msg = 'this is a placeholder';
         cs.placeholder = msg;
         cs.mode = "sender";
+        cs._init();
         cs.connectedCallback();
         const slot = cs.shadowRoot.querySelector("slot[name=text]");
         let input = slot.querySelector('input');
@@ -409,6 +419,7 @@ describe('input-rt element', () => {
         const msg = 'this is a placeholder';
         cs.placeholder = msg;
         cs.mode = "textarea";
+        cs._init();
         cs.connectedCallback();
         const slot = cs.shadowRoot.querySelector("slot[name=text]");
         let textarea = slot.querySelector('textarea');
@@ -417,12 +428,14 @@ describe('input-rt element', () => {
     });
 
     it('should set the link by default if no bootstrap',() => {
+        cs._init();
         cs.connectedCallback();
         const link = cs.shadowRoot.querySelector('link');
         assert.equal(link.getAttribute('href'),'inputbox-rt-default-style.css');
     });
 
     it('should add a style if disabled',() => {
+        cs._init();
         cs.connectedCallback();
         cs.disabled = true;
         const style = cs.shadowRoot.querySelector('style#disabledStyle');
@@ -430,6 +443,7 @@ describe('input-rt element', () => {
     });
 
     it('should add a style if disabled then remove the style if disabled is removed',() => {
+        cs._init();
         cs.connectedCallback();
         cs.disabled = true;
         let style = cs.shadowRoot.querySelector('style#disabledStyle');
@@ -440,6 +454,7 @@ describe('input-rt element', () => {
     });
 
     it('should add disabledStyle once only',() => {
+        cs._init();
         cs.connectedCallback();
         cs.disabled = true; 
         cs.attributeChangedCallback('disabled', true, true);
@@ -448,6 +463,7 @@ describe('input-rt element', () => {
     });
 
     it('should not remove non-existent style attribute',() => {
+        cs._init();
         cs.connectedCallback();
         cs.disabled = true; 
         let style = cs.shadowRoot.querySelector('style#disabledStyle');
@@ -464,6 +480,7 @@ describe('input-rt element', () => {
         cs.size = 's';
         cs.width = 200;
         cs.height = 300;
+        cs._init();
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 200 !important;\n}\ninput {\nheight: 300 !important;\n}\ninput {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
@@ -472,6 +489,7 @@ describe('input-rt element', () => {
     it('should configure width and height',() => {
         cs.width = 200;
         cs.height = 300;
+        cs._init();
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 200 !important;\n}\ninput {\nheight: 300 !important;\n}\ninput {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
@@ -481,6 +499,7 @@ describe('input-rt element', () => {
         cs.mode = "custom";
         cs.width = 200;
         cs.height = 300;
+        cs._init();
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle);
@@ -488,6 +507,7 @@ describe('input-rt element', () => {
 
     it('should configure size',() => {
         cs.size = 's';
+        cs._init();
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 250px; height: 30px; font-size: 12px !important; padding: 5px 5px;\n}\n');
@@ -496,6 +516,7 @@ describe('input-rt element', () => {
     it('should not configure size in custom mode',() => {
         cs.mode = "custom";
         cs.size = 's';
+        cs._init();
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle);
@@ -503,6 +524,7 @@ describe('input-rt element', () => {
 
     it('should configure password',() => {
         cs.password = true;
+        cs._init();
         cs.connectedCallback();
 
         const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -513,6 +535,7 @@ describe('input-rt element', () => {
     it('should not configure password in textarea mode',() => {
         cs.mode = "textarea";
         cs.password = true;
+        cs._init();
         cs.connectedCallback();
 
         const slot = cs.shadowRoot.querySelector("slot[name=text]");
@@ -522,6 +545,7 @@ describe('input-rt element', () => {
 
     it('should add a default style if no size given and not disabled',() => {
         cs.disabled = false;
+        cs._init();
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
