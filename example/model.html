@@ -127,9 +127,8 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
         <p>Chat with your friends</p>
         <p>
-          <input-rt mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
+          <input-rt placeholder="Type a message here" mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
             <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>
-            <!-- <meat-button slot="append" id="bootstrap" bootstrap="btn btn-primary">Primary</meat-button> -->
             <meat-button slot="append" id="bootstrap" bootstrap="btn btn-primary">Send</meat-button>
           </input-rt>
           <input-rt mode="textarea" height="100px" width="278px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
