@@ -84,23 +84,6 @@
         }
 
         /**
-         * get placeholder()
-         * Returns: placeholder text, empty string if there is none
-         */
-        get placeholder() {
-            return this.getAttribute('placeholder');
-        }
-
-        /**
-         * set placeholder(val)
-         * Sets placeholder if value passed in, or removes it if nothing is passed.
-         * Returns: Null
-         */
-        set placeholder(val) {
-            this._setAttributes(val,'placeholder')
-        }
-
-        /**
          * Init function that populates url attribute and bootstrap attribute if the url and bootstrap are both set.
          */
         _init_bootstrap_URL() {
@@ -231,9 +214,6 @@
                     // Set default to input box
                     const input = document.createElement('input');
                     input.setAttribute("slot", "text");
-                    if(this.placeholder){
-                      input.setAttribute("placeholder",this.placeholder);
-                    }
                     this._textSlot.appendChild(input);
                     break;
             }
@@ -294,6 +274,32 @@
                 const el = this._choose_element(this.mode);
                 if(el && el === "input") {
                     this._textSlot.querySelector('input').setAttribute('type', "password");
+                }
+            }
+        }
+
+        /**
+         * get placeholder()
+         * Returns: placeholder text, empty string if there is none
+         */
+        get placeholder() {
+            return this.getAttribute('placeholder');
+        }
+
+        /**
+         * set placeholder(val)
+         * Sets placeholder if value passed in, or removes it if nothing is passed.
+         * Returns: Null
+         */
+        set placeholder(val) {
+            this._setAttributes(val,'placeholder')
+        }
+
+        _init_placeholder(){
+            if(this.placeholder){
+                const el = this._choose_element(this.mode);
+                if(el && el === "input") {
+                    this._textSlot.querySelector('input').setAttribute("placeholder",this.placeholder);
                 }
             }
         }
@@ -438,6 +444,7 @@
             this._init_dimension("width",this.width);
             this._init_dimension("height",this.height);
             this._init_size();
+            this._init_placeholder();
         }
 
         /**

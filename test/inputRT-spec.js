@@ -352,7 +352,7 @@ describe('input-rt element', () => {
         });
     });
 
-    it('should set the text area if we have bootstrap',() => {
+    it('should set the input if we have bootstrap',() => {
         cs.bootstrap = 'border border-secondary';
         cs.url = 'fake u';
         cs.connectedCallback();
@@ -360,6 +360,38 @@ describe('input-rt element', () => {
         const link = cs.shadowRoot.querySelector('link');
         assert.equal(input.getAttribute('class'),cs.bootstrap);
         assert.equal(link.getAttribute('href'),cs.url);
+    });
+
+    it('should set placeholder attribute in input mode',() => {
+        const msg = 'this is a placeholder';
+        cs.placeholder = msg;
+        cs.connectedCallback();
+        const slot = cs.shadowRoot.querySelector("slot[name=text]");
+        let input = slot.querySelector('input');
+        assert.equal(input.getAttribute('slot'), 'text');
+        assert.equal(input.getAttribute('placeholder'), msg)
+    });
+
+    it('should set placeholder attribute in sender mode',() => {
+        const msg = 'this is a placeholder';
+        cs.placeholder = msg;
+        cs.mode = "sender";
+        cs.connectedCallback();
+        const slot = cs.shadowRoot.querySelector("slot[name=text]");
+        let input = slot.querySelector('input');
+        assert.equal(input.getAttribute('slot'), 'text');
+        assert.equal(input.getAttribute('placeholder'), msg)
+    });
+
+    it('should not set placeholder attribute in textarea mode',() => {
+        const msg = 'this is a placeholder';
+        cs.placeholder = msg;
+        cs.mode = "textarea";
+        cs.connectedCallback();
+        const slot = cs.shadowRoot.querySelector("slot[name=text]");
+        let textarea = slot.querySelector('textarea');
+        assert.equal(textarea.getAttribute('slot'), 'text');
+        assert.isNull(textarea.getAttribute('placeholder'));
     });
 
     it('should set the link by default if no bootstrap',() => {
@@ -413,7 +445,6 @@ describe('input-rt element', () => {
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 200 !important;\n}\ninput {\nheight: 300 !important;\n}\ninput {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
-
     });
 
     it('should configure width and height',() => {
