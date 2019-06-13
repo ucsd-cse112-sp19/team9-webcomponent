@@ -13,6 +13,7 @@
     "testnonsauce": "testcafe chrome test/cafe-tests-mqtt/default_chat.js",
     "browsers": "testcafe -b saucelabs",
     "saucelabs": "testcafe \"saucelabs:Chrome,saucelabs:Firefox,saucelabs:Safari\"  test/cafe-tests",
+    "demo": "testcafe chrome example/demo_test.js",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
