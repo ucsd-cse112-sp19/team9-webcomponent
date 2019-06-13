@@ -396,9 +396,6 @@
         }
 
         connectedCallback(){
-            if(this.shadowRoot === null){
-                this._init();
-            }
             // Add Event listeners
             this._register_mode(true);
         }
@@ -495,15 +492,14 @@
          */
         send(){
             //if input is disabled, don't send 
-            if(this.disabled){
-                return;
+            if(!this.disabled){
+                const msgInput = this._textSlot.querySelector('input');
+                //call send function
+                const sender = this.querySelector('#sender');
+                //todo: need to find a way the input element and poluate that
+                sender.send(msgInput.value);
+                msgInput.value = '';
             }
-            const msgInput = this._textSlot.querySelector('input');
-            //call send function
-            const sender = this.querySelector('#sender');
-            //todo: need to find a way the input element and poluate that
-            sender.send(msgInput.value);
-            msgInput.value = '';
         }
 
         /**
