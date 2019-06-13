@@ -25,7 +25,7 @@ describe('input-rt element', () => {
     })
 
     it('creates element from document.createElement', () => {
-        assert.equal('INPUT-RT', cs.nodeName); 
+        assert.equal('INPUT-RT', cs.nodeName);
     });
 
     describe('Instance variables should exist', () =>{
@@ -36,27 +36,27 @@ describe('input-rt element', () => {
             for(let i = 0; i < slots.length; i++){
                 count+=1;
             }
-            
+
             assert.equal(count, 4);
         });
-        
+
         it('Binds should be bond properly', () => {
             const isBound = func => !func.hasOwnProperty('prototype');
             cs.connectedCallback();
-            
+
             assert.equal(isBound(cs.send), true);
             assert.equal(isBound(cs.append),true);
             assert.equal(isBound(cs._onEnter),true);
-        }); 
+        });
 
         it('Should not do anything if shadow root is set', () => {
             cs.attachShadow({mode:'open'});
-            // if not caught will trigger error because you can't 
+            // if not caught will trigger error because you can't
             // attach two shadow roots. TODO: brainstorm a better
             // way to do this because kind of hacky
             cs.connectedCallback();
             assert.isNotNull(cs.shadowRoot);
-        }); 
+        });
     });
 
     describe('Testing mode attribute', () =>{
@@ -64,10 +64,10 @@ describe('input-rt element', () => {
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             let input = slot.querySelector('input');
-                
+
             assert.equal(input.getAttribute('slot'), 'text');
         });
-        
+
         it('should find input element in shadowDom when set in sender mode', () => {
             cs.setAttribute('mode','sender');
             cs.connectedCallback();
@@ -75,7 +75,7 @@ describe('input-rt element', () => {
             let input = slot.querySelector('input');
             assert.equal(input.getAttribute('slot'), 'text');
         });
-    
+
         it('should find textarea element in shadowDom when set in textarea mode', () => {
             cs.setAttribute('mode','textarea');
             cs.connectedCallback();
@@ -88,7 +88,7 @@ describe('input-rt element', () => {
             cs.setAttribute('mode','custom');
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
-            
+
             assert.equal(slot.innerHTML, '');
         });
 
@@ -110,7 +110,7 @@ describe('input-rt element', () => {
             let input = slot.querySelector('input');
             assert.equal(input.getAttribute('slot'), 'text');
         });
-    
+
         it('should find textarea element in shadowDom when set in textarea mode by using this', () => {
             cs.mode = 'textarea';
             cs.connectedCallback();
@@ -124,7 +124,7 @@ describe('input-rt element', () => {
             cs.connectedCallback();
             const slot = cs.shadowRoot.querySelector("slot[name=text]");
             assert.equal(slot.innerHTML, '');
-        });        
+        });
     });
 
     describe('Testing internal functions', () => {
@@ -138,7 +138,7 @@ describe('input-rt element', () => {
             }
         }
         customElements.define('test-sender', TestSender);
-        
+
         it('should properly use send', () => {
             cs.setAttribute('mode','sender');
             cs.connectedCallback();
@@ -179,10 +179,10 @@ describe('input-rt element', () => {
             // create a button
             let testButton = document.createElement('button');
             testButton.setAttribute('slot', 'append');
-            
+
             cs.appendChild(testEl);
             cs.appendChild(testButton);
-            
+
             testButton.click();
 
             //TODO: Design a better use case of when below would be
@@ -190,7 +190,7 @@ describe('input-rt element', () => {
             cs.disconnectedCallback();
             assert.equal(globalTest, msg);
             assert.equal(input.value, '');
-            
+
         });
 
         it('should properly call append', () => {
@@ -228,7 +228,7 @@ describe('input-rt element', () => {
                     super();
                     this.keyCode = 13;
                 }
-                
+
             }
             cs._onEnter(new FakeEnterEvent);
 
@@ -257,13 +257,13 @@ describe('input-rt element', () => {
                     super();
                     this.keyCode = 14;
                 }
-                
+
             }
             cs._onEnter(new FakeFaultyEvent);
 
             assert.equal(globalTest, '');
             assert.equal(input.value, msg);
-            
+
         });
     });
 
@@ -275,76 +275,81 @@ describe('input-rt element', () => {
 
         it('should delete the bootstrap',() => {
             cs.bootstrap = '';
-            assert.equal(cs.getAttribute('boostrap'), null);     
+            assert.equal(cs.getAttribute('boostrap'), null);
         });
 
         it('should set the bootstrap',() => {
             cs.bootstrap = 'border border-secondary';
-            assert.equal(cs.bootstrap,'border border-secondary');     
+            assert.equal(cs.bootstrap,'border border-secondary');
         });
 
         it('should set the size',() => {
             cs.size = 1;
             assert.equal(cs.getAttribute('size'), 1);
-        });  
+        });
 
         it('should delete the size',() => {
             cs.size = '';
             assert.equal(cs.getAttribute('size'), null);
-        }); 
+        });
 
         it('should set the height',() => {
             cs.height = 1;
             assert.equal(cs.getAttribute('height'), 1);
-        });  
+        });
 
         it('should delete the height',() => {
             cs.height = '';
             assert.equal(cs.getAttribute('height'), null);
-        }); 
+        });
 
         it('should set the width',() => {
             cs.width = 1;
             assert.equal(cs.getAttribute('width'), 1);
-        });  
+        });
 
         it('should delete the width',() => {
             cs.width = '';
             assert.equal(cs.getAttribute('width'), null);
-        }); 
+        });
 
         it('should set the disabled',() => {
             cs.connectedCallback();
             cs.disabled = true;
             assert.equal(cs.getAttribute('disabled'), 'true');
-        });  
+        });
 
         it('should delete the disabled ',() => {
             cs.disabled = false;
             assert.equal(cs.getAttribute('disabled'), null);
-        }); 
+        });
+
+        it('should set the placeholder ',() => {
+            cs.placeholder = "Type your message here";
+            assert.equal(cs.getAttribute('placeholder'), "Type your message here");
+        });
 
         it('should set the url',() => {
             cs.url = 'fake url';
             assert.equal(cs.getAttribute('url'), 'fake url');
-        });  
+        });
 
         it('should delete the url',() => {
             cs.url = '';
             assert.equal(cs.getAttribute('url'), null);
-        }); 
+        });
 
         it('should set password attribute',() => {
             cs.password = true;
             assert.equal(cs.getAttribute('password'), 'true');
-        }); 
+        });
 
         it('should set password attribute then unset',() => {
             cs.password = true;
             assert.equal(cs.getAttribute('password'), 'true');
             cs.password = false;
             assert.equal(cs.getAttribute('password'), null);
-        }); 
+        });
     });
 
     it('should set the text area if we have bootstrap',() => {
@@ -408,7 +413,7 @@ describe('input-rt element', () => {
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 200 !important;\n}\ninput {\nheight: 300 !important;\n}\ninput {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
-      
+
     });
 
     it('should configure width and height',() => {
@@ -467,5 +472,5 @@ describe('input-rt element', () => {
         cs.connectedCallback();
         const style = cs.shadowRoot.querySelector('style');
         assert.equal(style.innerHTML, defaultStyle+'input {\nwidth: 300px; height: 30px; font-size: 12px !important;\n}\n');
-    });    
+    });
  });
