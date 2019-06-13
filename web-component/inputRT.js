@@ -486,6 +486,10 @@
          * @todo need to find a way the input element and poluate that
          */
         send(){
+            //if input is disabled, don't send 
+            if (this.disabled == true) {
+                return;
+            }
             const msgInput = this._textSlot.querySelector('input');
             //call send function
             const sender = this.querySelector('#sender');
