@@ -19,17 +19,18 @@
     meat-button {
       position: absolute;
       left: 210px;
-      top: 117px;
+      top: 87px;
       width: 80px;
       height: 28px;
     }
     meat-card {
       /* width: 100%; */
-      width: 343px;
+      /* padding:0; */
+      width: 315px;
     }
   </style>
 </head>
-<body class="w3-theme-l5">
+<body class="w3-theme-l5" style="padding:10px">
 <!-- 
     <input-rt mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
     <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>
@@ -42,8 +43,8 @@
 
    <meat-card class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
 
-            <div slot="header">
-                  <p>Chat with your friends</p>
+            <div slot="header" style="padding:0">
+                <p style="padding-left:28px"><b>Chat with your friends!</b></p>
             </div>
 
             <div slot="body">
