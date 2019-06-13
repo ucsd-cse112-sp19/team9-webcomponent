@@ -9,20 +9,16 @@
 <body>
    
     <input-rt mode="sender" id="first" size="l" disabled="true">
-        <mqtt-send id="sender" slot="messenger" topic="chattest/1">
-        </mqtt-send>
+        <mqtt-client id="sender" slot="messenger" topic="chattest/1"></mqtt-client>
         <button slot="append">Send Message</button>
     </input-rt>
     
     <input-rt mode="textarea" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-danger" >
-        <mqtt-fetch id="receiver" slot="messenger" topic="chattest/1">
-        </mqtt-fetch>
+        <mqtt-client id="receiver" slot="messenger" topic="chattest/1"></mqtt-client>
     </input-rt>
 
     <script src="inputRT.js"></script>
-    <script src="mqttSend.js"></script>
-    <script src="mqttFetch.js"></script>
-
+    <script src="mqttClient.js"></script>
 
 </body>
 </html>
