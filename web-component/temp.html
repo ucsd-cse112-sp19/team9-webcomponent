@@ -1,0 +1,61 @@
+<script>
+/* SHADOW DOM COUNTER */
+class ShadowCounter extends HTMLElement {
+    constructor() {
+      super();
+      let shadowRoot = this.attachShadow({mode:'open'});
+  
+      //<h2>Shadow Counter:<span id="shadow_count">0</h2><br>
+      let tempCounter = document.createElement("h2");
+      let tempText = document.createTextNode("Shadow Counter:");
+      tempCounter.appendChild(tempText);
+  
+      let tempSpan = document.createElement("span");
+      let tempCount = document.createTextNode("0");
+      tempSpan.setAttribute("id", "shadow_count");
+  
+      tempSpan.appendChild(tempCount);
+      tempCounter.appendChild(tempText);
+      tempCounter.appendChild(tempSpan);
+  
+      //creating + button
+      let upTag = document.createElement("button");
+      let upText = document.createTextNode("+");
+      upTag.appendChild(upText);
+  
+      //creating - button
+      let downTag = document.createElement("button");
+      let downText = document.createTextNode("-");
+      downTag.appendChild(downText);
+  
+      //adding all parts to shadow root
+      shadowRoot.appendChild(tempCounter);
+      shadowRoot.appendChild(upTag);
+      shadowRoot.appendChild(downTag);
+  
+      this.shadowclicks=0;
+  
+      //attach event listener
+      upTag.addEventListener('click', () => {
+        this.add();
+      });
+      downTag.addEventListener('click', () => {
+        this.subtract();
+      });
+  
+    }
+  
+    add() {
+      this.shadowclicks+=1;
+      let container = document.querySelector('shadow-counter');
+      container.shadowRoot.querySelector("#shadow_count").innerHTML = this.shadowclicks; 
+    }
+    subtract() {
+      this.shadowclicks-=1;
+      let container = document.querySelector('shadow-counter');
+      container.shadowRoot.querySelector("#shadow_count").innerHTML = this.shadowclicks; 
+    }
+  
+  }
+customElements.define('shadow-counter', ShadowCounter);
+</script>

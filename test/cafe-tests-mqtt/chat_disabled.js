@@ -6,13 +6,13 @@ fixture `Testing Chat - disabled sender`
 // Selectors
 const sender = Selector( () => document.querySelector('input-rt[mode="sender"]').shadowRoot ); 
 const s_message = sender.find('input[slot="text"]'); 
-const s_mqtt = Selector( () => document.querySelector('mqtt-send#sender').shadowRoot );
+const s_mqtt = Selector( () => document.querySelector('mqtt-client#sender').shadowRoot );
 const s_username =  s_mqtt.find('input[name="userId"]');
 const send_btn = Selector('button[slot="append"]');
 
 const receiver = Selector( () => document.querySelector('input-rt[mode="textarea"]').shadowRoot );
 const r_stream = receiver.find('textarea[slot="text"]');
-const r_mqtt = Selector( () => document.querySelector('mqtt-send#receiver').shadowRoot );
+const r_mqtt = Selector( () => document.querySelector('mqtt-client#receiver').shadowRoot );
 const r_username =  r_mqtt.find('input[name="userId"]');
 
 

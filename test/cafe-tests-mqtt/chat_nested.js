@@ -6,18 +6,18 @@ fixture `Testing Chat - Nested Input-rt in append slot`
 // Selectors
 const sender = Selector( () => document.querySelector('input-rt[mode="sender"]').shadowRoot ); 
 const s_message = sender.find('input[slot="text"]'); 
-const s_mqtt = Selector( () => document.querySelector('mqtt-send#sender').shadowRoot );
+const s_mqtt = Selector( () => document.querySelector('mqtt-client#sender').shadowRoot );
 const s_username =  s_mqtt.find('input[name="userId"]');
 
 const sender2 = Selector( () => document.querySelectorAll('input-rt')[1].shadowRoot ); 
 const s_message2 = sender2.find('input[slot="text"]'); 
-const s_mqtt2 = Selector( () => document.querySelectorAll('mqtt-send#sender')[1].shadowRoot );
+const s_mqtt2 = Selector( () => document.querySelectorAll('mqtt-client#sender')[1].shadowRoot );
 const s_username2 =  s_mqtt2.find('input[name="userId"]');
 const send_btn2 = Selector('button[slot="append"]');
 
 const receiver = Selector( () => document.querySelector('input-rt[mode="textarea"]').shadowRoot );
 const r_stream = receiver.find('textarea[slot="text"]');
-const r_mqtt = Selector( () => document.querySelector('mqtt-send#receiver').shadowRoot );
+const r_mqtt = Selector( () => document.querySelector('mqtt-client#receiver').shadowRoot );
 const r_username =  r_mqtt.find('input[name="userId"]');
 
 // Due to the structure of our append slot, a message will send no matter what the slot contains

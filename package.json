@@ -6,6 +6,7 @@
     "lint": "eslint ./web-component && stylelint ./web-component",
     "docs": "jsdoc -c jsdoc.json",
     "testcafe": "testcafe chrome test/cafe-tests test/cafe-tests-mqtt",
+    "testsauce": "testcafe \"saucelabs:Chrome\"  test/cafe-tests-mqtt/default_chat.js",
     "browsers": "testcafe -b saucelabs",
     "saucelabs": "testcafe \"saucelabs:Chrome,saucelabs:Firefox,saucelabs:Safari\"  test/cafe-tests",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
