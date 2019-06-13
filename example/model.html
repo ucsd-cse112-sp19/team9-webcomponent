@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
-<script type="module" src="https://unpkg.com/@meatspace/webcomponents@latest/bundle.js"></script>
+<title>Team9 Demo</title>
+  <script type="module" src="https://unpkg.com/@meatspace/webcomponents@latest/bundle.js"></script>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
-<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-<style>
-html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <style>
+    html, body, h1, h2, h3, h4, h5 {
+      font-family: "Open Sans", sans-serif;
+    }
+    meat-button {
+      position: absolute;
+      left: 210px;
+      top: 117px;
+      width: 80px;
+      height: 28px;
+    }
+    meat-card {
+      width: 100%;
+      /* width: 343px; */
+    }
+  </style>
 </head>
 <body class="w3-theme-l5">
 
@@ -66,6 +79,37 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
         </div>
       </div>
       <br>
+
+       <!-- Chat Box -->
+      <meat-card class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+
+          <div slot="header">
+                <p>Chat with your friends</p>
+          </div>
+
+          <div slot="body">
+            <p>
+              <!-- Sender -->
+              <input-rt mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
+                <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>           
+                
+                <!-- Add a button so it's more intuitive -->
+                <!-- Accidentally left an extra button here -->
+                <meat-button slot="append" bootstrap="btn btn-primary">Send</meat-button>
+
+              </input-rt>
+
+              <!-- Receiver -->
+              <input-rt mode="textarea" height="100px" width="100%" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
+                <mqtt-client userid="George" id="receiver" topic="chattest/1"></mqtt-client>
+              </input-rt>
+            </p>
+          </div>
+
+      </meat-card>
+
+
+      <!-- </div> -->
 
       <!-- Accordion -->
       <div class="w3-card w3-round">
@@ -124,29 +168,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
         <p>People are looking at your profile. Find out who.</p>
       </div>
 
-      <!-- <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small"> -->
-        <meat-card class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
-
-            <div slot="header">
-                  <p>Chat with your friends</p>
-            </div>
-
-            <div slot="body">
-              <p>
-                <input-rt placeholder="Type a message here" mode="sender" id="first" width="190px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
-                  <mqtt-client userid="George" id="sender" slot="messenger" topic="chattest/1"></mqtt-client>
-                  <meat-button slot="append" id="bootstrap" bootstrap="btn btn-primary">Send</meat-button>
-                </input-rt>
-                <input-rt mode="textarea" height="100px" width="278px" url="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" bootstrap="border border-info rounded">
-                  <mqtt-client userid="George" id="receiver" topic="chattest/1"></mqtt-client>
-                </input-rt>
-              </p>
-            </div>
-
-        </meat-card>
-
-
-      <!-- </div> -->
 
     <!-- End Left Column -->
     </div>
@@ -270,6 +291,14 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 </footer>
 
 <script>
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     if (document.querySelector('input-rt>button') == null){
+//       const transparent = '<button slot="append" style="background-color: transparent; width: 80px; height: 20px; border:none"></button>';
+//       document.querySelector('input-rt').insertAdjacentHTML( 'beforeend', transparent );
+//     }
+// }); 
+
 // Accordion
 function myFunction(id) {
   var x = document.getElementById(id);
@@ -294,21 +323,9 @@ function openNav() {
 }
 </script>
 
-<style>
 
-meat-button {
-  position: absolute;
-  left: 210px;
-  top: 117px;
-  width: 80px;
-  height: 28px;
-}
 
-meat-card {
-  width: 343px;
-}
 
-</style>
 
 <script src="../web-component/inputRT.js"></script>
 <script src="../web-component/mqttClient.js"></script>

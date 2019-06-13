@@ -8,6 +8,7 @@
     "testcafe": "testcafe chrome test/cafe-tests test/cafe-tests-mqtt",
     "browsers": "testcafe -b saucelabs",
     "saucelabs": "testcafe \"saucelabs:Chrome,saucelabs:Firefox,saucelabs:Safari\"  test/cafe-tests",
+    "demo": "testcafe chrome example/demo_test.js",
     "coverage": "codeclimate-test-reporter < ./coverage/lcov.info",
     "build": "npx webpack --config webpack.config.js",
     "start": "npx webpack-dev-server --open",
@@ -15,7 +16,7 @@
     "mocha": "mocha --exit -r jsdom-global/register -r document-register-element",
     "pretest": "npm run lint",
     "test": "nyc npm run mocha",
-    "posttest": "npm run saucelabs"
+    "posttest": "npm run demo"
   },
   "husky": {
     "hooks": {
