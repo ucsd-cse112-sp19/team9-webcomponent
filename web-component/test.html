@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <input-rt mode="sender">
+    <input-rt placeholder="Type your message here" mode="sender">
         <mqtt-client id="sender" slot="messenger" topic="chattest/1">
         </mqtt-client>
         <button slot="append">Send</button>
@@ -18,8 +18,29 @@
     </input-rt>
 
 
+
+    <button id="btn_dis">Click Me to disable</button>
+    <button id="btn_ena">Click Me to enable</button>
+
     <script src="inputRT.js"></script>
     <script src="mqttClient.js"></script>
 
+    <script>
+        let btn_dis = document.querySelector('button#btn_dis');
+        btn_dis.addEventListener("click", function () {
+            console.log("button clicked")
+            const el = document.querySelector('input-rt#first')
+            el.disabled = true;
+            console.log(el)
+        })
+        let btn_ena = document.querySelector('button#btn_ena');
+        btn_ena.addEventListener("click", function () {
+            console.log("button clicked")
+            const el = document.querySelector('input-rt#first')
+            el.disabled = false;
+            console.log(el)
+        })
+
+    </script>
 </body>
 </html>
