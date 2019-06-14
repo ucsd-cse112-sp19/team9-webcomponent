@@ -1,9 +1,9 @@
 # Runtime Terror Repo Structure 
 
 The code is organized into several folders:  
-- *coverage* contains the output on code coverage
+- *dist* contains test coverage for mqtt
 - *docs* contain documentation from our auto-generated API docs
-- *images* contain images used in documentation
+- *examples* contains our demo app and integration tests for it
 - *test* contain unit tests and TestCafe browser tests
 - *tutorials* contain markdown files for our documentation
 - *web-component* contains the source code for the components
@@ -13,21 +13,21 @@ The code is organized into several folders:
 Below is an example of what the repo should look like
 
 ```
-├── coverage/
-│   ├── lcov-report/
-│   ├── lcov.info
-│   └── .html files
 ├── docs/
 │   ├── scripts/
 │   ├── styles/
 │   ├── images/
 │   └── .html files
-├── images/
-│   └── img files
+├── example/
+│   ├── images/
+│   ├── model.html
+│   └── demo_test.js
 ├── test/
 │   ├── cafe-html/
 │   │   └── .html files
 │   ├── cafe-tests/
+│   │   └── .js files
+│   ├── cafe-tests-mqtt/
 │   │   └── .js files
 │   └── inputRT-spec.js
 ├── tutorials/
@@ -42,6 +42,5 @@ Below is an example of what the repo should look like
 ├── README.md
 ├── Structure.md
 ├── jsdoc.json
-├── package.json
-└── webpack.config.js
+└── package.json
 ```
